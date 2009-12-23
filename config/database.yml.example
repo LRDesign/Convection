@@ -1,0 +1,20 @@
+login: &login
+  adapter: mysql
+  username: root
+  password: 
+  host: localhost
+
+development:
+  <<: *login
+  database: convection_dev
+
+test:
+  <<: *login
+  database: convection_dev
+
+production:
+  adapter: mysql
+  username: foo_user
+  password: foo_password
+  host: mysql.foo_domain.com
+  database: foo_production_db
