@@ -1,0 +1,10 @@
+- form_for(@document, :html => { :multipart => true } ) do |f|    
+  = error_messages_for :document
+  = labeled_input f, :name    
+  .labeled_input  
+    = f.label :description
+    = f.text_area :description
+  .labeled_input
+    = f.label :data
+    = f.file_field :data 
+  = f.submit       

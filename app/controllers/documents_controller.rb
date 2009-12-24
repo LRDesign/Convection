@@ -1,5 +1,6 @@
 class DocumentsController < ApplicationController
-  before_filter :find_document, :only => [ :show, :edit, :update, :destroy ]
+  before_filter :find_document, :only => [ :show, :edit, :update, :destroy ] 
+  before_filter :require_user
 
   # GET /documents
   # GET /documents.xml
@@ -40,6 +41,7 @@ class DocumentsController < ApplicationController
   # POST /documents.xml
   def create
     @document = Document.new(params[:document])
+    @document.user = current_user
 
     respond_to do |format|
       if @document.save

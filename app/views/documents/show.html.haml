@@ -7,25 +7,12 @@
   =h @document.description
 
 %p
-  %b Data file name:
-  =h @document.data_file_name
+  %b Download File 
+  = link_to "Download", @document.data.url(:original, false)
 
 %p
-  %b Data content type:
-  =h @document.data_content_type
-
-%p
-  %b Data size:
-  =h @document.data_size
-
-%p
-  %b Data update at:
-  =h @document.data_update_at
-
-%p
-  %b User:
-  =h @document.user_id
-
+  %b File size:
+  = number_to_human_size @document.data.size
 
 = link_to 'Edit', edit_document_path(@document)
 |

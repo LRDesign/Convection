@@ -1,8 +1,10 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
-describe DocumentsController do
+describe DocumentsController do      
 
-  before(:each) do
+  before(:each) do  
+    activate_authlogic 
+    login_as(:quentin)    
     @document = Factory(:document)
   end
 

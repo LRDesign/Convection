@@ -1,38 +1,6 @@
-%h1 Editing document
+- set_headline "Edit Document"
 
-- form_for(@document) do |f|
-  = f.error_messages
-
-  %p
-    = f.label :name
-    %br
-    = f.text_field :name
-  %p
-    = f.label :description
-    %br
-    = f.text_area :description
-  %p
-    = f.label :data_file_name
-    %br
-    = f.text_field :data_file_name
-  %p
-    = f.label :data_content_type
-    %br
-    = f.text_field :data_content_type
-  %p
-    = f.label :data_size
-    %br
-    = f.text_field :data_size
-  %p
-    = f.label :data_update_at
-    %br
-    = f.datetime_select :data_update_at
-  %p
-    = f.label :user_id
-    %br
-    = f.text_field :user_id
-
-  %p= f.submit "Update"
+= render :partial => "form"  
 
 = link_to 'Show', @document
 |

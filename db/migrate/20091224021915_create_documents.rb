@@ -5,7 +5,7 @@ class CreateDocuments < ActiveRecord::Migration
       t.text :description
       t.string :data_file_name
       t.string :data_content_type
-      t.string :data_size
+      t.integer :data_file_size
       t.datetime :data_updated_at
       t.integer :user_id
 

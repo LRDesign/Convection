@@ -13,10 +13,10 @@ module AuthlogicTestHelper
       # end  
     end    
     
-    def login_as(person)
-      person = people(person) if person.is_a?(Symbol)
-      @current_session = UserSession.create(person)
-      person
+    def login_as(user)
+      user = users(user) if user.is_a?(Symbol)
+      @current_session = UserSession.create(user)
+      user
     end
     
     def logout
