@@ -10,7 +10,7 @@ development:
 
 test:
   <<: *login
-  database: convection_dev
+  database: convection_test
 
 production:
   adapter: mysql
