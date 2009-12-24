@@ -8,6 +8,8 @@ tmp/.*
 tmp/profile*
 .DS_Store
 ui.log
+.conductor/state
+.conductor/temp/*
 screenlog.*
 doc/plugins
 doc/api
