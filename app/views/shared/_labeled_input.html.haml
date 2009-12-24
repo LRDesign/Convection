@@ -1,0 +1,13 @@
+- klass = "labeled_input"
+- klass += " required" if (defined?(required) and required)
+
+%div{ :class => klass }      
+  = form.label field, text                           
+  
+  - if size.blank?
+    = form.text_field field
+  - else
+    = form.text_field field, :size => size
+  - if defined?(comment) and comment
+    %span.comment
+      = comment

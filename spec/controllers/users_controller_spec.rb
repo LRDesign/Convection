@@ -10,7 +10,7 @@ describe UsersController do
 
     it "should expose all users as @users" do
       get :index
-      assigns[:users].should == [@user]
+      assigns[:users].should == User.find(:all)
     end
 
     describe "with mime type of xml" do
@@ -115,7 +115,7 @@ describe UsersController do
   describe "responding to PUT update" do
 
     before(:each) do
-      User.should_receive(:find).with(@user.id.to_s).and_return(@user)
+      User.should_receive(:find).with(@user.id).and_return(@user)
     end
 
     it "should update the requested user" do
@@ -164,7 +164,7 @@ describe UsersController do
   describe "responding to DELETE destroy" do
 
     it "should destroy the requested user" do
-      User.should_receive(:find).with(@user.id.to_s).and_return(@user)
+      User.should_receive(:find).with(@user.id).and_return(@user)
       @user.should_receive(:destroy)
       delete :destroy, :id => @user.id
     end
