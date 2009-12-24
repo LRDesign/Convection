@@ -1,0 +1,12 @@
+-set_headline "Log In" 
+
+- form_for @user_session do |f|
+  = f.error_messages
+  = labeled_input(f, :login)
+  = labeled_input(f, :password)
+  .labeled_input
+    %label &nbsp;
+    = f.check_box :remember_me 
+  .labeled_input
+    %label &nbsp;
+    = f.submit "Log In"
