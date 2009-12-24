@@ -1,0 +1,32 @@
+%p
+  %b Name:
+  =h @document.name
+
+%p
+  %b Description:
+  =h @document.description
+
+%p
+  %b Data file name:
+  =h @document.data_file_name
+
+%p
+  %b Data content type:
+  =h @document.data_content_type
+
+%p
+  %b Data size:
+  =h @document.data_size
+
+%p
+  %b Data update at:
+  =h @document.data_update_at
+
+%p
+  %b User:
+  =h @document.user_id
+
+
+= link_to 'Edit', edit_document_path(@document)
+|
+= link_to 'Back', documents_path

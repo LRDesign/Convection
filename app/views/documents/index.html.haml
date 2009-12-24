@@ -1,0 +1,29 @@
+%h1 Listing documents
+
+%table
+  %tr
+    %th Name
+    %th Description
+    %th Data file name
+    %th Data content type
+    %th Data size
+    %th Data update at
+    %th User
+
+- for document in @documents
+  %tr
+    %td= document.name
+    %td= document.description
+    %td= document.data_file_name
+    %td= document.data_content_type
+    %td= document.data_size
+    %td= document.data_update_at
+    %td= document.user_id
+
+    %td= link_to 'Show', document
+    %td= link_to 'Edit', edit_document_path(document)
+    %td= link_to 'Destroy', document, :confirm => 'Are you sure?', :method => :delete
+
+%br
+
+= link_to 'New document', new_document_path
