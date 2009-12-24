@@ -1,0 +1,15 @@
+          source $HOME/.screenrc
+          startup_message off                     # default: on
+          nethack on                              # default: off
+          defscrollback 1000                      # default: 100
+          silencewait 15                  # default: 30
+          caption always "%{= wK}%-Lw%{= BW}%50>%n%f* %t%{-}%+Lw%<"
+          bind N colon "number "
+          bind A colon "title "
+          register [ ":se noaia"
+          register ] ":se aia"
+          bind ^] paste [.]
+          bind = resize =
+          bind + resize +3
+          bind - resize -3
+          source $HOME/.conductor/screenrc
