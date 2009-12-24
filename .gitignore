@@ -7,6 +7,8 @@ tmp/**/*
 tmp/.*
 tmp/profile*
 .DS_Store
+ui.log
+screenlog.*
 doc/plugins
 doc/api
 doc/app

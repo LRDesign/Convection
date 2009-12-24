@@ -1,0 +1,14 @@
+--- 
+:service_options: 
+  Conductor::RSpecConsole: 
+    :filename_patterns: "**/*.rb"
+    :files: 
+    - spec
+    :lib_path: 
+    - spec_help/interpose
+    - lib
+    - spec_help
+:service_map: 
+  :editor: 
+  - conductor/tools/vim-editor
+  - Conductor::VimEditor
