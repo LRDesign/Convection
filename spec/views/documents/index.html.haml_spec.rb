@@ -11,8 +11,6 @@ describe "/documents/index.html.haml" do
     render "/documents/index.html.haml"
     response.should have_tag("tr>td", "value for name", 2)
     response.should have_tag("tr>td", "value for description", 2)
-    response.should have_tag("tr>td", "value for data_file_name", 2)
-    response.should have_tag("tr>td", "value for data_content_type", 2)
   end
 end
 

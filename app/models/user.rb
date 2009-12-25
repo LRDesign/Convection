@@ -5,4 +5,9 @@ class User < ActiveRecord::Base
   end  
   validates_presence_of :name, :email
   
+  # TODO:  implement this based on group membership.
+  def admin?
+    true    
+  end
+  
 end
