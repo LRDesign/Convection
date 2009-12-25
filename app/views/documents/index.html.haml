@@ -6,19 +6,17 @@
     %th Description
     %th Data file name
     %th Data content type
-    %th Data size
-    %th Data update at
+    %th File size
+    %th Data updated at
     %th User
 
 - for document in @documents
   %tr
-    %td= document.name
-    %td= document.description
-    %td= document.data_file_name
-    %td= document.data_content_type
-    %td= document.data_size
-    %td= document.data_update_at
-    %td= document.user_id
+    %td= h document.name
+    %td= h document.description
+    %td= h number_to_human_size document.data.size
+    %td= h document.data.updated_at
+    %td= h document.user.name rescue ""
 
     %td= link_to 'Show', document
     %td= link_to 'Edit', edit_document_path(document)

@@ -41,5 +41,11 @@ describe User do
   it "should succeed creating a new :user from the Factory" do
     Factory.create(:user)
   end
+
+  describe "admin" do
+    it "should be admin for default user (TODO: Change Me)" do
+      Factory.build(:user).should be_admin
+    end
+  end
   
 end
