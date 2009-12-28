@@ -1,0 +1,12 @@
+admin jobs
+ user(new/edit)
+ groups/perms
+ file ownership
+
+namespace admin - ev
+docs - ev
+
+retrieval controller - send_file (Rails) - j
+files - secure location - j
+
+site prefs
