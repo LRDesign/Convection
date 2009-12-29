@@ -23,7 +23,6 @@ class DocumentsController < ApplicationController
   end
 
   def download
-    params[:id] = params[:document_id] #Routing should be better, somehow...
     find_document
     send_file(@document.data.path)
   end
