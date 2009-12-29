@@ -14,7 +14,7 @@
   %tr
     %td= h document.name
     %td= h document.description
-    %td= h number_to_human_size document.data.size
+    %td= h number_to_human_size(document.data.size)
     %td= h document.data.updated_at
     %td= h document.user.name rescue ""
 
