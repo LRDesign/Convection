@@ -22,6 +22,12 @@ class DocumentsController < ApplicationController
     end
   end
 
+  def download
+    params[:id] = params[:document_id] #Routing should be better, somehow...
+    find_document
+    send_file(@document.data.path)
+  end
+
   # GET /documents/new
   # GET /documents/new.xml
   def new
@@ -84,7 +90,7 @@ class DocumentsController < ApplicationController
   private
 
   def find_document
-    @document = Document.find(params[:id])
+    @document = Document.find(params[:id]) rescue nil
     raise ArgumentError, 'Invalid document id provided' unless @document
   end
 end

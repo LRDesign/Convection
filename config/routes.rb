@@ -1,5 +1,7 @@
 ActionController::Routing::Routes.draw do |map|
-  map.resources :documents
+  map.resources :documents do |doc|
+    doc.download '/download', :controller => "documents", :action => "download"
+  end
 
   map.resources :users   
   map.resources :user_sessions        
