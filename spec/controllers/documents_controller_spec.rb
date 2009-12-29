@@ -54,7 +54,7 @@ describe DocumentsController do
     it "should expose the requested document as @document" do
       controller.should_receive(:send_file).with("#{RAILS_ROOT}/file-storage/datas/#{@document.id}/original/value for data_file_name.").and_return(nil)
 
-      get :download, :document_id => @document.id
+      get :download, :id => @document.id
       response.should be_success
     end
 
