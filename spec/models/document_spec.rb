@@ -31,7 +31,8 @@ describe Document do
       :data => @file,
       :user_id => "1"
     }
-    @doc = nil
+
+    @doc = Document.create!(@valid_attributes)
   end
 
 
@@ -40,9 +41,7 @@ describe Document do
     FileUtils::rm_rf("#{RAILS_ROOT}/file-storage/datas/#{@doc.id}") unless @doc.nil?
   end
 
-  it "should create a new instance given valid attributes" do
-    @doc = Document.create!(@valid_attributes)
-
+  it "should store uploaded files in configured path" do
     source_sum = Digest::SHA512::file(@file.path)
     dest_sum = nil
     proc do
@@ -50,5 +49,16 @@ describe Document do
     end.should_not raise_error
 
     dest_sum.should == source_sum
+  end
+
+  it "should delete uploaded files when deleted" do
+    @doc.destroy
+    proc do
+      File::open("#{RAILS_ROOT}/file-storage/datas/#{@doc.id}/original/5k.png")
+    end.should raise_error(Errno::ENOENT)
+  end
+
+  it "should return the path to the file" do
+    @doc.data.path.should == "#{RAILS_ROOT}/file-storage/datas/#{@doc.id}/original/5k.png"
   end
 end
