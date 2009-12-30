@@ -35,7 +35,6 @@ class Admin::UsersController < Admin::AdminController
 
   # DELETE /users/1
   def destroy
-    debugger
     @user.destroy
 
     respond_to do |format|

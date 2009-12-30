@@ -111,19 +111,27 @@ describe Admin::UsersController do
   ###################################################################################  
   # DELETE destroy
   ###################################################################################  
-  # describe "DELETE destroy" do
-  #   it "should destroy the requested user" do
-  #     User.should_receive(:find).with(@user.id).and_return(@user)
-  #     @user.should_receive(:destroy)
-  #     debugger
-  #     delete :destroy, :id => @user.id
-  #   end
-  # 
-  #   it "should redirect to the users list" do
-  #     delete :destroy, :id => @user.id
-  #     response.should redirect_to(users_url)
-  #   end
-  # end
+  describe "DELETE destroy" do
+    before(:each) do
+      @destroyable_user = Factory.create(:user)
+      User.find(@destroyable_user.id).should == @destroyable_user
+    end
+    
+    it "should destroy the requested user" do
+      delete :destroy, :id => @destroyable_user.id
+      lambda { User.find(@destroyable_user.id) }.should raise_error(ActiveRecord::RecordNotFound)
+    end
+    
+    it "should reduce the number of users by one" do
+      lambda {delete :destroy, :id => @destroyable_user.id}.should change(User, :count).by(-1)
+      
+    end
+  
+    it "should redirect to the users list" do
+      delete :destroy, :id => @destroyable_user.id
+      response.should redirect_to(users_url)
+    end
+  end
   
   def valid_params
     {
