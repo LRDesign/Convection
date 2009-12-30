@@ -18,4 +18,12 @@
 #
 
 class Preferences < ActiveRecord::Base
+  validates_presence_of :domain,       :if => :using_email?
+  validates_presence_of :smtp_server,  :if => :using_email?
+  
+  private  
+  def using_email?
+    email_notifications?
+  end
+  
 end
