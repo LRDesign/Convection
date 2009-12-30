@@ -1,0 +1,25 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  domain: MyString
+  site_name: MyString
+  smtp_server: MyString
+  smtp_port: 1
+  smtp_uses_ssl: false
+  smtp_username: MyString
+  smtp_password: MyString
+  email_notifications: false
+  analytics: MyText
+  logo_url: MyString
+
+two:
+  domain: MyString
+  site_name: MyString
+  smtp_server: MyString
+  smtp_port: 1
+  smtp_uses_ssl: false
+  smtp_username: MyString
+  smtp_password: MyString
+  email_notifications: false
+  analytics: MyText
+  logo_url: MyString
