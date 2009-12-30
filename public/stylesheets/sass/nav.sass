@@ -1,0 +1,19 @@
+@import constants.sass
+
+#nav, #admin_nav
+  :width 100%
+  :border 1px solid black
+  h3
+    :float left
+  ul
+    :list-style none
+    li
+      :float left
+      :list-style none
+      :margin 0 1em
+      
+#nav:after, #admin_nav:after  
+  +clearfix  
+      
+#admin_nav
+  :background-color #FF9

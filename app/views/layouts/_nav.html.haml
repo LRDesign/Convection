@@ -1,0 +1,13 @@
+- if logged_in? and current_user.admin?
+  #admin_nav
+    %h3 Admin Tools:
+    %ul
+      %li= link_to "Site Preferences", edit_admin_preferences_path
+      %li= link_to "User Administration", admin_users_path
+
+#nav
+  %ul
+    %li= link_to "Home", home_url
+    - if logged_in?
+      %li= link_to "Account Settings", edit_user_path(current_user)
+    %li= link_to "Files", '#'   # TODO: implement

@@ -13,6 +13,13 @@
     = yield :header 
     
   %body                      
-    #content
-      %h1= yield :headline if yield :headline
-      = yield
+    #wrap
+      #header
+        =link_to image_tag(@preferences.logo_url, :alt => "logo"), home_url
+        %h1{:style => 'float: right'}= @preferences.site_name
+       
+      =render :partial => 'layouts/nav'
+       
+      #content
+        %h1= yield :headline if yield :headline
+        = yield

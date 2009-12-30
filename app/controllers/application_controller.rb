@@ -3,6 +3,7 @@
 
 class ApplicationController < ActionController::Base
   include AuthenticatedSystem
+  before_filter :retrieve_site_preferences
   
   helper :all # include all helpers, all the time
   protect_from_forgery # See ActionController::RequestForgeryProtection for details
@@ -47,6 +48,11 @@ class ApplicationController < ActionController::Base
   def redirect_back_or_default(default)
     redirect_to(session[:return_to] || default)
     session[:return_to] = nil
+  end
+  
+  private
+  def retrieve_site_preferences
+    @preferences ||= Preferences.find(:first)
   end
 
   # Scrub sensitive parameters from the log
