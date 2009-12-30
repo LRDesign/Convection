@@ -48,16 +48,7 @@ describe UsersController do
     
   end
 
-  describe "responding to GET new" do
-  
-    it "should expose a new user as @user" do
-      user = Factory.build(:user)
-      User.should_receive(:new).and_return(user)
-      get :new
-      assigns[:user].should equal(user)
-    end
-
-  end
+ 
 
   describe "responding to GET edit" do
   
@@ -66,50 +57,6 @@ describe UsersController do
       assigns[:user].should == @user
     end
 
-  end
-
-  describe "responding to POST create" do
-
-    before(:each) do
-      @new_user = Factory.build(:user)
-    end
-
-    describe "with valid params" do
-
-      it "should expose a newly created user as @user" do
-        User.should_receive(:new).with({'these' => 'params'}).and_return(@new_user)
-        post :create, :user => {:these => 'params'}
-        assigns(:user).should equal(@new_user)
-      end
-
-      it "should redirect to the created user" do
-        User.stub!(:new).and_return(@new_user)
-        post :create, :user => {}
-        response.should redirect_to(user_url(@new_user))
-      end
-      
-    end
-    
-    describe "with invalid params" do
-
-      before(:each) do
-        @new_user.stub!(:save => false)
-      end
-
-      it "should expose a newly created but unsaved user as @user" do
-        User.stub!(:new).with({'these' => 'params'}).and_return(@new_user)
-        post :create, :user => {:these => 'params'}
-        assigns(:user).should equal(@new_user)
-      end
-
-      it "should re-render the 'new' template" do
-        User.stub!(:new).and_return(@new_user)
-        post :create, :user => {}
-        response.should render_template('new')
-      end
-      
-    end
-    
   end
 
   describe "responding to PUT update" do
@@ -161,19 +108,5 @@ describe UsersController do
 
   end
 
-  describe "responding to DELETE destroy" do
-
-    it "should destroy the requested user" do
-      User.should_receive(:find).with(@user.id).and_return(@user)
-      @user.should_receive(:destroy)
-      delete :destroy, :id => @user.id
-    end
-  
-    it "should redirect to the users list" do
-      delete :destroy, :id => @user.id
-      response.should redirect_to(users_url)
-    end
-
-  end
 
 end
