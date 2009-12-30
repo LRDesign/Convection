@@ -6,27 +6,6 @@ describe UsersController do
     @user = Factory(:user)
   end
 
-  describe "responding to GET index" do
-
-    it "should expose all users as @users" do
-      get :index
-      assigns[:users].should == User.find(:all)
-    end
-
-    describe "with mime type of xml" do
-  
-      it "should render all users as xml" do
-        request.env["HTTP_ACCEPT"] = "application/xml"
-        User.should_receive(:find).with(:all).and_return(users = mock("Array of Users"))
-        users.should_receive(:to_xml).and_return("generated XML")
-        get :index
-        response.body.should == "generated XML"
-      end
-    
-    end
-
-  end
-
   describe "responding to GET show" do
 
     it "should expose the requested user as @user" do

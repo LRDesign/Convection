@@ -129,7 +129,7 @@ describe Admin::UsersController do
   
     it "should redirect to the users list" do
       delete :destroy, :id => @destroyable_user.id
-      response.should redirect_to(users_url)
+      response.should redirect_to(admin_users_url)
     end
   end
   

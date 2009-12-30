@@ -1,10 +1,11 @@
 class Admin::UsersController < Admin::AdminController
   before_filter :find_user, :only => [ :show, :edit, :update, :destroy ]
-  
+    
+  # GET :index
   def index
     @users = User.find(:all)
-  end
-  
+  end  
+    
   # GET :show
   def show
   end
@@ -38,7 +39,7 @@ class Admin::UsersController < Admin::AdminController
     @user.destroy
 
     respond_to do |format|
-      format.html { redirect_to(users_url) }
+      format.html { redirect_to(admin_users_url) }
     end
   end
   

@@ -5,8 +5,8 @@ describe "/admin/users/index.html.haml" do
   
   before(:each) do
     activate_authlogic
-    login_as(Factory(:admin))
-    assigns[:users] = [ Factory(:user), Factory(:admin) ]
+    @admin = login_as(Factory(:admin))
+    assigns[:users] = [ Factory(:user), @admin ]
     render '/admin/users/index'
   end
 
