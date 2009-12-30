@@ -2,7 +2,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :documents
 
   # regular user controller cannot create or destroy users
-  map.resources :users, :except => [ :index, :new, :create, :destroy ]  
+  map.resources :users, :except => [ :index, :new, :create, :destroy ], :requirements => { :id => /[0-9]+/ }  
   
   map.resources :user_sessions        
 
