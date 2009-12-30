@@ -11,6 +11,7 @@ ActionController::Routing::Routes.draw do |map|
   
   map.namespace :admin do |admin|
     admin.resources :users
+    admin.resource  :preferences
   end
   
   map.home '/', :controller => 'home', :action => 'index'             
