@@ -3,8 +3,6 @@ class Admin::PreferencesController < Admin::AdminController
         
   # GET /admin/preferences/edit
   def edit
-    @user = User.new
-
     respond_to do |format|
       format.html 
     end
@@ -12,6 +10,11 @@ class Admin::PreferencesController < Admin::AdminController
 
   # PUT /admin/preferences
   def update
+    if @preferences.update_attributes(params[:preferences])
+      redirect_to edit_admin_preferences_path
+    else
+      render :template => 'edit'
+    end
   end
   
   
