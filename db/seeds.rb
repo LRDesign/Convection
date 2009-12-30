@@ -11,7 +11,7 @@ User.create!(
   :admin => true  # TODO replace this with admin group membership
 )
 
-Preference.create!(
+Preferences.create!(
   :site_name => "Convection: File Exchange Made Easy",
   :logo_url => "/images/convection_logo.png",
   :smtp_server => "smtp.example.com",

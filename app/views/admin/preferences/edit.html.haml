@@ -1,0 +1,8 @@
+- set_headline("Site Preferences")
+
+- form_for @preferences, :url => admin_preferences_path, :method => :put  do |f|
+  = labeled_input f, :site_name
+  = labeled_input f, :domain
+  = labeled_input f, :logo_url
+  = labeled_input f, :smtp_server
+  = f.submit
