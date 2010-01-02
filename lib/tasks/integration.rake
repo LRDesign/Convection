@@ -1,5 +1,7 @@
 require 'erb'
 require 'spec/rake/spectask'
+
+task :cruise => [ 'ci:spec' ]              
                       
 namespace :ci do
   desc "Set up for testing in continuous integration"
