@@ -12,7 +12,7 @@ namespace :ci do
   Spec::Rake::SpecTask.new do |t, args|
     t.spec_opts = [ "--colour", "--format html:#{ENV['CC_BUILD_ARTIFACTS']}/spec_output.html", 
       "--loadby mtime", "--reverse"]
-    # t.rcov = true  
+    t.rcov = true  
   end                            
   task :spec,  [ :db_host, :db_user, :db_pass, :db_name ] => [ :setup ] 
 end
