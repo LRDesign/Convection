@@ -1,5 +1,7 @@
 ENV['GEM_PATH'] = "/home/idahoev/.gems:#{ENV['GEM_PATH']}"
-ENV['GEM_HOME'] = "/home/idahoev/.gems}"
+ENV['GEM_HOME'] = "/home/idahoev/.gems}"     
+Gem.path.push "/home/idahoev/.gems"
+p Gem.path
 
 require 'erb'
 require 'spec/rake/spectask'  
