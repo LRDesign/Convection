@@ -1,3 +1,5 @@
+ENV['GEM_PATH'] = "/home/idahoev/.gems:#{ENV['GEM_PATH']}"
+
 require 'erb'
 require 'spec/rake/spectask'  
 Dir["#{RAILS_ROOT}/vendor/gems/**"].each do |dir|    
