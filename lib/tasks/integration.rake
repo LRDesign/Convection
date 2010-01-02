@@ -1,6 +1,6 @@
 require 'erb'
 require 'spec/rake/spectask'  
-$: += Dir["#{RAILS_ROOT}/vendor/gems/**"].map do |dir|    
+$: << Dir["#{RAILS_ROOT}/vendor/gems/**"].map do |dir|    
   File.directory?(lib = "#{dir}/lib") ? lib : dir
 end
 require(File.join(RAILS_ROOT, 'vendor', 'gems', 'metric_fu-1.1.6', 'lib', 'metric_fu'))
