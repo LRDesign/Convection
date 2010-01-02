@@ -1,0 +1,10 @@
+     4.5: flog total
+     2.2: flog/method average
+
+     3.3: Preferences#none
+     2.2:   validates_presence_of
+     1.1:   private
+
+     1.2: Preferences#using_email?         app/models/preferences.rb:25
+     1.2:   email_notifications?
+

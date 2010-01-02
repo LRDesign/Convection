@@ -1,0 +1,607 @@
+............*...........*........................................................................................
+
+Pending:
+
+/admin/preferences/edit.html.haml should render edit form (not sure about setting the method)
+./spec/views/admin/preferences/edit.html.haml_spec.rb:16
+
+UsersController unavailable routes should not route GET new (this routes as a GET show with ID of 'new'.  Weird.)
+./spec/controllers/users_routing_spec.rb:34
+
+Finished in 2.769145 seconds
+
+113 examples, 0 failures, 2 pending
+================================================================================
+app/helpers/authorization_helper.rb
+================================================================================
+   module AuthorizationHelper
+     def authorized?(criteria={})
+!!     return false if current_user_session.blank?
+!!     return false if current_user.blank?
+!!     
+!!     
+!!     groups = criteria[:group] ? [criteria[:group]] : current_user.groups
+!!     
+!! 
+!!     select_on = {
+!!       :group_id => groups.map{|grp| grp.id},
+!!       :controller => criteria[:controller] || controller_name,
+!!       :action => nil,
+!!       :subject_id => nil
+!!     }
+!! 
+!!     permissions = Permission.find(:first, :conditions => select_on)
+!!     return true unless permissions.nil?
+!! 
+!!     select_on[:action] = criteria[:action] || action_name
+!!     permissions = Permission.find(:first, :conditions => select_on)
+!!     return true unless permissions.nil?
+!! 
+!!     select_on[:subject_id] = criteria[:id] || params["id"]
+!!     permissions = Permission.find(:first, :conditions => select_on)
+!!     return (not permissions.nil?)
+!!   end
+!! end
+================================================================================
+lib/authenticated_system.rb
+================================================================================
+   module AuthenticatedSystem
+     protected
+     
+     def current_user
+!!     return @current_user if defined?(@current_user)
+!!     @current_user = current_user_session && current_user_session.user
+!!   end
+     
+     def logged_in?
+       !(current_user.nil?)
+     end
+   
+     def current_user_session
+!!     return @current_user_session if defined?(@current_user_session)
+!!     @current_user_session = UserSession.find
+!!   end
+!!   
+!! 
+!! end
+================================================================================
+app/helpers/application_helper.rb
+================================================================================
+   # Methods added to this helper will be available to all templates in the application.
+   module ApplicationHelper      
+   
+   
+     # Stores a headline for later rendering by the layout
+     def set_headline(headline)
+       content_for(:headline, headline)
+     end
+   
+   
+     # Passes the supplied block to the named partial
+     def block_to_partial(partial_name, options = {}, &block)    
+!!     # replace :id with :cssid and :class with :cssclass
+!!     if options[:id]
+!!       options[:cssid] = options.delete(:id)
+!!     else
+!!       options[:cssid] = "" if options[:cssid].nil?
+!!     end
+!!     if options[:class]
+!!       options[:cssclass] = options.delete(:class) 
+!!     else
+!!       options[:cssclass] = "" if options[:cssclass].nil?    
+!!     end   
+!! 
+!!     options.merge!(:body => capture(&block))
+!!     concat(render(:partial => partial_name, :locals => options))
+!!   end
+   
+   
+     # pass { :nolabel => true } to replace the label with a spacer   
+     # pass { :required => true } to dispay as a required field  
+     # pass { :text => "foo" } to override the label text
+     def labeled_input(form, field, options = {}) 
+       options[:text] = "&nbsp;" if options[:nolabel]
+       options.reverse_merge!(:text => nil, :size => nil, :required => false)
+       options.merge!(:form => form, :field => field)
+       render(:partial => 'shared/labeled_input', :locals => options)  
+     end  
+   
+     # same function as application_controller.rb's logged_in? method
+     def logged_in?
+       !current_user.nil?
+     end
+   
+   end
+================================================================================
+app/controllers/user_sessions_controller.rb
+================================================================================
+   class UserSessionsController < ApplicationController
+     before_filter :require_no_user, :only => [:new, :create]
+     before_filter :require_user, :only => :destroy
+    
+     def new
+!!     @user_session = UserSession.new
+!!   end
+    
+     def create
+       @user_session = UserSession.new(params[:user_session])
+       if @user_session.save
+         flash[:notice] = "Login successful!"
+         redirect_back_or_default home_url
+       else
+         render :action => :new
+       end
+     end
+    
+     def destroy
+!!     current_user_session.destroy
+!!     flash[:notice] = "Logout successful!"
+!!     redirect_back_or_default new_user_session_url
+!!   end
+!! end
+================================================================================
+app/controllers/application_controller.rb
+================================================================================
+   # Filters added to this controller apply to all controllers in the application.
+   # Likewise, all the methods added will be available for all controllers.
+   
+   class ApplicationController < ActionController::Base
+     include AuthenticatedSystem
+     before_filter :retrieve_site_preferences
+     
+     helper :all # include all helpers, all the time
+     protect_from_forgery # See ActionController::RequestForgeryProtection for details
+   
+     # Scrub sensitive parameters from your log
+     # filter_parameter_logging :password
+     helper_method :current_user_session, :current_user
+   
+     private
+     def current_user_session
+       return @current_user_session if defined?(@current_user_session)
+       @current_user_session = UserSession.find
+     end
+   
+     def current_user
+       return @current_user if defined?(@current_user)
+       @current_user = current_user_session && current_user_session.user
+     end
+   
+     def require_user
+       unless current_user
+!!       store_location
+!!       flash[:notice] = "You must be logged in to access this page"
+!!       redirect_to new_user_session_url
+!!       return false
+!!     end
+!!   end
+   
+     def require_no_user
+       if current_user
+!!       store_location
+!!       flash[:notice] = "You must be logged out to access this page"
+!!       redirect_to account_url
+!!       return false
+!!     end
+!!   end
+   
+     def store_location
+!!     session[:return_to] = request.request_uri
+!!   end
+   
+     def redirect_back_or_default(default)
+       redirect_to(session[:return_to] || default)
+       session[:return_to] = nil
+     end
+     
+     private
+     def retrieve_site_preferences
+       @preferences ||= Preferences.find(:first)
+     end
+   
+     # Scrub sensitive parameters from the log
+     filter_parameter_logging :password
+   end
+================================================================================
+lib/authlogic_test_helper.rb
+================================================================================
+   module AuthlogicTestHelper
+       
+       def current_user(stubs = {})
+!!       current_user_session.person
+!!     end
+       
+       alias :current_person :current_user
+       
+       def current_user_session(stubs = {}, user_stubs = {}) 
+!!       @current_user_session = UserSession.find
+!!       # else  
+!!       #   @current_user_session ||= mock_model(UserSession, {:person => current_user(user_stubs)}.merge(stubs))
+!!       # end  
+!!     end    
+       
+       def login_as(user)
+         user = users(user) if user.is_a?(Symbol)
+         @current_session = UserSession.create(user)
+         user
+       end
+       
+       def logout
+         @current_user_session = nil
+       end
+   end
+================================================================================
+app/controllers/users_controller.rb
+================================================================================
+   class UsersController < ApplicationController
+     before_filter :find_user, :only => [ :show, :edit, :update, :destroy ]
+   
+     # GET /users
+     # GET /users.xml
+     def index
+!!     @users = User.find(:all)
+!! 
+!!     respond_to do |format|
+!!       format.html # index.html.erb
+!!       format.xml  { render :xml => @users }
+!!     end
+!!   end
+   
+     # GET /users/1
+     # GET /users/1.xml
+     def show
+       respond_to do |format|
+         format.html # show.html.erb
+         format.xml  { render :xml => @user }
+       end
+     end
+   
+   
+     # GET /users/1/edit
+     def edit
+     end
+   
+     # PUT /users/1
+     # PUT /users/1.xml
+     def update
+       respond_to do |format|
+         if @user.update_attributes(params[:user])
+           flash[:notice] = 'User was successfully updated.'
+           format.html { redirect_to(@user) }
+           format.xml  { head :ok }
+         else
+           format.html { render :action => "edit" }
+           format.xml  { render :xml => @user.errors, :status => :unprocessable_entity }
+         end
+       end
+     end
+   
+   
+     private
+   
+     def find_user
+       @user = User.find(params[:id])
+       raise ArgumentError, 'Invalid user id provided' unless @user
+     end
+   end
+================================================================================
+app/helpers/users_helper.rb
+================================================================================
+   module UsersHelper
+   end
+================================================================================
+app/controllers/admin/admin_controller.rb
+================================================================================
+   class Admin::AdminController < ApplicationController
+     before_filter :check_admin_authorization
+       
+     def check_admin_authorization
+       unless logged_in? and current_user.admin?
+         flash[:error] = "You are not authorized to access that feature."
+         redirect_to home_url
+       end
+     end
+   end
+================================================================================
+app/controllers/admin/preferences_controller.rb
+================================================================================
+   class Admin::PreferencesController < Admin::AdminController
+     before_filter :find_prefs
+           
+     # GET /admin/preferences/edit
+     def edit
+       respond_to do |format|
+         format.html 
+       end
+     end
+   
+     # PUT /admin/preferences
+     def update
+       if @preferences.update_attributes(params[:preferences])
+         redirect_to edit_admin_preferences_path
+       else
+         render :template => 'edit'
+       end
+     end
+     
+     
+     private
+     def find_prefs
+       @preferences = Preferences.find(:first)
+     end
+     
+   end
+================================================================================
+app/models/user.rb
+================================================================================
+   # == Schema Information
+   #
+   # Table name: users
+   #
+   #  id                  :integer(4)      not null, primary key
+   #  login               :string(255)
+   #  email               :string(255)
+   #  name                :string(255)
+   #  admin               :boolean(1)
+   #  crypted_password    :string(255)     not null
+   #  password_salt       :string(255)     not null
+   #  persistence_token   :string(255)     not null
+   #  single_access_token :string(255)     not null
+   #  perishable_token    :string(255)     not null
+   #  login_count         :integer(4)      default(0), not null
+   #  failed_login_count  :integer(4)      default(0), not null
+   #  last_request_at     :datetime
+   #  current_login_at    :datetime
+   #  last_login_at       :datetime
+   #  current_login_ip    :string(255)
+   #  last_login_ip       :string(255)
+   #  created_at          :datetime
+   #  updated_at          :datetime
+   #
+   
+   class User < ActiveRecord::Base   
+   
+     acts_as_authentic do |c|
+       c.session_class = UserSession
+     end  
+     validates_presence_of :name, :email
+     
+     # TODO: implement an admin? method that pulls from the groups module
+     
+     
+   end
+================================================================================
+app/models/document.rb
+================================================================================
+   # == Schema Information
+   #
+   # Table name: documents
+   #
+   #  id                :integer(4)      not null, primary key
+   #  name              :string(255)
+   #  description       :text
+   #  data_file_name    :string(255)
+   #  data_content_type :string(255)
+   #  data_file_size    :integer(4)
+   #  data_updated_at   :datetime
+   #  user_id           :integer(4)
+   #  created_at        :datetime
+   #  updated_at        :datetime
+   #
+   
+   class Document < ActiveRecord::Base       
+     has_attached_file :data, :path => ":rails_root/file-storage/:attachment/:id/:style/:filename"
+     belongs_to :user                     
+     validates_attachment_presence :data  
+   end
+================================================================================
+app/controllers/documents_controller.rb
+================================================================================
+   class DocumentsController < ApplicationController
+     before_filter :find_document, :only => [ :show, :edit, :update, :destroy ] 
+     before_filter :require_user
+   
+     # GET /documents
+     # GET /documents.xml
+     def index
+       @documents = Document.find(:all)
+   
+       respond_to do |format|
+         format.html # index.html.erb
+         format.xml  { render :xml => @documents }
+       end
+     end
+   
+     # GET /documents/1
+     # GET /documents/1.xml
+     def show
+       respond_to do |format|
+         format.html # show.html.erb
+         format.xml  { render :xml => @document }
+       end
+     end
+   
+     # GET /documents/new
+     # GET /documents/new.xml
+     def new
+       @document = Document.new
+   
+       respond_to do |format|
+         format.html # new.html.erb
+         format.xml  { render :xml => @document }
+       end
+     end
+   
+     # GET /documents/1/edit
+     def edit
+     end
+   
+     # POST /documents
+     # POST /documents.xml
+     def create
+       @document = Document.new(params[:document])
+       @document.user = current_user
+   
+       respond_to do |format|
+         if @document.save
+           flash[:notice] = 'Document was successfully created.'
+           format.html { redirect_to(@document) }
+           format.xml  { render :xml => @document, :status => :created, :location => @document }
+         else
+           format.html { render :action => "new" }
+           format.xml  { render :xml => @document.errors, :status => :unprocessable_entity }
+         end
+       end
+     end
+   
+     # PUT /documents/1
+     # PUT /documents/1.xml
+     def update
+       respond_to do |format|
+         if @document.update_attributes(params[:document])
+           flash[:notice] = 'Document was successfully updated.'
+           format.html { redirect_to(@document) }
+           format.xml  { head :ok }
+         else
+           format.html { render :action => "edit" }
+           format.xml  { render :xml => @document.errors, :status => :unprocessable_entity }
+         end
+       end
+     end
+   
+     # DELETE /documents/1
+     # DELETE /documents/1.xml
+     def destroy
+       @document.destroy
+   
+       respond_to do |format|
+         format.html { redirect_to(documents_url) }
+         format.xml  { head :ok }
+       end
+     end
+   
+     private
+   
+     def find_document
+       @document = Document.find(params[:id])
+       raise ArgumentError, 'Invalid document id provided' unless @document
+     end
+   end
+================================================================================
+app/models/user_session.rb
+================================================================================
+   class UserSession < Authlogic::Session::Base
+   end
+================================================================================
+app/helpers/admin/users_helper.rb
+================================================================================
+   module Admin::UsersHelper
+   end
+================================================================================
+app/controllers/admin/users_controller.rb
+================================================================================
+   class Admin::UsersController < Admin::AdminController
+     before_filter :find_user, :only => [ :show, :edit, :update, :destroy ]
+       
+     # GET :index
+     def index
+       @users = User.find(:all)
+     end  
+       
+     # GET :show
+     def show
+     end
+     
+     
+     # GET /users/new
+     def new
+       @user = User.new
+   
+       respond_to do |format|
+         format.html 
+       end
+     end
+     
+     # POST /users
+     def create
+       @user = User.new(params[:user])
+       respond_to do |format|
+         if @user.save
+           flash[:notice] = 'User was successfully created.'
+           format.html { redirect_to(@user) }
+         else
+           format.html { render :action => "new" }
+         end
+       end
+     end
+   
+   
+     # DELETE /users/1
+     def destroy
+       @user.destroy
+   
+       respond_to do |format|
+         format.html { redirect_to(admin_users_url) }
+       end
+     end
+     
+     
+     
+     
+     private
+     def find_user
+       @user = User.find(params[:id])
+       raise ArgumentError, 'Invalid user id provided' unless @user
+     end
+     
+   end
+================================================================================
+app/controllers/home_controller.rb
+================================================================================
+   class HomeController < ApplicationController
+     def index
+     end
+   
+   end
+================================================================================
+app/helpers/documents_helper.rb
+================================================================================
+   module DocumentsHelper
+   end
+================================================================================
+app/models/preferences.rb
+================================================================================
+   # == Schema Information
+   #
+   # Table name: preferences
+   #
+   #  id                  :integer(4)      not null, primary key
+   #  domain              :string(255)
+   #  site_name           :string(255)
+   #  smtp_server         :string(255)
+   #  smtp_port           :integer(4)
+   #  smtp_uses_ssl       :boolean(1)
+   #  smtp_username       :string(255)
+   #  smtp_password       :string(255)
+   #  email_notifications :boolean(1)
+   #  analytics           :text
+   #  logo_url            :string(255)
+   #  created_at          :datetime
+   #  updated_at          :datetime
+   #
+   
+   class Preferences < ActiveRecord::Base
+     validates_presence_of :domain,       :if => :using_email?
+     validates_presence_of :smtp_server,  :if => :using_email?
+     
+     private  
+     def using_email?
+       email_notifications?
+     end
+     
+   end
+================================================================================
+app/helpers/home_helper.rb
+================================================================================
+   module HomeHelper
+   end
