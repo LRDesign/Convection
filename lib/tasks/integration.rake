@@ -2,6 +2,9 @@ require 'erb'
 require 'spec/rake/spectask'  
 require(File.join(RAILS_ROOT, 'vendor', 'gems', 'metric_fu-1.1.6', 'lib', 'metric_fu'))
 
+$: += Dir["#{RAILS_ROOT}/vendor/gems/**"].map do |dir|    
+  File.directory?(lib = "#{dir}/lib") ? lib : dir
+end
 
 MetricFu::Configuration.run do |config|
     #define which metrics you want to use
