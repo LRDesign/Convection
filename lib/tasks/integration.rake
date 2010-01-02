@@ -10,7 +10,7 @@ namespace :ci do
 
   desc "Run tests for CI"
   Spec::Rake::SpecTask.new do |t, args|
-    t.spec_opts = [ "--colour", "--format html:#{ENV['CC_BUILD_ARTIFACTS']}/spec_output", 
+    t.spec_opts = [ "--colour", "--format html:#{ENV['CC_BUILD_ARTIFACTS']}/spec_output.html", 
       "--loadby mtime", "--reverse"]
     # t.rcov = true  
   end                            
