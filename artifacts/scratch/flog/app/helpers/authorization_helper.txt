@@ -1,0 +1,18 @@
+    30.6: flog total
+    30.6: flog/method average
+
+    30.6: AuthorizationHelper#authorized?
+    10.0: assignment
+     9.9: branch
+     7.1: []
+     3.3: nil?
+     3.3: find
+     2.7: current_user
+     2.2: blank?
+     1.4: params
+     1.3: current_user_session
+     1.2: groups
+     1.2: id
+     1.2: action_name
+     1.2: controller_name
+     1.1: map

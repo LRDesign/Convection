@@ -1,8 +1,37 @@
 require 'erb'
-require 'spec/rake/spectask'
-      
-                    
-                              
+require 'spec/rake/spectask'  
+require(File.join(RAILS_ROOT, 'vendor', 'gems', 'metric_fu-1.1.6', 'lib', 'metric_fu'))
+
+
+MetricFu::Configuration.run do |config|
+    #define which metrics you want to use
+    config.metrics  = [:churn, :saikuro, :stats, :flog, :flay, :reek, :roodi, :rcov]
+    config.graphs = []
+    #config.graphs   = [:flog, :flay, :reek, :roodi, :rcov]
+    config.flay     = { :dirs_to_flay => ['app', 'lib']  } 
+    config.flog     = { :dirs_to_flog => ['app', 'lib']  }
+    config.reek     = { :dirs_to_reek => ['app', 'lib']  }
+    config.roodi    = { :dirs_to_roodi => ['app', 'lib'] }
+    config.saikuro  = { :output_directory => 'scratch_directory/saikuro', 
+                        :input_directory => ['app', 'lib'],
+                        :cyclo => "",
+                        :filter_cyclo => "0",
+                        :warn_cyclo => "5",
+                        :error_cyclo => "7",
+                        :formater => "text"} #this needs to be set to "text"
+    config.churn    = { :start_date => "1 year ago", :minimum_churn_count => 10}
+    config.rcov     = { :test_files => ['test/**/*_test.rb', 
+                                        'spec/**/*_spec.rb'],
+                        :rcov_opts => ["--sort coverage", 
+                                       "--no-html", 
+                                       "--text-coverage",
+                                       "--no-color",
+                                       "--profile",
+                                       "--rails",
+                                       "--exclude /gems/,/Library/,spec"]}                                                
+end
+                          
+                                       
 namespace :ci do
   desc "Set up for testing in continuous integration"
   task :setup, [ :db_host, :db_user, :db_pass, :db_name ] => [ "config/database.yml", 
@@ -11,7 +40,7 @@ namespace :ci do
              
   
   desc "Run tests for CI"
-  task :run, [ :db_host, :db_user, :db_pass, :db_name ] => [ :spec ] do
+  task :run, [ :db_host, :db_user, :db_pass, :db_name ] => [ :spec, 'metrics:all' ] do
     out = ENV['CC_BUILD_ARTIFACTS']  
     mv 'coverage/', "#{out}/coverage" if out
   end
@@ -25,7 +54,7 @@ namespace :ci do
     t.rcov_opts = lambda do
       IO.readlines("#{RAILS_ROOT}/spec/rcov.opts").map {|l| l.chomp.split " "}.flatten
     end    
-    t.rcov_opts += [ "--output", "#{ENV['CC_BUILD_ARTIFACTS']}/coverage"]
+    t.rcov_opts += [ "--output", "#{ENV['CC_BUILD_ARTIFACTS']}/coverage"]     
   end                            
   task :spec => [ :setup, :show_context ] 
   

@@ -1,0 +1,7 @@
+     3.3: flog total
+     3.3: flog/method average
+
+     3.3: Document#none
+     1.1: belongs_to
+     1.1: validates_attachment_presence
+     1.1: has_attached_file

@@ -1,0 +1,8 @@
+     3.2: flog total
+     3.2: flog/method average
+
+     3.2: main#none
+     1.2:   +
+     1.0:   lit_fixnum
+     1.0:   ==
+

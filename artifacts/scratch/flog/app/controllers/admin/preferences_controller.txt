@@ -1,0 +1,22 @@
+    15.3: flog total
+     3.8: flog/method average
+
+     8.4: Admin::PreferencesController#update
+     1.6: params
+     1.5: edit_admin_preferences_path
+     1.4: []
+     1.3: redirect_to
+     1.3: render
+     1.2: update_attributes
+     1.2: branch
+     3.1: Admin::PreferencesController#edit
+     1.3: assignment
+     1.3: html
+     1.2: respond_to
+     1.2: branch
+     2.2: Admin::PreferencesController#none
+     1.1: private
+     1.1: before_filter
+     1.7: Admin::PreferencesController#find_prefs
+     1.2: find
+     1.2: assignment

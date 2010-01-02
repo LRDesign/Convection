@@ -25,4 +25,10 @@ config.action_mailer.delivery_method = :test
 # Use SQL instead of Active Record's schema dumper when creating the test database.
 # This is necessary if your schema can't be completely dumped by the schema dumper,
 # like if you have constraints or database-specific column types
-# config.active_record.schema_format = :sql
+# config.active_record.schema_format = :sql      
+
+config.gem 'metric_fu', :version => '1.1.6', :lib => 'metric_fu' 
+config.gem 'roodi', :version => '2.1.0'
+#config.gem 'flog', :version => '2.4.0', :lib => 'flog'
+config.gem 'flay', :version => '1.4.0'
+config.gem 'rcov', :version => '0.8.1.2.0'

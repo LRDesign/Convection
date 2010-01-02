@@ -1,0 +1,2288 @@
+--- 
+:churn: 
+  :changes: 
+  - :file_path: config/routes.rb
+    :times_changed: 12
+:rcov: 
+  app/helpers/application_helper.rb: 
+    :lines: 
+    - :was_run: true
+      :content: "   # Methods added to this helper will be available to all templates in the application."
+    - :was_run: true
+      :content: "   module ApplicationHelper      "
+    - :was_run: true
+      :content: "   "
+    - :was_run: true
+      :content: "   "
+    - :was_run: true
+      :content: "     # Stores a headline for later rendering by the layout"
+    - :was_run: true
+      :content: "     def set_headline(headline)"
+    - :was_run: true
+      :content: "       content_for(:headline, headline)"
+    - :was_run: true
+      :content: "     end"
+    - :was_run: true
+      :content: "   "
+    - :was_run: true
+      :content: "   "
+    - :was_run: true
+      :content: "     # Passes the supplied block to the named partial"
+    - :was_run: true
+      :content: "     def block_to_partial(partial_name, options = {}, &block)    "
+    - :was_run: false
+      :content: "       # replace :id with :cssid and :class with :cssclass"
+    - :was_run: false
+      :content: "       if options[:id]"
+    - :was_run: false
+      :content: "         options[:cssid] = options.delete(:id)"
+    - :was_run: false
+      :content: "       else"
+    - :was_run: false
+      :content: "         options[:cssid] = \"\" if options[:cssid].nil?"
+    - :was_run: false
+      :content: "       end"
+    - :was_run: false
+      :content: "       if options[:class]"
+    - :was_run: false
+      :content: "         options[:cssclass] = options.delete(:class) "
+    - :was_run: false
+      :content: "       else"
+    - :was_run: false
+      :content: "         options[:cssclass] = \"\" if options[:cssclass].nil?    "
+    - :was_run: false
+      :content: "       end   "
+    - :was_run: false
+      :content: "   "
+    - :was_run: false
+      :content: "       options.merge!(:body => capture(&block))"
+    - :was_run: false
+      :content: "       concat(render(:partial => partial_name, :locals => options))"
+    - :was_run: false
+      :content: "     end"
+    - :was_run: true
+      :content: "   "
+    - :was_run: true
+      :content: "   "
+    - :was_run: true
+      :content: "     # pass { :nolabel => true } to replace the label with a spacer   "
+    - :was_run: true
+      :content: "     # pass { :required => true } to dispay as a required field  "
+    - :was_run: true
+      :content: "     # pass { :text => \"foo\" } to override the label text"
+    - :was_run: true
+      :content: "     def labeled_input(form, field, options = {}) "
+    - :was_run: true
+      :content: "       options[:text] = \"&nbsp;\" if options[:nolabel]"
+    - :was_run: true
+      :content: "       options.reverse_merge!(:text => nil, :size => nil, :required => false)"
+    - :was_run: true
+      :content: "       options.merge!(:form => form, :field => field)"
+    - :was_run: true
+      :content: "       render(:partial => 'shared/labeled_input', :locals => options)  "
+    - :was_run: true
+      :content: "     end  "
+    - :was_run: true
+      :content: "   "
+    - :was_run: true
+      :content: "     # same function as application_controller.rb's logged_in? method"
+    - :was_run: true
+      :content: "     def logged_in?"
+    - :was_run: true
+      :content: "       !current_user.nil?"
+    - :was_run: true
+      :content: "     end"
+    - :was_run: true
+      :content: "   "
+    - :was_run: true
+      :content: "   end"
+    :percent_run: 67
+  lib/authenticated_system.rb: 
+    :lines: 
+    - :was_run: true
+      :content: "   module AuthenticatedSystem"
+    - :was_run: true
+      :content: "     protected"
+    - :was_run: true
+      :content: "     "
+    - :was_run: true
+      :content: "     def current_user"
+    - :was_run: false
+      :content: "       return @current_user if defined?(@current_user)"
+    - :was_run: false
+      :content: "       @current_user = current_user_session && current_user_session.user"
+    - :was_run: false
+      :content: "     end"
+    - :was_run: true
+      :content: "     "
+    - :was_run: true
+      :content: "     def logged_in?"
+    - :was_run: true
+      :content: "       !(current_user.nil?)"
+    - :was_run: true
+      :content: "     end"
+    - :was_run: true
+      :content: "   "
+    - :was_run: true
+      :content: "     def current_user_session"
+    - :was_run: false
+      :content: "       return @current_user_session if defined?(@current_user_session)"
+    - :was_run: false
+      :content: "       @current_user_session = UserSession.find"
+    - :was_run: false
+      :content: "     end"
+    - :was_run: false
+      :content: "     "
+    - :was_run: false
+      :content: "   "
+    - :was_run: false
+      :content: "   end"
+    :percent_run: 53
+  app/controllers/documents_controller.rb: 
+    :lines: 
+    - :was_run: true
+      :content: "   class DocumentsController < ApplicationController"
+    - :was_run: true
+      :content: "     before_filter :find_document, :only => [ :show, :edit, :update, :destroy ] "
+    - :was_run: true
+      :content: "     before_filter :require_user"
+    - :was_run: true
+      :content: "   "
+    - :was_run: true
+      :content: "     # GET /documents"
+    - :was_run: true
+      :content: "     # GET /documents.xml"
+    - :was_run: true
+      :content: "     def index"
+    - :was_run: true
+      :content: "       @documents = Document.find(:all)"
+    - :was_run: true
+      :content: "   "
+    - :was_run: true
+      :content: "       respond_to do |format|"
+    - :was_run: true
+      :content: "         format.html # index.html.erb"
+    - :was_run: true
+      :content: "         format.xml  { render :xml => @documents }"
+    - :was_run: true
+      :content: "       end"
+    - :was_run: true
+      :content: "     end"
+    - :was_run: true
+      :content: "   "
+    - :was_run: true
+      :content: "     # GET /documents/1"
+    - :was_run: true
+      :content: "     # GET /documents/1.xml"
+    - :was_run: true
+      :content: "     def show"
+    - :was_run: true
+      :content: "       respond_to do |format|"
+    - :was_run: true
+      :content: "         format.html # show.html.erb"
+    - :was_run: true
+      :content: "         format.xml  { render :xml => @document }"
+    - :was_run: true
+      :content: "       end"
+    - :was_run: true
+      :content: "     end"
+    - :was_run: true
+      :content: "   "
+    - :was_run: true
+      :content: "     # GET /documents/new"
+    - :was_run: true
+      :content: "     # GET /documents/new.xml"
+    - :was_run: true
+      :content: "     def new"
+    - :was_run: true
+      :content: "       @document = Document.new"
+    - :was_run: true
+      :content: "   "
+    - :was_run: true
+      :content: "       respond_to do |format|"
+    - :was_run: true
+      :content: "         format.html # new.html.erb"
+    - :was_run: true
+      :content: "         format.xml  { render :xml => @document }"
+    - :was_run: true
+      :content: "       end"
+    - :was_run: true
+      :content: "     end"
+    - :was_run: true
+      :content: "   "
+    - :was_run: true
+      :content: "     # GET /documents/1/edit"
+    - :was_run: true
+      :content: "     def edit"
+    - :was_run: true
+      :content: "     end"
+    - :was_run: true
+      :content: "   "
+    - :was_run: true
+      :content: "     # POST /documents"
+    - :was_run: true
+      :content: "     # POST /documents.xml"
+    - :was_run: true
+      :content: "     def create"
+    - :was_run: true
+      :content: "       @document = Document.new(params[:document])"
+    - :was_run: true
+      :content: "       @document.user = current_user"
+    - :was_run: true
+      :content: "   "
+    - :was_run: true
+      :content: "       respond_to do |format|"
+    - :was_run: true
+      :content: "         if @document.save"
+    - :was_run: true
+      :content: "           flash[:notice] = 'Document was successfully created.'"
+    - :was_run: true
+      :content: "           format.html { redirect_to(@document) }"
+    - :was_run: true
+      :content: "           format.xml  { render :xml => @document, :status => :created, :location => @document }"
+    - :was_run: true
+      :content: "         else"
+    - :was_run: true
+      :content: "           format.html { render :action => \"new\" }"
+    - :was_run: true
+      :content: "           format.xml  { render :xml => @document.errors, :status => :unprocessable_entity }"
+    - :was_run: true
+      :content: "         end"
+    - :was_run: true
+      :content: "       end"
+    - :was_run: true
+      :content: "     end"
+    - :was_run: true
+      :content: "   "
+    - :was_run: true
+      :content: "     # PUT /documents/1"
+    - :was_run: true
+      :content: "     # PUT /documents/1.xml"
+    - :was_run: true
+      :content: "     def update"
+    - :was_run: true
+      :content: "       respond_to do |format|"
+    - :was_run: true
+      :content: "         if @document.update_attributes(params[:document])"
+    - :was_run: true
+      :content: "           flash[:notice] = 'Document was successfully updated.'"
+    - :was_run: true
+      :content: "           format.html { redirect_to(@document) }"
+    - :was_run: true
+      :content: "           format.xml  { head :ok }"
+    - :was_run: true
+      :content: "         else"
+    - :was_run: true
+      :content: "           format.html { render :action => \"edit\" }"
+    - :was_run: true
+      :content: "           format.xml  { render :xml => @document.errors, :status => :unprocessable_entity }"
+    - :was_run: true
+      :content: "         end"
+    - :was_run: true
+      :content: "       end"
+    - :was_run: true
+      :content: "     end"
+    - :was_run: true
+      :content: "   "
+    - :was_run: true
+      :content: "     # DELETE /documents/1"
+    - :was_run: true
+      :content: "     # DELETE /documents/1.xml"
+    - :was_run: true
+      :content: "     def destroy"
+    - :was_run: true
+      :content: "       @document.destroy"
+    - :was_run: true
+      :content: "   "
+    - :was_run: true
+      :content: "       respond_to do |format|"
+    - :was_run: true
+      :content: "         format.html { redirect_to(documents_url) }"
+    - :was_run: true
+      :content: "         format.xml  { head :ok }"
+    - :was_run: true
+      :content: "       end"
+    - :was_run: true
+      :content: "     end"
+    - :was_run: true
+      :content: "   "
+    - :was_run: true
+      :content: "     private"
+    - :was_run: true
+      :content: "   "
+    - :was_run: true
+      :content: "     def find_document"
+    - :was_run: true
+      :content: "       @document = Document.find(params[:id])"
+    - :was_run: true
+      :content: "       raise ArgumentError, 'Invalid document id provided' unless @document"
+    - :was_run: true
+      :content: "     end"
+    - :was_run: true
+      :content: "   end"
+    :percent_run: 100
+  app/helpers/admin/users_helper.rb: 
+    :lines: 
+    - :was_run: true
+      :content: "   module Admin::UsersHelper"
+    - :was_run: true
+      :content: "   end"
+    :percent_run: 100
+  app/controllers/user_sessions_controller.rb: 
+    :lines: 
+    - :was_run: true
+      :content: "   class UserSessionsController < ApplicationController"
+    - :was_run: true
+      :content: "     before_filter :require_no_user, :only => [:new, :create]"
+    - :was_run: true
+      :content: "     before_filter :require_user, :only => :destroy"
+    - :was_run: true
+      :content: "    "
+    - :was_run: true
+      :content: "     def new"
+    - :was_run: false
+      :content: "       @user_session = UserSession.new"
+    - :was_run: false
+      :content: "     end"
+    - :was_run: true
+      :content: "    "
+    - :was_run: true
+      :content: "     def create"
+    - :was_run: true
+      :content: "       @user_session = UserSession.new(params[:user_session])"
+    - :was_run: true
+      :content: "       if @user_session.save"
+    - :was_run: true
+      :content: "         flash[:notice] = \"Login successful!\""
+    - :was_run: true
+      :content: "         redirect_back_or_default home_url"
+    - :was_run: true
+      :content: "       else"
+    - :was_run: true
+      :content: "         render :action => :new"
+    - :was_run: true
+      :content: "       end"
+    - :was_run: true
+      :content: "     end"
+    - :was_run: true
+      :content: "    "
+    - :was_run: true
+      :content: "     def destroy"
+    - :was_run: false
+      :content: "       current_user_session.destroy"
+    - :was_run: false
+      :content: "       flash[:notice] = \"Logout successful!\""
+    - :was_run: false
+      :content: "       redirect_back_or_default new_user_session_url"
+    - :was_run: false
+      :content: "     end"
+    - :was_run: false
+      :content: "   end"
+    :percent_run: 71
+  app/controllers/admin/admin_controller.rb: 
+    :lines: 
+    - :was_run: true
+      :content: "   class Admin::AdminController < ApplicationController"
+    - :was_run: true
+      :content: "     before_filter :check_admin_authorization"
+    - :was_run: true
+      :content: "       "
+    - :was_run: true
+      :content: "     def check_admin_authorization"
+    - :was_run: true
+      :content: "       unless logged_in? and current_user.admin?"
+    - :was_run: true
+      :content: "         flash[:error] = \"You are not authorized to access that feature.\""
+    - :was_run: true
+      :content: "         redirect_to home_url"
+    - :was_run: true
+      :content: "       end"
+    - :was_run: true
+      :content: "     end"
+    - :was_run: true
+      :content: "   end"
+    :percent_run: 100
+  app/models/document.rb: 
+    :lines: 
+    - :was_run: true
+      :content: "   # == Schema Information"
+    - :was_run: true
+      :content: "   #"
+    - :was_run: true
+      :content: "   # Table name: documents"
+    - :was_run: true
+      :content: "   #"
+    - :was_run: true
+      :content: "   #  id                :integer(4)      not null, primary key"
+    - :was_run: true
+      :content: "   #  name              :string(255)"
+    - :was_run: true
+      :content: "   #  description       :text"
+    - :was_run: true
+      :content: "   #  data_file_name    :string(255)"
+    - :was_run: true
+      :content: "   #  data_content_type :string(255)"
+    - :was_run: true
+      :content: "   #  data_file_size    :integer(4)"
+    - :was_run: true
+      :content: "   #  data_updated_at   :datetime"
+    - :was_run: true
+      :content: "   #  user_id           :integer(4)"
+    - :was_run: true
+      :content: "   #  created_at        :datetime"
+    - :was_run: true
+      :content: "   #  updated_at        :datetime"
+    - :was_run: true
+      :content: "   #"
+    - :was_run: true
+      :content: "   "
+    - :was_run: true
+      :content: "   class Document < ActiveRecord::Base       "
+    - :was_run: true
+      :content: "     has_attached_file :data, :path => \":rails_root/file-storage/:attachment/:id/:style/:filename\""
+    - :was_run: true
+      :content: "     belongs_to :user                     "
+    - :was_run: true
+      :content: "     validates_attachment_presence :data  "
+    - :was_run: true
+      :content: "   end"
+    :percent_run: 100
+  lib/authlogic_test_helper.rb: 
+    :lines: 
+    - :was_run: true
+      :content: "   module AuthlogicTestHelper\r"
+    - :was_run: true
+      :content: "       \r"
+    - :was_run: true
+      :content: "       def current_user(stubs = {})\r"
+    - :was_run: false
+      :content: "         current_user_session.person\r"
+    - :was_run: false
+      :content: "       end\r"
+    - :was_run: true
+      :content: "       \r"
+    - :was_run: true
+      :content: "       alias :current_person :current_user\r"
+    - :was_run: true
+      :content: "       \r"
+    - :was_run: true
+      :content: "       def current_user_session(stubs = {}, user_stubs = {}) \r"
+    - :was_run: false
+      :content: "         @current_user_session = UserSession.find\r"
+    - :was_run: false
+      :content: "         # else  \r"
+    - :was_run: false
+      :content: "         #   @current_user_session ||= mock_model(UserSession, {:person => current_user(user_stubs)}.merge(stubs))\r"
+    - :was_run: false
+      :content: "         # end  \r"
+    - :was_run: false
+      :content: "       end    \r"
+    - :was_run: true
+      :content: "       \r"
+    - :was_run: true
+      :content: "       def login_as(user)\r"
+    - :was_run: true
+      :content: "         user = users(user) if user.is_a?(Symbol)\r"
+    - :was_run: true
+      :content: "         @current_session = UserSession.create(user)\r"
+    - :was_run: true
+      :content: "         user\r"
+    - :was_run: true
+      :content: "       end\r"
+    - :was_run: true
+      :content: "       \r"
+    - :was_run: true
+      :content: "       def logout\r"
+    - :was_run: true
+      :content: "         @current_user_session = nil\r"
+    - :was_run: true
+      :content: "       end\r"
+    - :was_run: true
+      :content: "   end\r"
+    :percent_run: 72
+  app/models/user.rb: 
+    :lines: 
+    - :was_run: true
+      :content: "   # == Schema Information"
+    - :was_run: true
+      :content: "   #"
+    - :was_run: true
+      :content: "   # Table name: users"
+    - :was_run: true
+      :content: "   #"
+    - :was_run: true
+      :content: "   #  id                  :integer(4)      not null, primary key"
+    - :was_run: true
+      :content: "   #  login               :string(255)"
+    - :was_run: true
+      :content: "   #  email               :string(255)"
+    - :was_run: true
+      :content: "   #  name                :string(255)"
+    - :was_run: true
+      :content: "   #  admin               :boolean(1)"
+    - :was_run: true
+      :content: "   #  crypted_password    :string(255)     not null"
+    - :was_run: true
+      :content: "   #  password_salt       :string(255)     not null"
+    - :was_run: true
+      :content: "   #  persistence_token   :string(255)     not null"
+    - :was_run: true
+      :content: "   #  single_access_token :string(255)     not null"
+    - :was_run: true
+      :content: "   #  perishable_token    :string(255)     not null"
+    - :was_run: true
+      :content: "   #  login_count         :integer(4)      default(0), not null"
+    - :was_run: true
+      :content: "   #  failed_login_count  :integer(4)      default(0), not null"
+    - :was_run: true
+      :content: "   #  last_request_at     :datetime"
+    - :was_run: true
+      :content: "   #  current_login_at    :datetime"
+    - :was_run: true
+      :content: "   #  last_login_at       :datetime"
+    - :was_run: true
+      :content: "   #  current_login_ip    :string(255)"
+    - :was_run: true
+      :content: "   #  last_login_ip       :string(255)"
+    - :was_run: true
+      :content: "   #  created_at          :datetime"
+    - :was_run: true
+      :content: "   #  updated_at          :datetime"
+    - :was_run: true
+      :content: "   #"
+    - :was_run: true
+      :content: "   "
+    - :was_run: true
+      :content: "   class User < ActiveRecord::Base   "
+    - :was_run: true
+      :content: "   "
+    - :was_run: true
+      :content: "     acts_as_authentic do |c|"
+    - :was_run: true
+      :content: "       c.session_class = UserSession"
+    - :was_run: true
+      :content: "     end  "
+    - :was_run: true
+      :content: "     validates_presence_of :name, :email"
+    - :was_run: true
+      :content: "     "
+    - :was_run: true
+      :content: "     # TODO: implement an admin? method that pulls from the groups module"
+    - :was_run: true
+      :content: "     "
+    - :was_run: true
+      :content: "     "
+    - :was_run: true
+      :content: "   end"
+    :percent_run: 100
+  app/helpers/users_helper.rb: 
+    :lines: 
+    - :was_run: true
+      :content: "   module UsersHelper"
+    - :was_run: true
+      :content: "   end"
+    :percent_run: 100
+  app/controllers/admin/preferences_controller.rb: 
+    :lines: 
+    - :was_run: true
+      :content: "   class Admin::PreferencesController < Admin::AdminController"
+    - :was_run: true
+      :content: "     before_filter :find_prefs"
+    - :was_run: true
+      :content: "           "
+    - :was_run: true
+      :content: "     # GET /admin/preferences/edit"
+    - :was_run: true
+      :content: "     def edit"
+    - :was_run: true
+      :content: "       respond_to do |format|"
+    - :was_run: true
+      :content: "         format.html "
+    - :was_run: true
+      :content: "       end"
+    - :was_run: true
+      :content: "     end"
+    - :was_run: true
+      :content: "   "
+    - :was_run: true
+      :content: "     # PUT /admin/preferences"
+    - :was_run: true
+      :content: "     def update"
+    - :was_run: true
+      :content: "       if @preferences.update_attributes(params[:preferences])"
+    - :was_run: true
+      :content: "         redirect_to edit_admin_preferences_path"
+    - :was_run: true
+      :content: "       else"
+    - :was_run: true
+      :content: "         render :template => 'edit'"
+    - :was_run: true
+      :content: "       end"
+    - :was_run: true
+      :content: "     end"
+    - :was_run: true
+      :content: "     "
+    - :was_run: true
+      :content: "     "
+    - :was_run: true
+      :content: "     private"
+    - :was_run: true
+      :content: "     def find_prefs"
+    - :was_run: true
+      :content: "       @preferences = Preferences.find(:first)"
+    - :was_run: true
+      :content: "     end"
+    - :was_run: true
+      :content: "     "
+    - :was_run: true
+      :content: "   end"
+    :percent_run: 100
+  app/controllers/application_controller.rb: 
+    :lines: 
+    - :was_run: true
+      :content: "   # Filters added to this controller apply to all controllers in the application."
+    - :was_run: true
+      :content: "   # Likewise, all the methods added will be available for all controllers."
+    - :was_run: true
+      :content: "   "
+    - :was_run: true
+      :content: "   class ApplicationController < ActionController::Base"
+    - :was_run: true
+      :content: "     include AuthenticatedSystem"
+    - :was_run: true
+      :content: "     before_filter :retrieve_site_preferences"
+    - :was_run: true
+      :content: "     "
+    - :was_run: true
+      :content: "     helper :all # include all helpers, all the time"
+    - :was_run: true
+      :content: "     protect_from_forgery # See ActionController::RequestForgeryProtection for details"
+    - :was_run: true
+      :content: "   "
+    - :was_run: true
+      :content: "     # Scrub sensitive parameters from your log"
+    - :was_run: true
+      :content: "     # filter_parameter_logging :password"
+    - :was_run: true
+      :content: "     helper_method :current_user_session, :current_user"
+    - :was_run: true
+      :content: "   "
+    - :was_run: true
+      :content: "     private"
+    - :was_run: true
+      :content: "     def current_user_session"
+    - :was_run: true
+      :content: "       return @current_user_session if defined?(@current_user_session)"
+    - :was_run: true
+      :content: "       @current_user_session = UserSession.find"
+    - :was_run: true
+      :content: "     end"
+    - :was_run: true
+      :content: "   "
+    - :was_run: true
+      :content: "     def current_user"
+    - :was_run: true
+      :content: "       return @current_user if defined?(@current_user)"
+    - :was_run: true
+      :content: "       @current_user = current_user_session && current_user_session.user"
+    - :was_run: true
+      :content: "     end"
+    - :was_run: true
+      :content: "   "
+    - :was_run: true
+      :content: "     def require_user"
+    - :was_run: true
+      :content: "       unless current_user"
+    - :was_run: false
+      :content: "         store_location"
+    - :was_run: false
+      :content: "         flash[:notice] = \"You must be logged in to access this page\""
+    - :was_run: false
+      :content: "         redirect_to new_user_session_url"
+    - :was_run: false
+      :content: "         return false"
+    - :was_run: false
+      :content: "       end"
+    - :was_run: false
+      :content: "     end"
+    - :was_run: true
+      :content: "   "
+    - :was_run: true
+      :content: "     def require_no_user"
+    - :was_run: true
+      :content: "       if current_user"
+    - :was_run: false
+      :content: "         store_location"
+    - :was_run: false
+      :content: "         flash[:notice] = \"You must be logged out to access this page\""
+    - :was_run: false
+      :content: "         redirect_to account_url"
+    - :was_run: false
+      :content: "         return false"
+    - :was_run: false
+      :content: "       end"
+    - :was_run: false
+      :content: "     end"
+    - :was_run: true
+      :content: "   "
+    - :was_run: true
+      :content: "     def store_location"
+    - :was_run: false
+      :content: "       session[:return_to] = request.request_uri"
+    - :was_run: false
+      :content: "     end"
+    - :was_run: true
+      :content: "   "
+    - :was_run: true
+      :content: "     def redirect_back_or_default(default)"
+    - :was_run: true
+      :content: "       redirect_to(session[:return_to] || default)"
+    - :was_run: true
+      :content: "       session[:return_to] = nil"
+    - :was_run: true
+      :content: "     end"
+    - :was_run: true
+      :content: "     "
+    - :was_run: true
+      :content: "     private"
+    - :was_run: true
+      :content: "     def retrieve_site_preferences"
+    - :was_run: true
+      :content: "       @preferences ||= Preferences.find(:first)"
+    - :was_run: true
+      :content: "     end"
+    - :was_run: true
+      :content: "   "
+    - :was_run: true
+      :content: "     # Scrub sensitive parameters from the log"
+    - :was_run: true
+      :content: "     filter_parameter_logging :password"
+    - :was_run: true
+      :content: "   end"
+    :percent_run: 77
+  app/helpers/authorization_helper.rb: 
+    :lines: 
+    - :was_run: true
+      :content: "   module AuthorizationHelper"
+    - :was_run: true
+      :content: "     def authorized?(criteria={})"
+    - :was_run: false
+      :content: "       return false if current_user_session.blank?"
+    - :was_run: false
+      :content: "       return false if current_user.blank?"
+    - :was_run: false
+      :content: "       "
+    - :was_run: false
+      :content: "       "
+    - :was_run: false
+      :content: "       groups = criteria[:group] ? [criteria[:group]] : current_user.groups"
+    - :was_run: false
+      :content: "       "
+    - :was_run: false
+      :content: "   "
+    - :was_run: false
+      :content: "       select_on = {"
+    - :was_run: false
+      :content: "         :group_id => groups.map{|grp| grp.id},"
+    - :was_run: false
+      :content: "         :controller => criteria[:controller] || controller_name,"
+    - :was_run: false
+      :content: "         :action => nil,"
+    - :was_run: false
+      :content: "         :subject_id => nil"
+    - :was_run: false
+      :content: "       }"
+    - :was_run: false
+      :content: "   "
+    - :was_run: false
+      :content: "       permissions = Permission.find(:first, :conditions => select_on)"
+    - :was_run: false
+      :content: "       return true unless permissions.nil?"
+    - :was_run: false
+      :content: "   "
+    - :was_run: false
+      :content: "       select_on[:action] = criteria[:action] || action_name"
+    - :was_run: false
+      :content: "       permissions = Permission.find(:first, :conditions => select_on)"
+    - :was_run: false
+      :content: "       return true unless permissions.nil?"
+    - :was_run: false
+      :content: "   "
+    - :was_run: false
+      :content: "       select_on[:subject_id] = criteria[:id] || params[\"id\"]"
+    - :was_run: false
+      :content: "       permissions = Permission.find(:first, :conditions => select_on)"
+    - :was_run: false
+      :content: "       return (not permissions.nil?)"
+    - :was_run: false
+      :content: "     end"
+    - :was_run: false
+      :content: "   end"
+    :percent_run: 7
+  app/controllers/users_controller.rb: 
+    :lines: 
+    - :was_run: true
+      :content: "   class UsersController < ApplicationController"
+    - :was_run: true
+      :content: "     before_filter :find_user, :only => [ :show, :edit, :update, :destroy ]"
+    - :was_run: true
+      :content: "   "
+    - :was_run: true
+      :content: "     # GET /users"
+    - :was_run: true
+      :content: "     # GET /users.xml"
+    - :was_run: true
+      :content: "     def index"
+    - :was_run: false
+      :content: "       @users = User.find(:all)"
+    - :was_run: false
+      :content: "   "
+    - :was_run: false
+      :content: "       respond_to do |format|"
+    - :was_run: false
+      :content: "         format.html # index.html.erb"
+    - :was_run: false
+      :content: "         format.xml  { render :xml => @users }"
+    - :was_run: false
+      :content: "       end"
+    - :was_run: false
+      :content: "     end"
+    - :was_run: true
+      :content: "   "
+    - :was_run: true
+      :content: "     # GET /users/1"
+    - :was_run: true
+      :content: "     # GET /users/1.xml"
+    - :was_run: true
+      :content: "     def show"
+    - :was_run: true
+      :content: "       respond_to do |format|"
+    - :was_run: true
+      :content: "         format.html # show.html.erb"
+    - :was_run: true
+      :content: "         format.xml  { render :xml => @user }"
+    - :was_run: true
+      :content: "       end"
+    - :was_run: true
+      :content: "     end"
+    - :was_run: true
+      :content: "   "
+    - :was_run: true
+      :content: "   "
+    - :was_run: true
+      :content: "     # GET /users/1/edit"
+    - :was_run: true
+      :content: "     def edit"
+    - :was_run: true
+      :content: "     end"
+    - :was_run: true
+      :content: "   "
+    - :was_run: true
+      :content: "     # PUT /users/1"
+    - :was_run: true
+      :content: "     # PUT /users/1.xml"
+    - :was_run: true
+      :content: "     def update"
+    - :was_run: true
+      :content: "       respond_to do |format|"
+    - :was_run: true
+      :content: "         if @user.update_attributes(params[:user])"
+    - :was_run: true
+      :content: "           flash[:notice] = 'User was successfully updated.'"
+    - :was_run: true
+      :content: "           format.html { redirect_to(@user) }"
+    - :was_run: true
+      :content: "           format.xml  { head :ok }"
+    - :was_run: true
+      :content: "         else"
+    - :was_run: true
+      :content: "           format.html { render :action => \"edit\" }"
+    - :was_run: true
+      :content: "           format.xml  { render :xml => @user.errors, :status => :unprocessable_entity }"
+    - :was_run: true
+      :content: "         end"
+    - :was_run: true
+      :content: "       end"
+    - :was_run: true
+      :content: "     end"
+    - :was_run: true
+      :content: "   "
+    - :was_run: true
+      :content: "   "
+    - :was_run: true
+      :content: "     private"
+    - :was_run: true
+      :content: "   "
+    - :was_run: true
+      :content: "     def find_user"
+    - :was_run: true
+      :content: "       @user = User.find(params[:id])"
+    - :was_run: true
+      :content: "       raise ArgumentError, 'Invalid user id provided' unless @user"
+    - :was_run: true
+      :content: "     end"
+    - :was_run: true
+      :content: "   end"
+    :percent_run: 86
+  app/models/user_session.rb: 
+    :lines: 
+    - :was_run: true
+      :content: "   class UserSession < Authlogic::Session::Base"
+    - :was_run: true
+      :content: "   end"
+    :percent_run: 100
+  app/controllers/admin/users_controller.rb: 
+    :lines: 
+    - :was_run: true
+      :content: "   class Admin::UsersController < Admin::AdminController"
+    - :was_run: true
+      :content: "     before_filter :find_user, :only => [ :show, :edit, :update, :destroy ]"
+    - :was_run: true
+      :content: "       "
+    - :was_run: true
+      :content: "     # GET :index"
+    - :was_run: true
+      :content: "     def index"
+    - :was_run: true
+      :content: "       @users = User.find(:all)"
+    - :was_run: true
+      :content: "     end  "
+    - :was_run: true
+      :content: "       "
+    - :was_run: true
+      :content: "     # GET :show"
+    - :was_run: true
+      :content: "     def show"
+    - :was_run: true
+      :content: "     end"
+    - :was_run: true
+      :content: "     "
+    - :was_run: true
+      :content: "     "
+    - :was_run: true
+      :content: "     # GET /users/new"
+    - :was_run: true
+      :content: "     def new"
+    - :was_run: true
+      :content: "       @user = User.new"
+    - :was_run: true
+      :content: "   "
+    - :was_run: true
+      :content: "       respond_to do |format|"
+    - :was_run: true
+      :content: "         format.html "
+    - :was_run: true
+      :content: "       end"
+    - :was_run: true
+      :content: "     end"
+    - :was_run: true
+      :content: "     "
+    - :was_run: true
+      :content: "     # POST /users"
+    - :was_run: true
+      :content: "     def create"
+    - :was_run: true
+      :content: "       @user = User.new(params[:user])"
+    - :was_run: true
+      :content: "       respond_to do |format|"
+    - :was_run: true
+      :content: "         if @user.save"
+    - :was_run: true
+      :content: "           flash[:notice] = 'User was successfully created.'"
+    - :was_run: true
+      :content: "           format.html { redirect_to(@user) }"
+    - :was_run: true
+      :content: "         else"
+    - :was_run: true
+      :content: "           format.html { render :action => \"new\" }"
+    - :was_run: true
+      :content: "         end"
+    - :was_run: true
+      :content: "       end"
+    - :was_run: true
+      :content: "     end"
+    - :was_run: true
+      :content: "   "
+    - :was_run: true
+      :content: "   "
+    - :was_run: true
+      :content: "     # DELETE /users/1"
+    - :was_run: true
+      :content: "     def destroy"
+    - :was_run: true
+      :content: "       @user.destroy"
+    - :was_run: true
+      :content: "   "
+    - :was_run: true
+      :content: "       respond_to do |format|"
+    - :was_run: true
+      :content: "         format.html { redirect_to(admin_users_url) }"
+    - :was_run: true
+      :content: "       end"
+    - :was_run: true
+      :content: "     end"
+    - :was_run: true
+      :content: "     "
+    - :was_run: true
+      :content: "     "
+    - :was_run: true
+      :content: "     "
+    - :was_run: true
+      :content: "     "
+    - :was_run: true
+      :content: "     private"
+    - :was_run: true
+      :content: "     def find_user"
+    - :was_run: true
+      :content: "       @user = User.find(params[:id])"
+    - :was_run: true
+      :content: "       raise ArgumentError, 'Invalid user id provided' unless @user"
+    - :was_run: true
+      :content: "     end"
+    - :was_run: true
+      :content: "     "
+    - :was_run: true
+      :content: "   end"
+    :percent_run: 100
+  app/controllers/home_controller.rb: 
+    :lines: 
+    - :was_run: true
+      :content: "   class HomeController < ApplicationController"
+    - :was_run: true
+      :content: "     def index"
+    - :was_run: true
+      :content: "     end"
+    - :was_run: true
+      :content: "   "
+    - :was_run: true
+      :content: "   end"
+    :percent_run: 100
+  app/helpers/documents_helper.rb: 
+    :lines: 
+    - :was_run: true
+      :content: "   module DocumentsHelper"
+    - :was_run: true
+      :content: "   end"
+    :percent_run: 100
+  :global_percent_run: 84.1
+  app/models/preferences.rb: 
+    :lines: 
+    - :was_run: true
+      :content: "   # == Schema Information"
+    - :was_run: true
+      :content: "   #"
+    - :was_run: true
+      :content: "   # Table name: preferences"
+    - :was_run: true
+      :content: "   #"
+    - :was_run: true
+      :content: "   #  id                  :integer(4)      not null, primary key"
+    - :was_run: true
+      :content: "   #  domain              :string(255)"
+    - :was_run: true
+      :content: "   #  site_name           :string(255)"
+    - :was_run: true
+      :content: "   #  smtp_server         :string(255)"
+    - :was_run: true
+      :content: "   #  smtp_port           :integer(4)"
+    - :was_run: true
+      :content: "   #  smtp_uses_ssl       :boolean(1)"
+    - :was_run: true
+      :content: "   #  smtp_username       :string(255)"
+    - :was_run: true
+      :content: "   #  smtp_password       :string(255)"
+    - :was_run: true
+      :content: "   #  email_notifications :boolean(1)"
+    - :was_run: true
+      :content: "   #  analytics           :text"
+    - :was_run: true
+      :content: "   #  logo_url            :string(255)"
+    - :was_run: true
+      :content: "   #  created_at          :datetime"
+    - :was_run: true
+      :content: "   #  updated_at          :datetime"
+    - :was_run: true
+      :content: "   #"
+    - :was_run: true
+      :content: "   "
+    - :was_run: true
+      :content: "   class Preferences < ActiveRecord::Base"
+    - :was_run: true
+      :content: "     validates_presence_of :domain,       :if => :using_email?"
+    - :was_run: true
+      :content: "     validates_presence_of :smtp_server,  :if => :using_email?"
+    - :was_run: true
+      :content: "     "
+    - :was_run: true
+      :content: "     private  "
+    - :was_run: true
+      :content: "     def using_email?"
+    - :was_run: true
+      :content: "       email_notifications?"
+    - :was_run: true
+      :content: "     end"
+    - :was_run: true
+      :content: "     "
+    - :was_run: true
+      :content: "   end"
+    :percent_run: 100
+  app/helpers/home_helper.rb: 
+    :lines: 
+    - :was_run: true
+      :content: "   module HomeHelper"
+    - :was_run: true
+      :content: "   end"
+    :percent_run: 100
+:saikuro: 
+  :methods: []
+
+  :classes: []
+
+  :files: []
+
+:flog: 
+  :total: 407.9
+  :average: 6.5
+  :pages: 
+  - :average_score: 30.6
+    :scanned_methods: 
+    - :score: 30.6
+      :operators: 
+      - :operator: assignment
+        :score: 10.0
+      - :operator: branch
+        :score: 9.9
+      - :operator: "[]"
+        :score: 7.1
+      - :operator: nil?
+        :score: 3.3
+      - :operator: find
+        :score: 3.3
+      - :operator: current_user
+        :score: 2.7
+      - :operator: blank?
+        :score: 2.2
+      - :operator: params
+        :score: 1.4
+      - :operator: current_user_session
+        :score: 1.3
+      - :operator: groups
+        :score: 1.2
+      - :operator: id
+        :score: 1.2
+      - :operator: action_name
+        :score: 1.2
+      - :operator: controller_name
+        :score: 1.2
+      - :operator: map
+        :score: 1.1
+      :name: AuthorizationHelper#authorized?
+    :path: /app/helpers/authorization_helper.rb
+    :score: 30.6
+    :highest_score: 30.6
+  - :average_score: 11.3
+    :scanned_methods: 
+    - :score: 25.6
+      :operators: 
+      - :operator: branch
+        :score: 8.5
+      - :operator: assignment
+        :score: 5.2
+      - :operator: render
+        :score: 4.8
+      - :operator: html
+        :score: 3.0
+      - :operator: xml
+        :score: 3.0
+      - :operator: errors
+        :score: 1.8
+      - :operator: redirect_to
+        :score: 1.6
+      - :operator: params
+        :score: 1.6
+      - :operator: flash
+        :score: 1.5
+      - :operator: "[]"
+        :score: 1.4
+      - :operator: save
+        :score: 1.3
+      - :operator: respond_to
+        :score: 1.2
+      - :operator: current_user
+        :score: 1.2
+      - :operator: new
+        :score: 1.2
+      :name: DocumentsController#create
+    - :score: 23.2
+      :operators: 
+      - :operator: branch
+        :score: 8.5
+      - :operator: render
+        :score: 3.2
+      - :operator: html
+        :score: 3.0
+      - :operator: xml
+        :score: 3.0
+      - :operator: assignment
+        :score: 2.8
+      - :operator: errors
+        :score: 1.8
+      - :operator: params
+        :score: 1.7
+      - :operator: redirect_to
+        :score: 1.6
+      - :operator: head
+        :score: 1.6
+      - :operator: flash
+        :score: 1.5
+      - :operator: "[]"
+        :score: 1.5
+      - :operator: update_attributes
+        :score: 1.3
+      - :operator: respond_to
+        :score: 1.2
+      :name: DocumentsController#update
+    - :score: 10.8
+      :operators: 
+      - :operator: branch
+        :score: 4.0
+      - :operator: documents_url
+        :score: 1.7
+      - :operator: head
+        :score: 1.5
+      - :operator: redirect_to
+        :score: 1.5
+      - :operator: xml
+        :score: 1.4
+      - :operator: html
+        :score: 1.4
+      - :operator: assignment
+        :score: 1.3
+      - :operator: destroy
+        :score: 1.2
+      - :operator: respond_to
+        :score: 1.2
+      :name: DocumentsController#destroy
+    - :score: 7.6
+      :operators: 
+      - :operator: branch
+        :score: 2.6
+      - :operator: assignment
+        :score: 2.5
+      - :operator: render
+        :score: 1.5
+      - :operator: html
+        :score: 1.4
+      - :operator: xml
+        :score: 1.4
+      - :operator: respond_to
+        :score: 1.2
+      - :operator: new
+        :score: 1.2
+      :name: DocumentsController#new
+    - :score: 7.6
+      :operators: 
+      - :operator: branch
+        :score: 2.6
+      - :operator: assignment
+        :score: 2.5
+      - :operator: render
+        :score: 1.5
+      - :operator: xml
+        :score: 1.4
+      - :operator: html
+        :score: 1.4
+      - :operator: respond_to
+        :score: 1.2
+      - :operator: find
+        :score: 1.2
+      :name: DocumentsController#index
+    - :score: 6.2
+      :operators: 
+      - :operator: branch
+        :score: 2.6
+      - :operator: render
+        :score: 1.5
+      - :operator: xml
+        :score: 1.4
+      - :operator: html
+        :score: 1.4
+      - :operator: assignment
+        :score: 1.3
+      - :operator: respond_to
+        :score: 1.2
+      :name: DocumentsController#show
+    - :score: 5.8
+      :operators: 
+      - :operator: params
+        :score: 1.6
+      - :operator: "[]"
+        :score: 1.4
+      - :operator: raise
+        :score: 1.3
+      - :operator: branch
+        :score: 1.2
+      - :operator: assignment
+        :score: 1.2
+      - :operator: find
+        :score: 1.2
+      :name: DocumentsController#find_document
+    - :score: 3.3
+      :operators: 
+      - :operator: before_filter
+        :score: 2.2
+      - :operator: private
+        :score: 1.1
+      :name: DocumentsController#none
+    :path: /app/controllers/documents_controller.rb
+    :score: 90.1
+    :highest_score: 25.6
+  - :average_score: 9.0
+    :scanned_methods: 
+    - :score: 23.2
+      :operators: 
+      - :operator: branch
+        :score: 8.5
+      - :operator: render
+        :score: 3.2
+      - :operator: html
+        :score: 3.0
+      - :operator: xml
+        :score: 3.0
+      - :operator: assignment
+        :score: 2.8
+      - :operator: errors
+        :score: 1.8
+      - :operator: params
+        :score: 1.7
+      - :operator: redirect_to
+        :score: 1.6
+      - :operator: head
+        :score: 1.6
+      - :operator: flash
+        :score: 1.5
+      - :operator: "[]"
+        :score: 1.5
+      - :operator: update_attributes
+        :score: 1.3
+      - :operator: respond_to
+        :score: 1.2
+      :name: UsersController#update
+    - :score: 7.6
+      :operators: 
+      - :operator: branch
+        :score: 2.6
+      - :operator: assignment
+        :score: 2.5
+      - :operator: render
+        :score: 1.5
+      - :operator: xml
+        :score: 1.4
+      - :operator: html
+        :score: 1.4
+      - :operator: respond_to
+        :score: 1.2
+      - :operator: find
+        :score: 1.2
+      :name: UsersController#index
+    - :score: 6.2
+      :operators: 
+      - :operator: branch
+        :score: 2.6
+      - :operator: render
+        :score: 1.5
+      - :operator: xml
+        :score: 1.4
+      - :operator: html
+        :score: 1.4
+      - :operator: assignment
+        :score: 1.3
+      - :operator: respond_to
+        :score: 1.2
+      :name: UsersController#show
+    - :score: 5.8
+      :operators: 
+      - :operator: params
+        :score: 1.6
+      - :operator: "[]"
+        :score: 1.4
+      - :operator: raise
+        :score: 1.3
+      - :operator: branch
+        :score: 1.2
+      - :operator: assignment
+        :score: 1.2
+      - :operator: find
+        :score: 1.2
+      :name: UsersController#find_user
+    - :score: 2.2
+      :operators: 
+      - :operator: private
+        :score: 1.1
+      - :operator: before_filter
+        :score: 1.1
+      :name: UsersController#none
+    :path: /app/controllers/users_controller.rb
+    :score: 45.0
+    :highest_score: 23.2
+  - :average_score: 7.2
+    :scanned_methods: 
+    - :score: 19.3
+      :operators: 
+      - :operator: assignment
+        :score: 6.6
+      - :operator: "[]"
+        :score: 5.4
+      - :operator: branch
+        :score: 5.0
+      - :operator: nil?
+        :score: 2.6
+      - :operator: delete
+        :score: 2.6
+      - :operator: block_pass
+        :score: 1.6
+      - :operator: render
+        :score: 1.4
+      - :operator: capture
+        :score: 1.4
+      - :operator: merge!
+        :score: 1.2
+      - :operator: concat
+        :score: 1.2
+      :name: ApplicationHelper#block_to_partial
+    - :score: 5.5
+      :operators: 
+      - :operator: assignment
+        :score: 2.5
+      - :operator: "[]"
+        :score: 1.2
+      - :operator: render
+        :score: 1.2
+      - :operator: reverse_merge!
+        :score: 1.2
+      - :operator: branch
+        :score: 1.2
+      - :operator: merge!
+        :score: 1.2
+      :name: ApplicationHelper#labeled_input
+    - :score: 2.6
+      :operators: 
+      - :operator: current_user
+        :score: 1.4
+      - :operator: nil?
+        :score: 1.2
+      :name: ApplicationHelper#logged_in?
+    - :score: 1.2
+      :operators: 
+      - :operator: content_for
+        :score: 1.2
+      :name: ApplicationHelper#set_headline
+    :path: /app/helpers/application_helper.rb
+    :score: 28.6
+    :highest_score: 19.3
+  - :average_score: 6.7
+    :scanned_methods: 
+    - :score: 17.6
+      :operators: 
+      - :operator: branch
+        :score: 6.7
+      - :operator: class
+        :score: 3.2
+      - :operator: redirect_to_lobby
+        :score: 3.1
+      - :operator: read_inheritable_attribute
+        :score: 2.8
+      - :operator: authorized?
+        :score: 2.7
+      - :operator: action_name
+        :score: 1.7
+      - :operator: to_sym
+        :score: 1.5
+      - :operator: include?
+        :score: 1.3
+      :name: CheckAuthorization#filter
+    - :score: 5.9
+      :operators: 
+      - :operator: redirect_to
+        :score: 2.6
+      - :operator: assignment
+        :score: 2.4
+      - :operator: home_url
+        :score: 1.5
+      - :operator: flash
+        :score: 1.2
+      - :operator: branch
+        :score: 1.2
+      :name: AuthorizedSystem#redirect_to_lobby
+    - :score: 5.1
+      :operators: 
+      - :operator: write_inheritable_attribute
+        :score: 1.3
+      - :operator: write_inheritable_array
+        :score: 1.3
+      - :operator: empty?
+        :score: 1.2
+      - :operator: before_filter
+        :score: 1.2
+      - :operator: branch
+        :score: 1.2
+      :name: ClassMethods#needs_authorization
+    - :score: 2.4
+      :operators: 
+      - :operator: extend
+        :score: 2.4
+      :name: AuthorizedSystem#included
+    - :score: 2.2
+      :operators: 
+      - :operator: include
+        :score: 2.2
+      :name: AuthorizedSystem#none
+    :path: /lib/authorized_system.rb
+    :score: 33.3
+    :highest_score: 17.6
+  - :average_score: 6.2
+    :scanned_methods: 
+    - :score: 15.7
+      :operators: 
+      - :operator: branch
+        :score: 5.4
+      - :operator: assignment
+        :score: 4.0
+      - :operator: html
+        :score: 2.9
+      - :operator: redirect_to
+        :score: 1.6
+      - :operator: params
+        :score: 1.6
+      - :operator: flash
+        :score: 1.5
+      - :operator: render
+        :score: 1.5
+      - :operator: "[]"
+        :score: 1.4
+      - :operator: save
+        :score: 1.3
+      - :operator: respond_to
+        :score: 1.2
+      - :operator: new
+        :score: 1.2
+      :name: Admin::UsersController#create
+    - :score: 7.3
+      :operators: 
+      - :operator: branch
+        :score: 2.5
+      - :operator: admin_users_url
+        :score: 1.6
+      - :operator: redirect_to
+        :score: 1.4
+      - :operator: html
+        :score: 1.3
+      - :operator: assignment
+        :score: 1.3
+      - :operator: destroy
+        :score: 1.2
+      - :operator: respond_to
+        :score: 1.2
+      :name: Admin::UsersController#destroy
+    - :score: 5.8
+      :operators: 
+      - :operator: params
+        :score: 1.6
+      - :operator: "[]"
+        :score: 1.4
+      - :operator: raise
+        :score: 1.3
+      - :operator: branch
+        :score: 1.2
+      - :operator: assignment
+        :score: 1.2
+      - :operator: find
+        :score: 1.2
+      :name: Admin::UsersController#find_user
+    - :score: 4.6
+      :operators: 
+      - :operator: assignment
+        :score: 2.5
+      - :operator: html
+        :score: 1.3
+      - :operator: respond_to
+        :score: 1.2
+      - :operator: branch
+        :score: 1.2
+      - :operator: new
+        :score: 1.2
+      :name: Admin::UsersController#new
+    - :score: 2.2
+      :operators: 
+      - :operator: private
+        :score: 1.1
+      - :operator: before_filter
+        :score: 1.1
+      :name: Admin::UsersController#none
+    - :score: 1.7
+      :operators: 
+      - :operator: find
+        :score: 1.2
+      - :operator: assignment
+        :score: 1.2
+      :name: Admin::UsersController#index
+    :path: /app/controllers/admin/users_controller.rb
+    :score: 37.3
+    :highest_score: 15.7
+  - :average_score: 5.5
+    :scanned_methods: 
+    - :score: 11.5
+      :operators: 
+      - :operator: assignment
+        :score: 2.6
+      - :operator: home_url
+        :score: 1.6
+      - :operator: params
+        :score: 1.6
+      - :operator: flash
+        :score: 1.4
+      - :operator: redirect_back_or_default
+        :score: 1.4
+      - :operator: "[]"
+        :score: 1.4
+      - :operator: render
+        :score: 1.3
+      - :operator: branch
+        :score: 1.2
+      - :operator: save
+        :score: 1.2
+      - :operator: new
+        :score: 1.2
+      :name: UserSessionsController#create
+    - :score: 6.5
+      :operators: 
+      - :operator: current_user_session
+        :score: 1.4
+      - :operator: new_user_session_url
+        :score: 1.4
+      - :operator: destroy
+        :score: 1.2
+      - :operator: assignment
+        :score: 1.2
+      - :operator: flash
+        :score: 1.2
+      - :operator: redirect_back_or_default
+        :score: 1.2
+      :name: UserSessionsController#destroy
+    - :score: 2.2
+      :operators: 
+      - :operator: before_filter
+        :score: 2.2
+      :name: UserSessionsController#none
+    - :score: 1.7
+      :operators: 
+      - :operator: assignment
+        :score: 1.2
+      - :operator: new
+        :score: 1.2
+      :name: UserSessionsController#new
+    :path: /app/controllers/user_sessions_controller.rb
+    :score: 21.9
+    :highest_score: 11.5
+  - :average_score: 5.4
+    :scanned_methods: 
+    - :score: 9.9
+      :operators: 
+      - :operator: include
+        :score: 2.2
+      - :operator: private
+        :score: 2.2
+      - :operator: filter_parameter_logging
+        :score: 1.1
+      - :operator: helper
+        :score: 1.1
+      - :operator: before_filter
+        :score: 1.1
+      - :operator: protect_from_forgery
+        :score: 1.1
+      - :operator: helper_method
+        :score: 1.1
+      :name: ApplicationController#none
+    - :score: 7.2
+      :operators: 
+      - :operator: new_user_session_url
+        :score: 1.6
+      - :operator: flash
+        :score: 1.4
+      - :operator: store_location
+        :score: 1.4
+      - :operator: redirect_to
+        :score: 1.4
+      - :operator: assignment
+        :score: 1.4
+      - :operator: current_user
+        :score: 1.2
+      - :operator: branch
+        :score: 1.2
+      :name: ApplicationController#require_user
+    - :score: 7.2
+      :operators: 
+      - :operator: account_url
+        :score: 1.6
+      - :operator: redirect_to
+        :score: 1.4
+      - :operator: store_location
+        :score: 1.4
+      - :operator: assignment
+        :score: 1.4
+      - :operator: flash
+        :score: 1.4
+      - :operator: current_user
+        :score: 1.2
+      - :operator: branch
+        :score: 1.2
+      :name: ApplicationController#require_no_user
+    - :score: 5.9
+      :operators: 
+      - :operator: session
+        :score: 2.9
+      - :operator: "[]"
+        :score: 1.5
+      - :operator: branch
+        :score: 1.4
+      - :operator: assignment
+        :score: 1.2
+      - :operator: redirect_to
+        :score: 1.2
+      :name: ApplicationController#redirect_back_or_default
+    - :score: 4.9
+      :operators: 
+      - :operator: current_user_session
+        :score: 2.8
+      - :operator: branch
+        :score: 2.4
+      - :operator: user
+        :score: 1.3
+      - :operator: assignment
+        :score: 1.2
+      :name: ApplicationController#current_user
+    - :score: 4.0
+      :operators: 
+      - :operator: request
+        :score: 1.4
+      - :operator: session
+        :score: 1.2
+      - :operator: assignment
+        :score: 1.2
+      - :operator: request_uri
+        :score: 1.2
+      :name: ApplicationController#store_location
+    - :score: 2.1
+      :operators: 
+      - :operator: find
+        :score: 1.2
+      - :operator: assignment
+        :score: 1.2
+      - :operator: branch
+        :score: 1.2
+      :name: ApplicationController#current_user_session
+    - :score: 1.7
+      :operators: 
+      - :operator: find
+        :score: 1.2
+      - :operator: assignment
+        :score: 1.2
+      :name: ApplicationController#retrieve_site_preferences
+    :path: /app/controllers/application_controller.rb
+    :score: 42.9
+    :highest_score: 9.9
+  - :average_score: 5.0
+    :scanned_methods: 
+    - :score: 8.9
+      :operators: 
+      - :operator: branch
+        :score: 2.4
+      - :operator: home_url
+        :score: 1.6
+      - :operator: current_user
+        :score: 1.5
+      - :operator: redirect_to
+        :score: 1.4
+      - :operator: assignment
+        :score: 1.4
+      - :operator: flash
+        :score: 1.4
+      - :operator: admin?
+        :score: 1.3
+      - :operator: logged_in?
+        :score: 1.3
+      :name: Admin::AdminController#check_admin_authorization
+    - :score: 1.1
+      :operators: 
+      - :operator: before_filter
+        :score: 1.1
+      :name: Admin::AdminController#none
+    :path: /app/controllers/admin/admin_controller.rb
+    :score: 10.0
+    :highest_score: 8.9
+  - :average_score: 6.6
+    :scanned_methods: 
+    - :score: 8.8
+      :operators: 
+      - :operator: to_a
+        :score: 4.9
+      - :operator: +
+        :score: 2.8
+      - :operator: "-"
+        :score: 1.1
+      :name: PasswordGenerator#none
+    - :score: 4.3
+      :operators: 
+      - :operator: rand
+        :score: 1.5
+      - :operator: new
+        :score: 1.4
+      - :operator: branch
+        :score: 1.4
+      - :operator: join
+        :score: 1.2
+      :name: PasswordGenerator#random_password
+    :path: /lib/password_generator.rb
+    :score: 13.1
+    :highest_score: 8.8
+  - :average_score: 3.8
+    :scanned_methods: 
+    - :score: 8.4
+      :operators: 
+      - :operator: params
+        :score: 1.6
+      - :operator: edit_admin_preferences_path
+        :score: 1.5
+      - :operator: "[]"
+        :score: 1.4
+      - :operator: redirect_to
+        :score: 1.3
+      - :operator: render
+        :score: 1.3
+      - :operator: update_attributes
+        :score: 1.2
+      - :operator: branch
+        :score: 1.2
+      :name: Admin::PreferencesController#update
+    - :score: 3.1
+      :operators: 
+      - :operator: assignment
+        :score: 1.3
+      - :operator: html
+        :score: 1.3
+      - :operator: respond_to
+        :score: 1.2
+      - :operator: branch
+        :score: 1.2
+      :name: Admin::PreferencesController#edit
+    - :score: 2.2
+      :operators: 
+      - :operator: private
+        :score: 1.1
+      - :operator: before_filter
+        :score: 1.1
+      :name: Admin::PreferencesController#none
+    - :score: 1.7
+      :operators: 
+      - :operator: find
+        :score: 1.2
+      - :operator: assignment
+        :score: 1.2
+      :name: Admin::PreferencesController#find_prefs
+    :path: /app/controllers/admin/preferences_controller.rb
+    :score: 15.3
+    :highest_score: 8.4
+  - :average_score: 2.7
+    :scanned_methods: 
+    - :score: 4.9
+      :operators: 
+      - :operator: current_user_session
+        :score: 2.8
+      - :operator: branch
+        :score: 2.4
+      - :operator: user
+        :score: 1.3
+      - :operator: assignment
+        :score: 1.2
+      :name: AuthenticatedSystem#current_user
+    - :score: 2.6
+      :operators: 
+      - :operator: current_user
+        :score: 1.4
+      - :operator: nil?
+        :score: 1.2
+      :name: AuthenticatedSystem#logged_in?
+    - :score: 2.1
+      :operators: 
+      - :operator: find
+        :score: 1.2
+      - :operator: assignment
+        :score: 1.2
+      - :operator: branch
+        :score: 1.2
+      :name: AuthenticatedSystem#current_user_session
+    - :score: 1.1
+      :operators: 
+      - :operator: protected
+        :score: 1.1
+      :name: AuthenticatedSystem#none
+    :path: /lib/authenticated_system.rb
+    :score: 10.7
+    :highest_score: 4.9
+  - :average_score: 2.9
+    :scanned_methods: 
+    - :score: 4.6
+      :operators: 
+      - :operator: assignment
+        :score: 2.5
+      - :operator: users
+        :score: 1.3
+      - :operator: is_a?
+        :score: 1.2
+      - :operator: create
+        :score: 1.2
+      - :operator: branch
+        :score: 1.2
+      :name: AuthlogicTestHelper#login_as
+    - :score: 3.8
+      :operators: 
+      - :operator: assignment
+        :score: 3.6
+      - :operator: find
+        :score: 1.2
+      :name: AuthlogicTestHelper#current_user_session
+    - :score: 2.9
+      :operators: 
+      - :operator: current_user_session
+        :score: 1.4
+      - :operator: assignment
+        :score: 1.2
+      - :operator: person
+        :score: 1.2
+      :name: AuthlogicTestHelper#current_user
+    - :score: 2.2
+      :operators: 
+      - :operator: alias
+        :score: 2.2
+      :name: AuthlogicTestHelper#none
+    - :score: 1.2
+      :operators: 
+      - :operator: assignment
+        :score: 1.2
+      :name: AuthlogicTestHelper#logout
+    :path: /lib/authlogic_test_helper.rb
+    :score: 14.7
+    :highest_score: 4.6
+  - :average_score: 3.4
+    :scanned_methods: 
+    - :score: 3.4
+      :operators: 
+      - :operator: assignment
+        :score: 2.4
+      - :operator: branch
+        :score: 1.1
+      - :operator: validates_presence_of
+        :score: 1.1
+      - :operator: acts_as_authentic
+        :score: 1.1
+      :name: User#none
+    :path: /app/models/user.rb
+    :score: 3.4
+    :highest_score: 3.4
+  - :average_score: 3.3
+    :scanned_methods: 
+    - :score: 3.3
+      :operators: 
+      - :operator: belongs_to
+        :score: 1.1
+      - :operator: validates_attachment_presence
+        :score: 1.1
+      - :operator: has_attached_file
+        :score: 1.1
+      :name: Document#none
+    :path: /app/models/document.rb
+    :score: 3.3
+    :highest_score: 3.3
+  - :average_score: 2.2
+    :scanned_methods: 
+    - :score: 3.3
+      :operators: 
+      - :operator: validates_presence_of
+        :score: 2.2
+      - :operator: private
+        :score: 1.1
+      :name: Preferences#none
+    - :score: 1.2
+      :operators: 
+      - :operator: email_notifications?
+        :score: 1.2
+      :name: Preferences#using_email?
+    :path: /app/models/preferences.rb
+    :score: 4.5
+    :highest_score: 3.3
+  - :average_score: 3.2
+    :scanned_methods: 
+    - :score: 3.2
+      :operators: 
+      - :operator: "  +"
+        :score: 1.2
+      - :operator: "  lit_fixnum"
+        :score: 1.0
+      - :operator: "  =="
+        :score: 1.0
+      :name: main#none
+    :path: /lib/test_case.rb
+    :score: 3.2
+    :highest_score: 3.2
+:flay: 
+  :total_score: "435"
+  :matches: 
+  - :reason: 1) Similar code found in :defn (mass = 122)
+    :matches: 
+    - :name: app/controllers/documents_controller.rb
+      :line: "60"
+    - :name: app/controllers/users_controller.rb
+      :line: "31"
+  - :reason: 2) IDENTICAL code found in :defn (mass*2 = 68)
+    :matches: 
+    - :name: app/controllers/application_controller.rb
+      :line: "21"
+    - :name: lib/authenticated_system.rb
+      :line: "4"
+  - :reason: 3) Similar code found in :defn (mass = 57)
+    :matches: 
+    - :name: app/controllers/admin/users_controller.rb
+      :line: "50"
+    - :name: app/controllers/documents_controller.rb
+      :line: "86"
+    - :name: app/controllers/users_controller.rb
+      :line: "47"
+  - :reason: 4) Similar code found in :defn (mass = 52)
+    :matches: 
+    - :name: app/controllers/documents_controller.rb
+      :line: "7"
+    - :name: app/controllers/users_controller.rb
+      :line: "6"
+  - :reason: 5) Similar code found in :if (mass = 50)
+    :matches: 
+    - :name: app/helpers/application_helper.rb
+      :line: "14"
+    - :name: app/helpers/application_helper.rb
+      :line: "19"
+  - :reason: 6) Similar code found in :defn (mass = 44)
+    :matches: 
+    - :name: app/controllers/application_controller.rb
+      :line: "26"
+    - :name: app/controllers/application_controller.rb
+      :line: "35"
+  - :reason: 7) Similar code found in :defn (mass = 42)
+    :matches: 
+    - :name: app/controllers/documents_controller.rb
+      :line: "18"
+    - :name: app/controllers/users_controller.rb
+      :line: "17"
+:reek: 
+  :matches: 
+  - :file_path: app/controllers/admin/users_controller.rb
+    :code_smells: 
+    - :type: Duplication
+      :message: calls format.html multiple times
+      :method: Admin::UsersController#create
+    - :type: Nested Iterators
+      :message: is nested
+      :method: Admin::UsersController#create/block/block
+    - :type: Nested Iterators
+      :message: is nested
+      :method: Admin::UsersController#destroy/block/block
+  - :file_path: app/controllers/application_controller.rb
+    :code_smells: 
+    - :type: Duplication
+      :message: calls current_user_session multiple times
+      :method: ApplicationController#current_user
+    - :type: Duplication
+      :message: calls session multiple times
+      :method: ApplicationController#redirect_back_or_default
+  - :file_path: app/controllers/documents_controller.rb
+    :code_smells: 
+    - :type: Duplication
+      :message: calls format.html multiple times
+      :method: DocumentsController#create
+    - :type: Duplication
+      :message: calls format.xml multiple times
+      :method: DocumentsController#create
+    - :type: Long Method
+      :message: has approx 8 statements
+      :method: DocumentsController#create
+    - :type: Nested Iterators
+      :message: is nested
+      :method: DocumentsController#create/block/block
+    - :type: Nested Iterators
+      :message: is nested
+      :method: DocumentsController#destroy/block/block
+    - :type: Nested Iterators
+      :message: is nested
+      :method: DocumentsController#index/block/block
+    - :type: Nested Iterators
+      :message: is nested
+      :method: DocumentsController#new/block/block
+    - :type: Nested Iterators
+      :message: is nested
+      :method: DocumentsController#show/block/block
+    - :type: Duplication
+      :message: calls format.html multiple times
+      :method: DocumentsController#update
+    - :type: Duplication
+      :message: calls format.xml multiple times
+      :method: DocumentsController#update
+    - :type: Long Method
+      :message: has approx 6 statements
+      :method: DocumentsController#update
+    - :type: Nested Iterators
+      :message: is nested
+      :method: DocumentsController#update/block/block
+  - :file_path: app/controllers/users_controller.rb
+    :code_smells: 
+    - :type: Nested Iterators
+      :message: is nested
+      :method: UsersController#index/block/block
+    - :type: Nested Iterators
+      :message: is nested
+      :method: UsersController#show/block/block
+    - :type: Duplication
+      :message: calls format.html multiple times
+      :method: UsersController#update
+    - :type: Duplication
+      :message: calls format.xml multiple times
+      :method: UsersController#update
+    - :type: Long Method
+      :message: has approx 6 statements
+      :method: UsersController#update
+    - :type: Nested Iterators
+      :message: is nested
+      :method: UsersController#update/block/block
+  - :file_path: app/helpers/application_helper.rb
+    :code_smells: 
+    - :type: Feature Envy
+      :message: refers to options more than self
+      :method: ApplicationHelper::block_to_partial
+    - :type: Feature Envy
+      :message: refers to options more than self
+      :method: ApplicationHelper::labeled_input
+  - :file_path: app/helpers/authorization_helper.rb
+    :code_smells: 
+    - :type: Duplication
+      :message: calls Permission.find(:first, :conditions => (select_on)) multiple times
+      :method: AuthorizationHelper::authorized?
+    - :type: Duplication
+      :message: calls criteria[:group] multiple times
+      :method: AuthorizationHelper::authorized?
+    - :type: Duplication
+      :message: calls current_user multiple times
+      :method: AuthorizationHelper::authorized?
+    - :type: Duplication
+      :message: calls permissions.nil? multiple times
+      :method: AuthorizationHelper::authorized?
+    - :type: Long Method
+      :message: has approx 12 statements
+      :method: AuthorizationHelper::authorized?
+  - :file_path: app/models/user.rb
+    :code_smells: 
+    - :type: Uncommunicative Name
+      :message: has the variable name 'c'
+      :method: User#block
+  - :file_path: lib/authenticated_system.rb
+    :code_smells: 
+    - :type: Duplication
+      :message: calls current_user_session multiple times
+      :method: AuthenticatedSystem::current_user
+  - :file_path: lib/authorized_system.rb
+    :code_smells: 
+    - :type: Duplication
+      :message: calls controller.authorized? multiple times
+      :method: AuthorizedSystem::CheckAuthorization#self.filter
+    - :type: Duplication
+      :message: calls controller.class multiple times
+      :method: AuthorizedSystem::CheckAuthorization#self.filter
+  - :file_path: lib/password_generator.rb
+    :code_smells: 
+    - :type: Utility Function
+      :message: doesn't depend on instance state
+      :method: PasswordGenerator::random_password
+:stats: 
+  :lines: 
+  - :loc: 232
+    :methods_per_class: 4
+    :methods: 34
+    :lines: 321
+    :loc_per_method: 4
+    :classes: 8
+    :name: Controllers
+  - :loc: 57
+    :methods_per_class: 0
+    :methods: 5
+    :lines: 81
+    :loc_per_method: 9
+    :classes: 0
+    :name: Helpers
+  - :loc: 21
+    :methods_per_class: 0
+    :methods: 1
+    :lines: 88
+    :loc_per_method: 19
+    :classes: 4
+    :name: Models
+  - :loc: 83
+    :methods_per_class: 12
+    :methods: 12
+    :lines: 104
+    :loc_per_method: 4
+    :classes: 1
+    :name: Libraries
+  - :loc: 71
+    :methods_per_class: 0
+    :methods: 0
+    :lines: 150
+    :loc_per_method: 0
+    :classes: 0
+    :name: Model specs
+  - :loc: 154
+    :methods_per_class: 0
+    :methods: 0
+    :lines: 219
+    :loc_per_method: 0
+    :classes: 0
+    :name: View specs
+  - :loc: 538
+    :methods_per_class: 0
+    :methods: 2
+    :lines: 730
+    :loc_per_method: 267
+    :classes: 0
+    :name: Controller specs
+  - :loc: 21
+    :methods_per_class: 0
+    :methods: 0
+    :lines: 33
+    :loc_per_method: 0
+    :classes: 0
+    :name: Helper specs
+  - :loc: 1177
+    :methods_per_class: 4
+    :methods: 54
+    :lines: 1726
+    :loc_per_method: 19
+    :classes: 13
+    :name: Total
+  :codeLOC: 393
+  :testLOC: 784
+  :code_to_test_ratio: 2.0
+:roodi: 
+  :total: 
+  - Found 2 errors.
+  :problems: 
+  - :file: app/helpers/authorization_helper.rb
+    :problem: Method name "authorized?" cyclomatic complexity is 9.  It should be 8 or less.
+    :line: "2"
+  - :file: app/helpers/authorization_helper.rb
+    :problem: Method "authorized?" has 24 lines.  It should have 20 or less.
+    :line: "2"

@@ -1,0 +1,2903 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html lang='en' xml:lang='en' xmlns='http://www.w3.org/1999/xhtml'>
+  <head>
+    <meta content='text/html; charset=utf-8' http-equiv='Content-Type' />
+    <meta content='en' http-equiv='Content-Language' />
+    <title>metrics</title>
+    <style>
+    /*
+Copyright (c) 2008, Yahoo! Inc. All rights reserved.
+Code licensed under the BSD License:
+http://developer.yahoo.net/yui/license.txt
+version: 2.5.2
+*/
+html{color:#000;background:#FFF;}body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,textarea,p,blockquote,th,td{margin:0;padding:0;}table{border-collapse:collapse;border-spacing:0;}fieldset,img{border:0;}address,caption,cite,code,dfn,em,strong,th,var{font-style:normal;font-weight:normal;}li{list-style:none;}caption,th{text-align:left;}h1,h2,h3,h4,h5,h6{font-size:100%;font-weight:normal;}q:before,q:after{content:'';}abbr,acronym {border:0;font-variant:normal;}sup {vertical-align:text-top;}sub {vertical-align:text-bottom;}input,textarea,select{font-family:inherit;font-size:inherit;font-weight:inherit;}input,textarea,select{*font-size:100%;}legend{color:#000;}
+
+    /* --------------------------------------------------------------
+
+   buttons.css
+   * Gives you some great CSS-only buttons.
+
+   Created by Kevin Hale [particletree.com]
+   * particletree.com/features/rediscovering-the-button-element
+
+   See Readme.txt in this folder for instructions.
+
+-------------------------------------------------------------- */
+
+button {
+  display:block;
+  float:left;
+  margin:0 0.583em 0.667em 0;
+  padding:5px 10px 5px 7px;   /* Links */
+
+  border:1px solid #dedede;
+  border-top:1px solid #eee;
+  border-left:1px solid #eee;
+
+  background-color:#f5f5f5;
+  font-family:"Lucida Grande", Tahoma, Arial, Verdana, sans-serif;
+  font-size:100%;
+  line-height:130%;
+  text-decoration:none;
+  font-weight:bold;
+  color:#565656;
+  cursor:pointer;
+}
+button {
+  width:auto;
+  overflow:visible;
+  padding:4px 10px 3px 7px;   /* IE6 */
+}
+button[type] {
+  padding:4px 10px 4px 7px;   /* Firefox */
+  line-height:17px;           /* Safari */
+}
+*:first-child+html button[type] {
+  padding:4px 10px 3px 7px;   /* IE7 */
+}
+button img {
+  margin:0 3px -3px 0 !important;
+  padding:0;
+  border:none;
+  width:16px;
+  height:16px;
+  float:none;
+}
+
+
+/* Button colors
+-------------------------------------------------------------- */
+
+/* Standard */
+button:hover {
+  background-color:#dff4ff;
+  border:1px solid #c2e1ef;
+  color:#336699;
+}
+
+/* Positive */
+body .positive {
+  color:#529214;
+}
+button.positive:hover {
+  background-color:#E6EFC2;
+  border:1px solid #C6D880;
+  color:#529214;
+}
+
+/* Negative */
+body .negative {
+  color:#d12f19;
+}
+button.negative:hover {
+  background:#fbe3e4;
+  border:1px solid #fbc2c4;
+  color:#d12f19;
+}
+
+    html {
+  background-color: #e0e0e0; }
+
+body {
+  font-size: 100%;
+  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+  color: #333333; }
+
+a {
+  color: #ed1556;
+  text-decoration: none; }
+  a:hover {
+    color: #ffffff;
+    background-color: #ed1556; }
+
+#header, #content, #footer {
+  margin: 0 auto;
+  background: #eeeeee;
+  padding: 0 2em;
+  z-index: 0;
+  position: relative;
+  font-size: 1em; }
+
+#header {
+  background: #ffffff; }
+  #header h1 {
+    font-weight: bold;
+    font-size: 1.5em; }
+  #header address.watermark {
+    position: absolute;
+    font-weight: bold;
+    right: 3em;
+    top: 0;
+    font-size: .75em;
+    color: #cccccc; }
+    #header address.watermark a {
+      color: #cccccc;
+      font-weight: bold;
+      font-size: 2em; }
+      #header address.watermark a:hover {
+        background: transparent;
+        color: #aaaaaa; }
+
+#content {
+  padding-top: 1em;
+  padding-bottom: 2em; }
+  #content strong {
+    font-weight: bold; }
+  #content em {
+    font-style: italic; }
+  #content h1, #content h2, #content h3, #content h4, #content h5, #content h6 {
+    color: #4e4e4e; }
+  #content h1 {
+    font-size: 2em;
+    font-weight: bold;
+    margin-bottom: .75em;
+    padding: .25em 0;
+    line-height: 1.2;
+    border-bottom: 1px solid #c0c0c0; }
+  #content h2 {
+    font-weight: bold;
+    font-size: 1.5em;
+    margin: 1em 0 .2em; }
+  #content h3 {
+    font-weight: bold;
+    font-size: 1.25em;
+    margin: .25em 0; }
+  #content h4, #content h5, #content h6 {
+    font-weight: bold;
+    margin-top: .5em; }
+  #content code, #content pre, #content textarea, #content input {
+    font-family: Monaco, Deja Vu Sans Mono, Inconsolata, Consolas, monospace; }
+  #content form p {
+    margin-top: 1em;
+    position: relative; }
+    #content form p.checkbox label {
+      margin-top: 0 !important; }
+  #content form input.text, #content form textarea {
+    width: 30em;
+    padding: .2em .4em;
+    color: #4e4e4e; }
+  #content form input.text {
+    height: 1.4em; }
+  #content form label {
+    float: left;
+    display: block;
+    margin-top: .5em;
+    width: 8em;
+    margin-right: .75em; }
+  #content form .with_errors label {
+    background: red;
+    color: white;
+    position: relative;
+    top: -.7em; }
+  #content form .with_errors.required label {
+    position: static;
+    margin-right: .25em;
+    padding: 0 .2em; }
+  #content form .with_errors input, #content form .with_errors textarea {
+    border: 2px solid #f22;
+    background: #fee;
+    color: #222222; }
+  #content form .required label {
+    float: none;
+    display: block;
+    width: auto;
+    position: relative;
+    font-weight: bold;
+    margin-top: 1em;
+    text-indent: -.65em; }
+    #content form .required label:before {
+      content: "* ";
+      color: #ed1556; }
+  #content form .required input.text {
+    width: 25.6em;
+    font-size: 24px;
+    font-weight: bold; }
+  #content form .normal {
+    margin-top: 2em; }
+  #content form h2.notifier label {
+    float: none;
+    width: auto;
+    margin-right: 0; }
+    #content form h2.notifier label .warning {
+      font-size: .5em;
+      font-weight: normal;
+      color: #999999; }
+  #content form fieldset {
+    padding-bottom: 1em;
+    margin-left: 1.35em;
+    border-bottom: 1px solid #c0c0c0;
+    margin-bottom: 1em; }
+    #content form fieldset h3 {
+      margin-top: 1em;
+      margin-bottom: 0; }
+    #content form fieldset p.normal {
+      margin-top: 1em; }
+    #content form fieldset p label {
+      width: 6.7em; }
+  #content form p.submit {
+    margin-top: 2em; }
+    #content form p.submit:after {
+      display: block;
+      clear: both;
+      float: none;
+      content: ".";
+      text-indent: -9999em;
+      text-align: left; }
+    #content form p.submit.destroy button,     #content form p.submit.manual-build button {
+      float: none;
+      display: inline; }
+    #content form p.submit.manual-build button {
+      margin-right: 0; }
+  #content #build form, #content #last_build form {
+    font-size: .75em; }
+    #content #build form p.submit,     #content #last_build form p.submit {
+      margin: 0;
+      padding: 0;
+      position: absolute;
+      right: .5em;
+      top: 1.25em; }
+  #content .blank_slate p,   #content .error p {
+    position: relative;
+    top: .3em; }
+  #content .blank_slate h1,   #content .error h1 {
+    border-width: 0;
+    margin: 0;
+    padding: 0; }
+    #content .blank_slate h1 button,     #content .error h1 button {
+      float: none;
+      border: 0 none;
+      background: transparent;
+      display: inline;
+      color: #ed1556;
+      padding: 0.25em 0;
+      margin: 0; }
+      #content .blank_slate h1 button:hover,       #content .error h1 button:hover {
+        background: #ed1556;
+        color: #ffffff; }
+  #content .error dt {
+    margin-top: 1.4em;
+    margin-bottom: .3em;
+    font-size: 1.75em;
+    font-family: Georgia, Times New Roman, serif; }
+  #content .error dd {
+    line-height: 1.4; }
+  #content .error .backtrace {
+    margin: 1em 0;
+    overflow: scroll;
+    height: 30em;
+    border: 1px solid #c0c0c0;
+    line-height: 1.6; }
+  #content #projects {
+    margin: 1em 0 2em;
+    border-top: 1px solid #c0c0c0; }
+    #content #projects li {
+      position: relative;
+      border-bottom: 1px solid #c0c0c0; }
+      #content #projects li.odd {
+        background: #e6e6e6; }
+      #content #projects li.building {
+        background: transparent url(/spinner.gif) no-repeat scroll right; }
+      #content #projects li a {
+        font-size: 2em;
+        padding: .25em;
+        line-height: 1.2;
+        font-weight: bold;
+        display: block; }
+        #content #projects li a.success {
+          color: #337022; }
+        #content #projects li a.failed {
+          color: #ff1100; }
+      #content #projects li .meta {
+        position: absolute;
+        right: .6em;
+        top: 1.5em;
+        font-size: 0.8em;
+        color: #999999;
+        text-align: right; }
+      #content #projects li.building .meta {
+        right: 1.6em; }
+      #content #projects li.success .meta {
+        color: #337022; }
+      #content #projects li.failed .meta {
+        color: #ff1100; }
+  #content #previous_builds li a {
+    display: block;
+    padding: .25em;
+    margin-bottom: .25em;
+    border-width: 1px;
+    border-style: solid; }
+    #content #previous_builds li a strong {
+      font-size: 1.3em; }
+    #content #previous_builds li a .attribution {
+      font-size: .9em; }
+  #content #projects li.success a,   #content #previous_builds li.success a {
+    background-color: #bbf8aa;
+    border-color: #99d688;
+    color: #337022; }
+    #content #projects li.success a .attribution,     #content #previous_builds li.success a .attribution {
+      color: #77b466; }
+    #content #projects li.success a:hover,     #content #previous_builds li.success a:hover {
+      background-color: #ddffcc; }
+  #content #projects li.failed a,   #content #previous_builds li.failed a {
+    background-color: #ffbbaa;
+    border-color: #dd9988;
+    color: #ff1100; }
+    #content #projects li.failed a .attribution,     #content #previous_builds li.failed a .attribution {
+      color: #bb7766; }
+    #content #projects li.failed a:hover,     #content #previous_builds li.failed a:hover {
+      background-color: #ffddcc; }
+  #content #build, #content #last_build {
+    position: relative; }
+    #content #build h1, #content #build blockquote,     #content #last_build h1, #content #last_build blockquote {
+      border-width: 0 1px;
+      border-style: solid; }
+    #content #build h1,     #content #last_build h1 {
+      border-top-width: 1px; }
+    #content #build blockquote,     #content #last_build blockquote {
+      bottom-bottom-width: 1px;
+      line-height: 1.4; }
+    #content #build.success h1, #content #build.success blockquote,     #content #last_build.success h1, #content #last_build.success blockquote {
+      background-color: #bbf8aa;
+      border-color: #99d688 #ccffbb #ccffbb #99d688; }
+    #content #build.success h1,     #content #last_build.success h1 {
+      color: #337022; }
+    #content #build.success .meta,     #content #last_build.success .meta {
+      color: #77b466; }
+    #content #build.failed h1, #content #build.failed blockquote,     #content #last_build.failed h1, #content #last_build.failed blockquote {
+      background-color: #ffbbaa;
+      border-color: #dd9988 #ffccbb #ffccbb #dd9988; }
+    #content #build.failed h1,     #content #last_build.failed h1 {
+      color: #ff1100; }
+    #content #build.failed .meta,     #content #last_build.failed .meta {
+      color: #bb7766; }
+    #content #build h1,     #content #last_build h1 {
+      margin-top: .5em;
+      margin-bottom: 0;
+      padding: .25em;
+      color: #337022; }
+    #content #build blockquote,     #content #last_build blockquote {
+      padding: .75em;
+      margin-bottom: 2em; }
+      #content #build blockquote .meta,       #content #last_build blockquote .meta {
+        margin-top: 1em;
+        display: block;
+        font-size: .9em; }
+    #content #build pre.output,     #content #last_build pre.output {
+      background: #111;
+      color: #fff;
+      padding: .5em;
+      overflow: auto;
+      max-height: 50em;
+      font-size: .825em; }
+      #content #build pre.output .color30,       #content #last_build pre.output .color30 {
+        color: #333; }
+      #content #build pre.output .color31,       #content #last_build pre.output .color31 {
+        color: #e33; }
+      #content #build pre.output .color32,       #content #last_build pre.output .color32 {
+        color: #3e3; }
+      #content #build pre.output .color33,       #content #last_build pre.output .color33 {
+        color: #ee3; }
+      #content #build pre.output .color34,       #content #last_build pre.output .color34 {
+        color: #33e; }
+      #content #build pre.output .color35,       #content #last_build pre.output .color35 {
+        color: #e3e; }
+      #content #build pre.output .color36,       #content #last_build pre.output .color36 {
+        color: #3ee; }
+      #content #build pre.output .color37,       #content #last_build pre.output .color37 {
+        color: #fff; }
+  #content #push_path {
+    display: block;
+    margin-top: 1em;
+    margin-left: 2em; }
+
+a.success {
+  color: #bbf8aa; }
+  a.success:hover {
+    background-color: #bbf8aa;
+    color: white; }
+a.failed {
+  color: #ffbbaa; }
+  a.failed:hover {
+    background-color: #ffbbaa;
+    color: white; }
+
+#footer {
+  padding: 1.5em 2.5em;
+  border-top: 1px solid #ccc;
+  font-size: .8em;
+  color: #666;
+  text-align: right; }
+  #footer strong {
+    font-weight: bold; }
+    
+    table {
+  margin-top: 20px;
+  border-collapse: collapse;
+  border: 1px solid #666;
+  background: #fff;
+  margin-bottom: 20px;
+}
+
+table tr.light {
+   background: #fff;
+}
+
+table tr.dark {
+  background: #f9f9f9;
+}
+
+table tr:hover {
+  background: #FFFFC0;
+}
+
+table td, table th {
+  padding: 4px;
+  font-size: 11px;
+}
+table th {
+  text-align: center;
+  color: #337022;
+  background: #DDFFCC;
+  font-weight: bold;
+  border: #99D688 1px solid;
+}
+
+table td {
+  border: #d0d0d0 1px solid;
+}
+
+table td.score {
+  text-align: right;
+}
+
+.warning {
+  background: yellow;
+}
+.rcov_code td {
+  border-bottom: 1px solid #ddd ;
+  padding: 0;
+  margin: 0;
+}
+.rcov_code tr {
+  border: 0px;
+  padding:0px;
+  margin: 0px;
+}
+.rcov_code pre {
+  border: 0px;
+  padding: 0px;
+  margin: 0px;
+}
+.rcov_run {}
+.rcov_not_run {
+  background-color: #d88;
+}
+.rcov_run a, .rcov_not_run a {
+  text-decoration: none;
+}
+.rcov_run a {
+  color: #333;
+}
+.rcov_not_run a {
+  color: #000;
+}
+.rcov_overflow {
+  overflow: auto;
+  font-size: 50%;
+}
+
+    </style>
+    <link REL="SHORTCUT ICON" HREF="/favicon.ico">
+  </head>
+  <body>
+    <div id='header'>
+      <h1><a href="/">metrics</a> | <a href="index.html">convection</a></h1>
+      <address class='watermark'>
+        built with
+        <a href='http://metric-fu.rubyforge.org/'>metric-fu</a>
+      </address>
+    </div>
+    <div id='content'>
+      <h3>Flog Results</h3>
+<p><a href='http://ruby.sadi.st/Flog.html'>Flog</a> measures code complexity.</p>
+
+<img src="flog.png?Fri Jan 01 22:49:57 -0800 2010">
+
+<h2>Total Flog score for all methods: 407.9</h2>
+<h2>Average Flog score for all methods: 6.5</h2>
+
+<table>
+  <tr>
+    <th>File</th>
+    <th>Total score</th>
+    <th>Methods</th>
+    <th>Average score</th>
+    <th>Highest score</th>
+  </tr>
+    
+    <tr>
+      <td><a href="#_app_helpers_authorization_helper_rb">/app/helpers/authorization_helper.rb</a></td>
+      <td>31</td>
+      <td>1</td>
+      <td>31</td>
+      <td>31</td>
+    </tr>
+  
+    <tr>
+      <td><a href="#_app_controllers_documents_controller_rb">/app/controllers/documents_controller.rb</a></td>
+      <td>90</td>
+      <td>8</td>
+      <td>11</td>
+      <td>26</td>
+    </tr>
+  
+    <tr>
+      <td><a href="#_app_controllers_users_controller_rb">/app/controllers/users_controller.rb</a></td>
+      <td>45</td>
+      <td>5</td>
+      <td>9</td>
+      <td>23</td>
+    </tr>
+  
+    <tr>
+      <td><a href="#_app_helpers_application_helper_rb">/app/helpers/application_helper.rb</a></td>
+      <td>29</td>
+      <td>4</td>
+      <td>7</td>
+      <td>19</td>
+    </tr>
+  
+    <tr>
+      <td><a href="#_lib_authorized_system_rb">/lib/authorized_system.rb</a></td>
+      <td>33</td>
+      <td>5</td>
+      <td>7</td>
+      <td>18</td>
+    </tr>
+  
+    <tr>
+      <td><a href="#_app_controllers_admin_users_controller_rb">/app/controllers/admin/users_controller.rb</a></td>
+      <td>37</td>
+      <td>6</td>
+      <td>6</td>
+      <td>16</td>
+    </tr>
+  
+    <tr>
+      <td><a href="#_app_controllers_user_sessions_controller_rb">/app/controllers/user_sessions_controller.rb</a></td>
+      <td>22</td>
+      <td>4</td>
+      <td>6</td>
+      <td>12</td>
+    </tr>
+  
+    <tr>
+      <td><a href="#_app_controllers_application_controller_rb">/app/controllers/application_controller.rb</a></td>
+      <td>43</td>
+      <td>8</td>
+      <td>5</td>
+      <td>10</td>
+    </tr>
+  
+    <tr>
+      <td><a href="#_app_controllers_admin_admin_controller_rb">/app/controllers/admin/admin_controller.rb</a></td>
+      <td>10</td>
+      <td>2</td>
+      <td>5</td>
+      <td>9</td>
+    </tr>
+  
+    <tr>
+      <td><a href="#_lib_password_generator_rb">/lib/password_generator.rb</a></td>
+      <td>13</td>
+      <td>2</td>
+      <td>7</td>
+      <td>9</td>
+    </tr>
+  
+    <tr>
+      <td><a href="#_app_controllers_admin_preferences_controller_rb">/app/controllers/admin/preferences_controller.rb</a></td>
+      <td>15</td>
+      <td>4</td>
+      <td>4</td>
+      <td>8</td>
+    </tr>
+  
+    <tr>
+      <td><a href="#_lib_authenticated_system_rb">/lib/authenticated_system.rb</a></td>
+      <td>11</td>
+      <td>4</td>
+      <td>3</td>
+      <td>5</td>
+    </tr>
+  
+    <tr>
+      <td><a href="#_lib_authlogic_test_helper_rb">/lib/authlogic_test_helper.rb</a></td>
+      <td>15</td>
+      <td>5</td>
+      <td>3</td>
+      <td>5</td>
+    </tr>
+  
+    <tr>
+      <td><a href="#_app_models_user_rb">/app/models/user.rb</a></td>
+      <td>3</td>
+      <td>1</td>
+      <td>3</td>
+      <td>3</td>
+    </tr>
+  
+    <tr>
+      <td><a href="#_app_models_document_rb">/app/models/document.rb</a></td>
+      <td>3</td>
+      <td>1</td>
+      <td>3</td>
+      <td>3</td>
+    </tr>
+  
+    <tr>
+      <td><a href="#_app_models_preferences_rb">/app/models/preferences.rb</a></td>
+      <td>5</td>
+      <td>2</td>
+      <td>2</td>
+      <td>3</td>
+    </tr>
+  
+    <tr>
+      <td><a href="#_lib_test_case_rb">/lib/test_case.rb</a></td>
+      <td>3</td>
+      <td>1</td>
+      <td>3</td>
+      <td>3</td>
+    </tr>
+  
+</table>
+
+
+  <h2 id="_app_helpers_authorization_helper_rb"><a href='txmt://open/?url=file:///Users/evan/Development/Ruby/convection/app/helpers/authorization_helper.rb'>/app/helpers/authorization_helper.rb</a></h2>
+    
+      <p>AuthorizationHelper#authorized?</p>
+      <p>Total Score: 30.6</p>
+      <table>
+        <tr>
+          <th>Score</th>
+          <th>Operator</th>
+        </tr>
+        
+          <tr>
+            <td>10.0</td>
+            <td>assignment</td>
+          </tr>
+        
+          <tr>
+            <td>9.9</td>
+            <td>branch</td>
+          </tr>
+        
+          <tr>
+            <td>7.1</td>
+            <td>[]</td>
+          </tr>
+        
+          <tr>
+            <td>3.3</td>
+            <td>nil?</td>
+          </tr>
+        
+          <tr>
+            <td>3.3</td>
+            <td>find</td>
+          </tr>
+        
+          <tr>
+            <td>2.7</td>
+            <td>current_user</td>
+          </tr>
+        
+          <tr>
+            <td>2.2</td>
+            <td>blank?</td>
+          </tr>
+        
+          <tr>
+            <td>1.4</td>
+            <td>params</td>
+          </tr>
+        
+          <tr>
+            <td>1.3</td>
+            <td>current_user_session</td>
+          </tr>
+        
+          <tr>
+            <td>1.2</td>
+            <td>groups</td>
+          </tr>
+        
+          <tr>
+            <td>1.2</td>
+            <td>id</td>
+          </tr>
+        
+          <tr>
+            <td>1.2</td>
+            <td>action_name</td>
+          </tr>
+        
+          <tr>
+            <td>1.2</td>
+            <td>controller_name</td>
+          </tr>
+        
+          <tr>
+            <td>1.1</td>
+            <td>map</td>
+          </tr>
+        
+      </table>
+    
+
+  <h2 id="_app_controllers_documents_controller_rb"><a href='txmt://open/?url=file:///Users/evan/Development/Ruby/convection/app/controllers/documents_controller.rb'>/app/controllers/documents_controller.rb</a></h2>
+    
+      <p>DocumentsController#create</p>
+      <p>Total Score: 25.6</p>
+      <table>
+        <tr>
+          <th>Score</th>
+          <th>Operator</th>
+        </tr>
+        
+          <tr>
+            <td>8.5</td>
+            <td>branch</td>
+          </tr>
+        
+          <tr>
+            <td>5.2</td>
+            <td>assignment</td>
+          </tr>
+        
+          <tr>
+            <td>4.8</td>
+            <td>render</td>
+          </tr>
+        
+          <tr>
+            <td>3.0</td>
+            <td>html</td>
+          </tr>
+        
+          <tr>
+            <td>3.0</td>
+            <td>xml</td>
+          </tr>
+        
+          <tr>
+            <td>1.8</td>
+            <td>errors</td>
+          </tr>
+        
+          <tr>
+            <td>1.6</td>
+            <td>redirect_to</td>
+          </tr>
+        
+          <tr>
+            <td>1.6</td>
+            <td>params</td>
+          </tr>
+        
+          <tr>
+            <td>1.5</td>
+            <td>flash</td>
+          </tr>
+        
+          <tr>
+            <td>1.4</td>
+            <td>[]</td>
+          </tr>
+        
+          <tr>
+            <td>1.3</td>
+            <td>save</td>
+          </tr>
+        
+          <tr>
+            <td>1.2</td>
+            <td>respond_to</td>
+          </tr>
+        
+          <tr>
+            <td>1.2</td>
+            <td>current_user</td>
+          </tr>
+        
+          <tr>
+            <td>1.2</td>
+            <td>new</td>
+          </tr>
+        
+      </table>
+    
+      <p>DocumentsController#update</p>
+      <p>Total Score: 23.2</p>
+      <table>
+        <tr>
+          <th>Score</th>
+          <th>Operator</th>
+        </tr>
+        
+          <tr>
+            <td>8.5</td>
+            <td>branch</td>
+          </tr>
+        
+          <tr>
+            <td>3.2</td>
+            <td>render</td>
+          </tr>
+        
+          <tr>
+            <td>3.0</td>
+            <td>html</td>
+          </tr>
+        
+          <tr>
+            <td>3.0</td>
+            <td>xml</td>
+          </tr>
+        
+          <tr>
+            <td>2.8</td>
+            <td>assignment</td>
+          </tr>
+        
+          <tr>
+            <td>1.8</td>
+            <td>errors</td>
+          </tr>
+        
+          <tr>
+            <td>1.7</td>
+            <td>params</td>
+          </tr>
+        
+          <tr>
+            <td>1.6</td>
+            <td>redirect_to</td>
+          </tr>
+        
+          <tr>
+            <td>1.6</td>
+            <td>head</td>
+          </tr>
+        
+          <tr>
+            <td>1.5</td>
+            <td>flash</td>
+          </tr>
+        
+          <tr>
+            <td>1.5</td>
+            <td>[]</td>
+          </tr>
+        
+          <tr>
+            <td>1.3</td>
+            <td>update_attributes</td>
+          </tr>
+        
+          <tr>
+            <td>1.2</td>
+            <td>respond_to</td>
+          </tr>
+        
+      </table>
+    
+      <p>DocumentsController#destroy</p>
+      <p>Total Score: 10.8</p>
+      <table>
+        <tr>
+          <th>Score</th>
+          <th>Operator</th>
+        </tr>
+        
+          <tr>
+            <td>4.0</td>
+            <td>branch</td>
+          </tr>
+        
+          <tr>
+            <td>1.7</td>
+            <td>documents_url</td>
+          </tr>
+        
+          <tr>
+            <td>1.5</td>
+            <td>head</td>
+          </tr>
+        
+          <tr>
+            <td>1.5</td>
+            <td>redirect_to</td>
+          </tr>
+        
+          <tr>
+            <td>1.4</td>
+            <td>xml</td>
+          </tr>
+        
+          <tr>
+            <td>1.4</td>
+            <td>html</td>
+          </tr>
+        
+          <tr>
+            <td>1.3</td>
+            <td>assignment</td>
+          </tr>
+        
+          <tr>
+            <td>1.2</td>
+            <td>destroy</td>
+          </tr>
+        
+          <tr>
+            <td>1.2</td>
+            <td>respond_to</td>
+          </tr>
+        
+      </table>
+    
+      <p>DocumentsController#new</p>
+      <p>Total Score: 7.6</p>
+      <table>
+        <tr>
+          <th>Score</th>
+          <th>Operator</th>
+        </tr>
+        
+          <tr>
+            <td>2.6</td>
+            <td>branch</td>
+          </tr>
+        
+          <tr>
+            <td>2.5</td>
+            <td>assignment</td>
+          </tr>
+        
+          <tr>
+            <td>1.5</td>
+            <td>render</td>
+          </tr>
+        
+          <tr>
+            <td>1.4</td>
+            <td>html</td>
+          </tr>
+        
+          <tr>
+            <td>1.4</td>
+            <td>xml</td>
+          </tr>
+        
+          <tr>
+            <td>1.2</td>
+            <td>respond_to</td>
+          </tr>
+        
+          <tr>
+            <td>1.2</td>
+            <td>new</td>
+          </tr>
+        
+      </table>
+    
+      <p>DocumentsController#index</p>
+      <p>Total Score: 7.6</p>
+      <table>
+        <tr>
+          <th>Score</th>
+          <th>Operator</th>
+        </tr>
+        
+          <tr>
+            <td>2.6</td>
+            <td>branch</td>
+          </tr>
+        
+          <tr>
+            <td>2.5</td>
+            <td>assignment</td>
+          </tr>
+        
+          <tr>
+            <td>1.5</td>
+            <td>render</td>
+          </tr>
+        
+          <tr>
+            <td>1.4</td>
+            <td>xml</td>
+          </tr>
+        
+          <tr>
+            <td>1.4</td>
+            <td>html</td>
+          </tr>
+        
+          <tr>
+            <td>1.2</td>
+            <td>respond_to</td>
+          </tr>
+        
+          <tr>
+            <td>1.2</td>
+            <td>find</td>
+          </tr>
+        
+      </table>
+    
+      <p>DocumentsController#show</p>
+      <p>Total Score: 6.2</p>
+      <table>
+        <tr>
+          <th>Score</th>
+          <th>Operator</th>
+        </tr>
+        
+          <tr>
+            <td>2.6</td>
+            <td>branch</td>
+          </tr>
+        
+          <tr>
+            <td>1.5</td>
+            <td>render</td>
+          </tr>
+        
+          <tr>
+            <td>1.4</td>
+            <td>xml</td>
+          </tr>
+        
+          <tr>
+            <td>1.4</td>
+            <td>html</td>
+          </tr>
+        
+          <tr>
+            <td>1.3</td>
+            <td>assignment</td>
+          </tr>
+        
+          <tr>
+            <td>1.2</td>
+            <td>respond_to</td>
+          </tr>
+        
+      </table>
+    
+      <p>DocumentsController#find_document</p>
+      <p>Total Score: 5.8</p>
+      <table>
+        <tr>
+          <th>Score</th>
+          <th>Operator</th>
+        </tr>
+        
+          <tr>
+            <td>1.6</td>
+            <td>params</td>
+          </tr>
+        
+          <tr>
+            <td>1.4</td>
+            <td>[]</td>
+          </tr>
+        
+          <tr>
+            <td>1.3</td>
+            <td>raise</td>
+          </tr>
+        
+          <tr>
+            <td>1.2</td>
+            <td>branch</td>
+          </tr>
+        
+          <tr>
+            <td>1.2</td>
+            <td>assignment</td>
+          </tr>
+        
+          <tr>
+            <td>1.2</td>
+            <td>find</td>
+          </tr>
+        
+      </table>
+    
+      <p>DocumentsController#none</p>
+      <p>Total Score: 3.3</p>
+      <table>
+        <tr>
+          <th>Score</th>
+          <th>Operator</th>
+        </tr>
+        
+          <tr>
+            <td>2.2</td>
+            <td>before_filter</td>
+          </tr>
+        
+          <tr>
+            <td>1.1</td>
+            <td>private</td>
+          </tr>
+        
+      </table>
+    
+
+  <h2 id="_app_controllers_users_controller_rb"><a href='txmt://open/?url=file:///Users/evan/Development/Ruby/convection/app/controllers/users_controller.rb'>/app/controllers/users_controller.rb</a></h2>
+    
+      <p>UsersController#update</p>
+      <p>Total Score: 23.2</p>
+      <table>
+        <tr>
+          <th>Score</th>
+          <th>Operator</th>
+        </tr>
+        
+          <tr>
+            <td>8.5</td>
+            <td>branch</td>
+          </tr>
+        
+          <tr>
+            <td>3.2</td>
+            <td>render</td>
+          </tr>
+        
+          <tr>
+            <td>3.0</td>
+            <td>html</td>
+          </tr>
+        
+          <tr>
+            <td>3.0</td>
+            <td>xml</td>
+          </tr>
+        
+          <tr>
+            <td>2.8</td>
+            <td>assignment</td>
+          </tr>
+        
+          <tr>
+            <td>1.8</td>
+            <td>errors</td>
+          </tr>
+        
+          <tr>
+            <td>1.7</td>
+            <td>params</td>
+          </tr>
+        
+          <tr>
+            <td>1.6</td>
+            <td>redirect_to</td>
+          </tr>
+        
+          <tr>
+            <td>1.6</td>
+            <td>head</td>
+          </tr>
+        
+          <tr>
+            <td>1.5</td>
+            <td>flash</td>
+          </tr>
+        
+          <tr>
+            <td>1.5</td>
+            <td>[]</td>
+          </tr>
+        
+          <tr>
+            <td>1.3</td>
+            <td>update_attributes</td>
+          </tr>
+        
+          <tr>
+            <td>1.2</td>
+            <td>respond_to</td>
+          </tr>
+        
+      </table>
+    
+      <p>UsersController#index</p>
+      <p>Total Score: 7.6</p>
+      <table>
+        <tr>
+          <th>Score</th>
+          <th>Operator</th>
+        </tr>
+        
+          <tr>
+            <td>2.6</td>
+            <td>branch</td>
+          </tr>
+        
+          <tr>
+            <td>2.5</td>
+            <td>assignment</td>
+          </tr>
+        
+          <tr>
+            <td>1.5</td>
+            <td>render</td>
+          </tr>
+        
+          <tr>
+            <td>1.4</td>
+            <td>xml</td>
+          </tr>
+        
+          <tr>
+            <td>1.4</td>
+            <td>html</td>
+          </tr>
+        
+          <tr>
+            <td>1.2</td>
+            <td>respond_to</td>
+          </tr>
+        
+          <tr>
+            <td>1.2</td>
+            <td>find</td>
+          </tr>
+        
+      </table>
+    
+      <p>UsersController#show</p>
+      <p>Total Score: 6.2</p>
+      <table>
+        <tr>
+          <th>Score</th>
+          <th>Operator</th>
+        </tr>
+        
+          <tr>
+            <td>2.6</td>
+            <td>branch</td>
+          </tr>
+        
+          <tr>
+            <td>1.5</td>
+            <td>render</td>
+          </tr>
+        
+          <tr>
+            <td>1.4</td>
+            <td>xml</td>
+          </tr>
+        
+          <tr>
+            <td>1.4</td>
+            <td>html</td>
+          </tr>
+        
+          <tr>
+            <td>1.3</td>
+            <td>assignment</td>
+          </tr>
+        
+          <tr>
+            <td>1.2</td>
+            <td>respond_to</td>
+          </tr>
+        
+      </table>
+    
+      <p>UsersController#find_user</p>
+      <p>Total Score: 5.8</p>
+      <table>
+        <tr>
+          <th>Score</th>
+          <th>Operator</th>
+        </tr>
+        
+          <tr>
+            <td>1.6</td>
+            <td>params</td>
+          </tr>
+        
+          <tr>
+            <td>1.4</td>
+            <td>[]</td>
+          </tr>
+        
+          <tr>
+            <td>1.3</td>
+            <td>raise</td>
+          </tr>
+        
+          <tr>
+            <td>1.2</td>
+            <td>branch</td>
+          </tr>
+        
+          <tr>
+            <td>1.2</td>
+            <td>assignment</td>
+          </tr>
+        
+          <tr>
+            <td>1.2</td>
+            <td>find</td>
+          </tr>
+        
+      </table>
+    
+      <p>UsersController#none</p>
+      <p>Total Score: 2.2</p>
+      <table>
+        <tr>
+          <th>Score</th>
+          <th>Operator</th>
+        </tr>
+        
+          <tr>
+            <td>1.1</td>
+            <td>private</td>
+          </tr>
+        
+          <tr>
+            <td>1.1</td>
+            <td>before_filter</td>
+          </tr>
+        
+      </table>
+    
+
+  <h2 id="_app_helpers_application_helper_rb"><a href='txmt://open/?url=file:///Users/evan/Development/Ruby/convection/app/helpers/application_helper.rb'>/app/helpers/application_helper.rb</a></h2>
+    
+      <p>ApplicationHelper#block_to_partial</p>
+      <p>Total Score: 19.3</p>
+      <table>
+        <tr>
+          <th>Score</th>
+          <th>Operator</th>
+        </tr>
+        
+          <tr>
+            <td>6.6</td>
+            <td>assignment</td>
+          </tr>
+        
+          <tr>
+            <td>5.4</td>
+            <td>[]</td>
+          </tr>
+        
+          <tr>
+            <td>5.0</td>
+            <td>branch</td>
+          </tr>
+        
+          <tr>
+            <td>2.6</td>
+            <td>nil?</td>
+          </tr>
+        
+          <tr>
+            <td>2.6</td>
+            <td>delete</td>
+          </tr>
+        
+          <tr>
+            <td>1.6</td>
+            <td>block_pass</td>
+          </tr>
+        
+          <tr>
+            <td>1.4</td>
+            <td>render</td>
+          </tr>
+        
+          <tr>
+            <td>1.4</td>
+            <td>capture</td>
+          </tr>
+        
+          <tr>
+            <td>1.2</td>
+            <td>merge!</td>
+          </tr>
+        
+          <tr>
+            <td>1.2</td>
+            <td>concat</td>
+          </tr>
+        
+      </table>
+    
+      <p>ApplicationHelper#labeled_input</p>
+      <p>Total Score: 5.5</p>
+      <table>
+        <tr>
+          <th>Score</th>
+          <th>Operator</th>
+        </tr>
+        
+          <tr>
+            <td>2.5</td>
+            <td>assignment</td>
+          </tr>
+        
+          <tr>
+            <td>1.2</td>
+            <td>[]</td>
+          </tr>
+        
+          <tr>
+            <td>1.2</td>
+            <td>render</td>
+          </tr>
+        
+          <tr>
+            <td>1.2</td>
+            <td>reverse_merge!</td>
+          </tr>
+        
+          <tr>
+            <td>1.2</td>
+            <td>branch</td>
+          </tr>
+        
+          <tr>
+            <td>1.2</td>
+            <td>merge!</td>
+          </tr>
+        
+      </table>
+    
+      <p>ApplicationHelper#logged_in?</p>
+      <p>Total Score: 2.6</p>
+      <table>
+        <tr>
+          <th>Score</th>
+          <th>Operator</th>
+        </tr>
+        
+          <tr>
+            <td>1.4</td>
+            <td>current_user</td>
+          </tr>
+        
+          <tr>
+            <td>1.2</td>
+            <td>nil?</td>
+          </tr>
+        
+      </table>
+    
+      <p>ApplicationHelper#set_headline</p>
+      <p>Total Score: 1.2</p>
+      <table>
+        <tr>
+          <th>Score</th>
+          <th>Operator</th>
+        </tr>
+        
+          <tr>
+            <td>1.2</td>
+            <td>content_for</td>
+          </tr>
+        
+      </table>
+    
+
+  <h2 id="_lib_authorized_system_rb"><a href='txmt://open/?url=file:///Users/evan/Development/Ruby/convection/lib/authorized_system.rb'>/lib/authorized_system.rb</a></h2>
+    
+      <p>CheckAuthorization#filter</p>
+      <p>Total Score: 17.6</p>
+      <table>
+        <tr>
+          <th>Score</th>
+          <th>Operator</th>
+        </tr>
+        
+          <tr>
+            <td>6.7</td>
+            <td>branch</td>
+          </tr>
+        
+          <tr>
+            <td>3.2</td>
+            <td>class</td>
+          </tr>
+        
+          <tr>
+            <td>3.1</td>
+            <td>redirect_to_lobby</td>
+          </tr>
+        
+          <tr>
+            <td>2.8</td>
+            <td>read_inheritable_attribute</td>
+          </tr>
+        
+          <tr>
+            <td>2.7</td>
+            <td>authorized?</td>
+          </tr>
+        
+          <tr>
+            <td>1.7</td>
+            <td>action_name</td>
+          </tr>
+        
+          <tr>
+            <td>1.5</td>
+            <td>to_sym</td>
+          </tr>
+        
+          <tr>
+            <td>1.3</td>
+            <td>include?</td>
+          </tr>
+        
+      </table>
+    
+      <p>AuthorizedSystem#redirect_to_lobby</p>
+      <p>Total Score: 5.9</p>
+      <table>
+        <tr>
+          <th>Score</th>
+          <th>Operator</th>
+        </tr>
+        
+          <tr>
+            <td>2.6</td>
+            <td>redirect_to</td>
+          </tr>
+        
+          <tr>
+            <td>2.4</td>
+            <td>assignment</td>
+          </tr>
+        
+          <tr>
+            <td>1.5</td>
+            <td>home_url</td>
+          </tr>
+        
+          <tr>
+            <td>1.2</td>
+            <td>flash</td>
+          </tr>
+        
+          <tr>
+            <td>1.2</td>
+            <td>branch</td>
+          </tr>
+        
+      </table>
+    
+      <p>ClassMethods#needs_authorization</p>
+      <p>Total Score: 5.1</p>
+      <table>
+        <tr>
+          <th>Score</th>
+          <th>Operator</th>
+        </tr>
+        
+          <tr>
+            <td>1.3</td>
+            <td>write_inheritable_attribute</td>
+          </tr>
+        
+          <tr>
+            <td>1.3</td>
+            <td>write_inheritable_array</td>
+          </tr>
+        
+          <tr>
+            <td>1.2</td>
+            <td>empty?</td>
+          </tr>
+        
+          <tr>
+            <td>1.2</td>
+            <td>before_filter</td>
+          </tr>
+        
+          <tr>
+            <td>1.2</td>
+            <td>branch</td>
+          </tr>
+        
+      </table>
+    
+      <p>AuthorizedSystem#included</p>
+      <p>Total Score: 2.4</p>
+      <table>
+        <tr>
+          <th>Score</th>
+          <th>Operator</th>
+        </tr>
+        
+          <tr>
+            <td>2.4</td>
+            <td>extend</td>
+          </tr>
+        
+      </table>
+    
+      <p>AuthorizedSystem#none</p>
+      <p>Total Score: 2.2</p>
+      <table>
+        <tr>
+          <th>Score</th>
+          <th>Operator</th>
+        </tr>
+        
+          <tr>
+            <td>2.2</td>
+            <td>include</td>
+          </tr>
+        
+      </table>
+    
+
+  <h2 id="_app_controllers_admin_users_controller_rb"><a href='txmt://open/?url=file:///Users/evan/Development/Ruby/convection/app/controllers/admin/users_controller.rb'>/app/controllers/admin/users_controller.rb</a></h2>
+    
+      <p>Admin::UsersController#create</p>
+      <p>Total Score: 15.7</p>
+      <table>
+        <tr>
+          <th>Score</th>
+          <th>Operator</th>
+        </tr>
+        
+          <tr>
+            <td>5.4</td>
+            <td>branch</td>
+          </tr>
+        
+          <tr>
+            <td>4.0</td>
+            <td>assignment</td>
+          </tr>
+        
+          <tr>
+            <td>2.9</td>
+            <td>html</td>
+          </tr>
+        
+          <tr>
+            <td>1.6</td>
+            <td>redirect_to</td>
+          </tr>
+        
+          <tr>
+            <td>1.6</td>
+            <td>params</td>
+          </tr>
+        
+          <tr>
+            <td>1.5</td>
+            <td>flash</td>
+          </tr>
+        
+          <tr>
+            <td>1.5</td>
+            <td>render</td>
+          </tr>
+        
+          <tr>
+            <td>1.4</td>
+            <td>[]</td>
+          </tr>
+        
+          <tr>
+            <td>1.3</td>
+            <td>save</td>
+          </tr>
+        
+          <tr>
+            <td>1.2</td>
+            <td>respond_to</td>
+          </tr>
+        
+          <tr>
+            <td>1.2</td>
+            <td>new</td>
+          </tr>
+        
+      </table>
+    
+      <p>Admin::UsersController#destroy</p>
+      <p>Total Score: 7.3</p>
+      <table>
+        <tr>
+          <th>Score</th>
+          <th>Operator</th>
+        </tr>
+        
+          <tr>
+            <td>2.5</td>
+            <td>branch</td>
+          </tr>
+        
+          <tr>
+            <td>1.6</td>
+            <td>admin_users_url</td>
+          </tr>
+        
+          <tr>
+            <td>1.4</td>
+            <td>redirect_to</td>
+          </tr>
+        
+          <tr>
+            <td>1.3</td>
+            <td>html</td>
+          </tr>
+        
+          <tr>
+            <td>1.3</td>
+            <td>assignment</td>
+          </tr>
+        
+          <tr>
+            <td>1.2</td>
+            <td>destroy</td>
+          </tr>
+        
+          <tr>
+            <td>1.2</td>
+            <td>respond_to</td>
+          </tr>
+        
+      </table>
+    
+      <p>Admin::UsersController#find_user</p>
+      <p>Total Score: 5.8</p>
+      <table>
+        <tr>
+          <th>Score</th>
+          <th>Operator</th>
+        </tr>
+        
+          <tr>
+            <td>1.6</td>
+            <td>params</td>
+          </tr>
+        
+          <tr>
+            <td>1.4</td>
+            <td>[]</td>
+          </tr>
+        
+          <tr>
+            <td>1.3</td>
+            <td>raise</td>
+          </tr>
+        
+          <tr>
+            <td>1.2</td>
+            <td>branch</td>
+          </tr>
+        
+          <tr>
+            <td>1.2</td>
+            <td>assignment</td>
+          </tr>
+        
+          <tr>
+            <td>1.2</td>
+            <td>find</td>
+          </tr>
+        
+      </table>
+    
+      <p>Admin::UsersController#new</p>
+      <p>Total Score: 4.6</p>
+      <table>
+        <tr>
+          <th>Score</th>
+          <th>Operator</th>
+        </tr>
+        
+          <tr>
+            <td>2.5</td>
+            <td>assignment</td>
+          </tr>
+        
+          <tr>
+            <td>1.3</td>
+            <td>html</td>
+          </tr>
+        
+          <tr>
+            <td>1.2</td>
+            <td>respond_to</td>
+          </tr>
+        
+          <tr>
+            <td>1.2</td>
+            <td>branch</td>
+          </tr>
+        
+          <tr>
+            <td>1.2</td>
+            <td>new</td>
+          </tr>
+        
+      </table>
+    
+      <p>Admin::UsersController#none</p>
+      <p>Total Score: 2.2</p>
+      <table>
+        <tr>
+          <th>Score</th>
+          <th>Operator</th>
+        </tr>
+        
+          <tr>
+            <td>1.1</td>
+            <td>private</td>
+          </tr>
+        
+          <tr>
+            <td>1.1</td>
+            <td>before_filter</td>
+          </tr>
+        
+      </table>
+    
+      <p>Admin::UsersController#index</p>
+      <p>Total Score: 1.7</p>
+      <table>
+        <tr>
+          <th>Score</th>
+          <th>Operator</th>
+        </tr>
+        
+          <tr>
+            <td>1.2</td>
+            <td>find</td>
+          </tr>
+        
+          <tr>
+            <td>1.2</td>
+            <td>assignment</td>
+          </tr>
+        
+      </table>
+    
+
+  <h2 id="_app_controllers_user_sessions_controller_rb"><a href='txmt://open/?url=file:///Users/evan/Development/Ruby/convection/app/controllers/user_sessions_controller.rb'>/app/controllers/user_sessions_controller.rb</a></h2>
+    
+      <p>UserSessionsController#create</p>
+      <p>Total Score: 11.5</p>
+      <table>
+        <tr>
+          <th>Score</th>
+          <th>Operator</th>
+        </tr>
+        
+          <tr>
+            <td>2.6</td>
+            <td>assignment</td>
+          </tr>
+        
+          <tr>
+            <td>1.6</td>
+            <td>home_url</td>
+          </tr>
+        
+          <tr>
+            <td>1.6</td>
+            <td>params</td>
+          </tr>
+        
+          <tr>
+            <td>1.4</td>
+            <td>flash</td>
+          </tr>
+        
+          <tr>
+            <td>1.4</td>
+            <td>redirect_back_or_default</td>
+          </tr>
+        
+          <tr>
+            <td>1.4</td>
+            <td>[]</td>
+          </tr>
+        
+          <tr>
+            <td>1.3</td>
+            <td>render</td>
+          </tr>
+        
+          <tr>
+            <td>1.2</td>
+            <td>branch</td>
+          </tr>
+        
+          <tr>
+            <td>1.2</td>
+            <td>save</td>
+          </tr>
+        
+          <tr>
+            <td>1.2</td>
+            <td>new</td>
+          </tr>
+        
+      </table>
+    
+      <p>UserSessionsController#destroy</p>
+      <p>Total Score: 6.5</p>
+      <table>
+        <tr>
+          <th>Score</th>
+          <th>Operator</th>
+        </tr>
+        
+          <tr>
+            <td>1.4</td>
+            <td>current_user_session</td>
+          </tr>
+        
+          <tr>
+            <td>1.4</td>
+            <td>new_user_session_url</td>
+          </tr>
+        
+          <tr>
+            <td>1.2</td>
+            <td>destroy</td>
+          </tr>
+        
+          <tr>
+            <td>1.2</td>
+            <td>assignment</td>
+          </tr>
+        
+          <tr>
+            <td>1.2</td>
+            <td>flash</td>
+          </tr>
+        
+          <tr>
+            <td>1.2</td>
+            <td>redirect_back_or_default</td>
+          </tr>
+        
+      </table>
+    
+      <p>UserSessionsController#none</p>
+      <p>Total Score: 2.2</p>
+      <table>
+        <tr>
+          <th>Score</th>
+          <th>Operator</th>
+        </tr>
+        
+          <tr>
+            <td>2.2</td>
+            <td>before_filter</td>
+          </tr>
+        
+      </table>
+    
+      <p>UserSessionsController#new</p>
+      <p>Total Score: 1.7</p>
+      <table>
+        <tr>
+          <th>Score</th>
+          <th>Operator</th>
+        </tr>
+        
+          <tr>
+            <td>1.2</td>
+            <td>assignment</td>
+          </tr>
+        
+          <tr>
+            <td>1.2</td>
+            <td>new</td>
+          </tr>
+        
+      </table>
+    
+
+  <h2 id="_app_controllers_application_controller_rb"><a href='txmt://open/?url=file:///Users/evan/Development/Ruby/convection/app/controllers/application_controller.rb'>/app/controllers/application_controller.rb</a></h2>
+    
+      <p>ApplicationController#none</p>
+      <p>Total Score: 9.9</p>
+      <table>
+        <tr>
+          <th>Score</th>
+          <th>Operator</th>
+        </tr>
+        
+          <tr>
+            <td>2.2</td>
+            <td>include</td>
+          </tr>
+        
+          <tr>
+            <td>2.2</td>
+            <td>private</td>
+          </tr>
+        
+          <tr>
+            <td>1.1</td>
+            <td>filter_parameter_logging</td>
+          </tr>
+        
+          <tr>
+            <td>1.1</td>
+            <td>helper</td>
+          </tr>
+        
+          <tr>
+            <td>1.1</td>
+            <td>before_filter</td>
+          </tr>
+        
+          <tr>
+            <td>1.1</td>
+            <td>protect_from_forgery</td>
+          </tr>
+        
+          <tr>
+            <td>1.1</td>
+            <td>helper_method</td>
+          </tr>
+        
+      </table>
+    
+      <p>ApplicationController#require_user</p>
+      <p>Total Score: 7.2</p>
+      <table>
+        <tr>
+          <th>Score</th>
+          <th>Operator</th>
+        </tr>
+        
+          <tr>
+            <td>1.6</td>
+            <td>new_user_session_url</td>
+          </tr>
+        
+          <tr>
+            <td>1.4</td>
+            <td>flash</td>
+          </tr>
+        
+          <tr>
+            <td>1.4</td>
+            <td>store_location</td>
+          </tr>
+        
+          <tr>
+            <td>1.4</td>
+            <td>redirect_to</td>
+          </tr>
+        
+          <tr>
+            <td>1.4</td>
+            <td>assignment</td>
+          </tr>
+        
+          <tr>
+            <td>1.2</td>
+            <td>current_user</td>
+          </tr>
+        
+          <tr>
+            <td>1.2</td>
+            <td>branch</td>
+          </tr>
+        
+      </table>
+    
+      <p>ApplicationController#require_no_user</p>
+      <p>Total Score: 7.2</p>
+      <table>
+        <tr>
+          <th>Score</th>
+          <th>Operator</th>
+        </tr>
+        
+          <tr>
+            <td>1.6</td>
+            <td>account_url</td>
+          </tr>
+        
+          <tr>
+            <td>1.4</td>
+            <td>redirect_to</td>
+          </tr>
+        
+          <tr>
+            <td>1.4</td>
+            <td>store_location</td>
+          </tr>
+        
+          <tr>
+            <td>1.4</td>
+            <td>assignment</td>
+          </tr>
+        
+          <tr>
+            <td>1.4</td>
+            <td>flash</td>
+          </tr>
+        
+          <tr>
+            <td>1.2</td>
+            <td>current_user</td>
+          </tr>
+        
+          <tr>
+            <td>1.2</td>
+            <td>branch</td>
+          </tr>
+        
+      </table>
+    
+      <p>ApplicationController#redirect_back_or_default</p>
+      <p>Total Score: 5.9</p>
+      <table>
+        <tr>
+          <th>Score</th>
+          <th>Operator</th>
+        </tr>
+        
+          <tr>
+            <td>2.9</td>
+            <td>session</td>
+          </tr>
+        
+          <tr>
+            <td>1.5</td>
+            <td>[]</td>
+          </tr>
+        
+          <tr>
+            <td>1.4</td>
+            <td>branch</td>
+          </tr>
+        
+          <tr>
+            <td>1.2</td>
+            <td>assignment</td>
+          </tr>
+        
+          <tr>
+            <td>1.2</td>
+            <td>redirect_to</td>
+          </tr>
+        
+      </table>
+    
+      <p>ApplicationController#current_user</p>
+      <p>Total Score: 4.9</p>
+      <table>
+        <tr>
+          <th>Score</th>
+          <th>Operator</th>
+        </tr>
+        
+          <tr>
+            <td>2.8</td>
+            <td>current_user_session</td>
+          </tr>
+        
+          <tr>
+            <td>2.4</td>
+            <td>branch</td>
+          </tr>
+        
+          <tr>
+            <td>1.3</td>
+            <td>user</td>
+          </tr>
+        
+          <tr>
+            <td>1.2</td>
+            <td>assignment</td>
+          </tr>
+        
+      </table>
+    
+      <p>ApplicationController#store_location</p>
+      <p>Total Score: 4.0</p>
+      <table>
+        <tr>
+          <th>Score</th>
+          <th>Operator</th>
+        </tr>
+        
+          <tr>
+            <td>1.4</td>
+            <td>request</td>
+          </tr>
+        
+          <tr>
+            <td>1.2</td>
+            <td>session</td>
+          </tr>
+        
+          <tr>
+            <td>1.2</td>
+            <td>assignment</td>
+          </tr>
+        
+          <tr>
+            <td>1.2</td>
+            <td>request_uri</td>
+          </tr>
+        
+      </table>
+    
+      <p>ApplicationController#current_user_session</p>
+      <p>Total Score: 2.1</p>
+      <table>
+        <tr>
+          <th>Score</th>
+          <th>Operator</th>
+        </tr>
+        
+          <tr>
+            <td>1.2</td>
+            <td>find</td>
+          </tr>
+        
+          <tr>
+            <td>1.2</td>
+            <td>assignment</td>
+          </tr>
+        
+          <tr>
+            <td>1.2</td>
+            <td>branch</td>
+          </tr>
+        
+      </table>
+    
+      <p>ApplicationController#retrieve_site_preferences</p>
+      <p>Total Score: 1.7</p>
+      <table>
+        <tr>
+          <th>Score</th>
+          <th>Operator</th>
+        </tr>
+        
+          <tr>
+            <td>1.2</td>
+            <td>find</td>
+          </tr>
+        
+          <tr>
+            <td>1.2</td>
+            <td>assignment</td>
+          </tr>
+        
+      </table>
+    
+
+  <h2 id="_app_controllers_admin_admin_controller_rb"><a href='txmt://open/?url=file:///Users/evan/Development/Ruby/convection/app/controllers/admin/admin_controller.rb'>/app/controllers/admin/admin_controller.rb</a></h2>
+    
+      <p>Admin::AdminController#check_admin_authorization</p>
+      <p>Total Score: 8.9</p>
+      <table>
+        <tr>
+          <th>Score</th>
+          <th>Operator</th>
+        </tr>
+        
+          <tr>
+            <td>2.4</td>
+            <td>branch</td>
+          </tr>
+        
+          <tr>
+            <td>1.6</td>
+            <td>home_url</td>
+          </tr>
+        
+          <tr>
+            <td>1.5</td>
+            <td>current_user</td>
+          </tr>
+        
+          <tr>
+            <td>1.4</td>
+            <td>redirect_to</td>
+          </tr>
+        
+          <tr>
+            <td>1.4</td>
+            <td>assignment</td>
+          </tr>
+        
+          <tr>
+            <td>1.4</td>
+            <td>flash</td>
+          </tr>
+        
+          <tr>
+            <td>1.3</td>
+            <td>admin?</td>
+          </tr>
+        
+          <tr>
+            <td>1.3</td>
+            <td>logged_in?</td>
+          </tr>
+        
+      </table>
+    
+      <p>Admin::AdminController#none</p>
+      <p>Total Score: 1.1</p>
+      <table>
+        <tr>
+          <th>Score</th>
+          <th>Operator</th>
+        </tr>
+        
+          <tr>
+            <td>1.1</td>
+            <td>before_filter</td>
+          </tr>
+        
+      </table>
+    
+
+  <h2 id="_lib_password_generator_rb"><a href='txmt://open/?url=file:///Users/evan/Development/Ruby/convection/lib/password_generator.rb'>/lib/password_generator.rb</a></h2>
+    
+      <p>PasswordGenerator#none</p>
+      <p>Total Score: 8.8</p>
+      <table>
+        <tr>
+          <th>Score</th>
+          <th>Operator</th>
+        </tr>
+        
+          <tr>
+            <td>4.9</td>
+            <td>to_a</td>
+          </tr>
+        
+          <tr>
+            <td>2.8</td>
+            <td>+</td>
+          </tr>
+        
+          <tr>
+            <td>1.1</td>
+            <td>-</td>
+          </tr>
+        
+      </table>
+    
+      <p>PasswordGenerator#random_password</p>
+      <p>Total Score: 4.3</p>
+      <table>
+        <tr>
+          <th>Score</th>
+          <th>Operator</th>
+        </tr>
+        
+          <tr>
+            <td>1.5</td>
+            <td>rand</td>
+          </tr>
+        
+          <tr>
+            <td>1.4</td>
+            <td>new</td>
+          </tr>
+        
+          <tr>
+            <td>1.4</td>
+            <td>branch</td>
+          </tr>
+        
+          <tr>
+            <td>1.2</td>
+            <td>join</td>
+          </tr>
+        
+      </table>
+    
+
+  <h2 id="_app_controllers_admin_preferences_controller_rb"><a href='txmt://open/?url=file:///Users/evan/Development/Ruby/convection/app/controllers/admin/preferences_controller.rb'>/app/controllers/admin/preferences_controller.rb</a></h2>
+    
+      <p>Admin::PreferencesController#update</p>
+      <p>Total Score: 8.4</p>
+      <table>
+        <tr>
+          <th>Score</th>
+          <th>Operator</th>
+        </tr>
+        
+          <tr>
+            <td>1.6</td>
+            <td>params</td>
+          </tr>
+        
+          <tr>
+            <td>1.5</td>
+            <td>edit_admin_preferences_path</td>
+          </tr>
+        
+          <tr>
+            <td>1.4</td>
+            <td>[]</td>
+          </tr>
+        
+          <tr>
+            <td>1.3</td>
+            <td>redirect_to</td>
+          </tr>
+        
+          <tr>
+            <td>1.3</td>
+            <td>render</td>
+          </tr>
+        
+          <tr>
+            <td>1.2</td>
+            <td>update_attributes</td>
+          </tr>
+        
+          <tr>
+            <td>1.2</td>
+            <td>branch</td>
+          </tr>
+        
+      </table>
+    
+      <p>Admin::PreferencesController#edit</p>
+      <p>Total Score: 3.1</p>
+      <table>
+        <tr>
+          <th>Score</th>
+          <th>Operator</th>
+        </tr>
+        
+          <tr>
+            <td>1.3</td>
+            <td>assignment</td>
+          </tr>
+        
+          <tr>
+            <td>1.3</td>
+            <td>html</td>
+          </tr>
+        
+          <tr>
+            <td>1.2</td>
+            <td>respond_to</td>
+          </tr>
+        
+          <tr>
+            <td>1.2</td>
+            <td>branch</td>
+          </tr>
+        
+      </table>
+    
+      <p>Admin::PreferencesController#none</p>
+      <p>Total Score: 2.2</p>
+      <table>
+        <tr>
+          <th>Score</th>
+          <th>Operator</th>
+        </tr>
+        
+          <tr>
+            <td>1.1</td>
+            <td>private</td>
+          </tr>
+        
+          <tr>
+            <td>1.1</td>
+            <td>before_filter</td>
+          </tr>
+        
+      </table>
+    
+      <p>Admin::PreferencesController#find_prefs</p>
+      <p>Total Score: 1.7</p>
+      <table>
+        <tr>
+          <th>Score</th>
+          <th>Operator</th>
+        </tr>
+        
+          <tr>
+            <td>1.2</td>
+            <td>find</td>
+          </tr>
+        
+          <tr>
+            <td>1.2</td>
+            <td>assignment</td>
+          </tr>
+        
+      </table>
+    
+
+  <h2 id="_lib_authenticated_system_rb"><a href='txmt://open/?url=file:///Users/evan/Development/Ruby/convection/lib/authenticated_system.rb'>/lib/authenticated_system.rb</a></h2>
+    
+      <p>AuthenticatedSystem#current_user</p>
+      <p>Total Score: 4.9</p>
+      <table>
+        <tr>
+          <th>Score</th>
+          <th>Operator</th>
+        </tr>
+        
+          <tr>
+            <td>2.8</td>
+            <td>current_user_session</td>
+          </tr>
+        
+          <tr>
+            <td>2.4</td>
+            <td>branch</td>
+          </tr>
+        
+          <tr>
+            <td>1.3</td>
+            <td>user</td>
+          </tr>
+        
+          <tr>
+            <td>1.2</td>
+            <td>assignment</td>
+          </tr>
+        
+      </table>
+    
+      <p>AuthenticatedSystem#logged_in?</p>
+      <p>Total Score: 2.6</p>
+      <table>
+        <tr>
+          <th>Score</th>
+          <th>Operator</th>
+        </tr>
+        
+          <tr>
+            <td>1.4</td>
+            <td>current_user</td>
+          </tr>
+        
+          <tr>
+            <td>1.2</td>
+            <td>nil?</td>
+          </tr>
+        
+      </table>
+    
+      <p>AuthenticatedSystem#current_user_session</p>
+      <p>Total Score: 2.1</p>
+      <table>
+        <tr>
+          <th>Score</th>
+          <th>Operator</th>
+        </tr>
+        
+          <tr>
+            <td>1.2</td>
+            <td>find</td>
+          </tr>
+        
+          <tr>
+            <td>1.2</td>
+            <td>assignment</td>
+          </tr>
+        
+          <tr>
+            <td>1.2</td>
+            <td>branch</td>
+          </tr>
+        
+      </table>
+    
+      <p>AuthenticatedSystem#none</p>
+      <p>Total Score: 1.1</p>
+      <table>
+        <tr>
+          <th>Score</th>
+          <th>Operator</th>
+        </tr>
+        
+          <tr>
+            <td>1.1</td>
+            <td>protected</td>
+          </tr>
+        
+      </table>
+    
+
+  <h2 id="_lib_authlogic_test_helper_rb"><a href='txmt://open/?url=file:///Users/evan/Development/Ruby/convection/lib/authlogic_test_helper.rb'>/lib/authlogic_test_helper.rb</a></h2>
+    
+      <p>AuthlogicTestHelper#login_as</p>
+      <p>Total Score: 4.6</p>
+      <table>
+        <tr>
+          <th>Score</th>
+          <th>Operator</th>
+        </tr>
+        
+          <tr>
+            <td>2.5</td>
+            <td>assignment</td>
+          </tr>
+        
+          <tr>
+            <td>1.3</td>
+            <td>users</td>
+          </tr>
+        
+          <tr>
+            <td>1.2</td>
+            <td>is_a?</td>
+          </tr>
+        
+          <tr>
+            <td>1.2</td>
+            <td>create</td>
+          </tr>
+        
+          <tr>
+            <td>1.2</td>
+            <td>branch</td>
+          </tr>
+        
+      </table>
+    
+      <p>AuthlogicTestHelper#current_user_session</p>
+      <p>Total Score: 3.8</p>
+      <table>
+        <tr>
+          <th>Score</th>
+          <th>Operator</th>
+        </tr>
+        
+          <tr>
+            <td>3.6</td>
+            <td>assignment</td>
+          </tr>
+        
+          <tr>
+            <td>1.2</td>
+            <td>find</td>
+          </tr>
+        
+      </table>
+    
+      <p>AuthlogicTestHelper#current_user</p>
+      <p>Total Score: 2.9</p>
+      <table>
+        <tr>
+          <th>Score</th>
+          <th>Operator</th>
+        </tr>
+        
+          <tr>
+            <td>1.4</td>
+            <td>current_user_session</td>
+          </tr>
+        
+          <tr>
+            <td>1.2</td>
+            <td>assignment</td>
+          </tr>
+        
+          <tr>
+            <td>1.2</td>
+            <td>person</td>
+          </tr>
+        
+      </table>
+    
+      <p>AuthlogicTestHelper#none</p>
+      <p>Total Score: 2.2</p>
+      <table>
+        <tr>
+          <th>Score</th>
+          <th>Operator</th>
+        </tr>
+        
+          <tr>
+            <td>2.2</td>
+            <td>alias</td>
+          </tr>
+        
+      </table>
+    
+      <p>AuthlogicTestHelper#logout</p>
+      <p>Total Score: 1.2</p>
+      <table>
+        <tr>
+          <th>Score</th>
+          <th>Operator</th>
+        </tr>
+        
+          <tr>
+            <td>1.2</td>
+            <td>assignment</td>
+          </tr>
+        
+      </table>
+    
+
+  <h2 id="_app_models_user_rb"><a href='txmt://open/?url=file:///Users/evan/Development/Ruby/convection/app/models/user.rb'>/app/models/user.rb</a></h2>
+    
+      <p>User#none</p>
+      <p>Total Score: 3.4</p>
+      <table>
+        <tr>
+          <th>Score</th>
+          <th>Operator</th>
+        </tr>
+        
+          <tr>
+            <td>2.4</td>
+            <td>assignment</td>
+          </tr>
+        
+          <tr>
+            <td>1.1</td>
+            <td>branch</td>
+          </tr>
+        
+          <tr>
+            <td>1.1</td>
+            <td>validates_presence_of</td>
+          </tr>
+        
+          <tr>
+            <td>1.1</td>
+            <td>acts_as_authentic</td>
+          </tr>
+        
+      </table>
+    
+
+  <h2 id="_app_models_document_rb"><a href='txmt://open/?url=file:///Users/evan/Development/Ruby/convection/app/models/document.rb'>/app/models/document.rb</a></h2>
+    
+      <p>Document#none</p>
+      <p>Total Score: 3.3</p>
+      <table>
+        <tr>
+          <th>Score</th>
+          <th>Operator</th>
+        </tr>
+        
+          <tr>
+            <td>1.1</td>
+            <td>belongs_to</td>
+          </tr>
+        
+          <tr>
+            <td>1.1</td>
+            <td>validates_attachment_presence</td>
+          </tr>
+        
+          <tr>
+            <td>1.1</td>
+            <td>has_attached_file</td>
+          </tr>
+        
+      </table>
+    
+
+  <h2 id="_app_models_preferences_rb"><a href='txmt://open/?url=file:///Users/evan/Development/Ruby/convection/app/models/preferences.rb'>/app/models/preferences.rb</a></h2>
+    
+      <p>Preferences#none</p>
+      <p>Total Score: 3.3</p>
+      <table>
+        <tr>
+          <th>Score</th>
+          <th>Operator</th>
+        </tr>
+        
+          <tr>
+            <td>2.2</td>
+            <td>validates_presence_of</td>
+          </tr>
+        
+          <tr>
+            <td>1.1</td>
+            <td>private</td>
+          </tr>
+        
+      </table>
+    
+      <p>Preferences#using_email?</p>
+      <p>Total Score: 1.2</p>
+      <table>
+        <tr>
+          <th>Score</th>
+          <th>Operator</th>
+        </tr>
+        
+          <tr>
+            <td>1.2</td>
+            <td>email_notifications?</td>
+          </tr>
+        
+      </table>
+    
+
+  <h2 id="_lib_test_case_rb"><a href='txmt://open/?url=file:///Users/evan/Development/Ruby/convection/lib/test_case.rb'>/lib/test_case.rb</a></h2>
+    
+      <p>main#none</p>
+      <p>Total Score: 3.2</p>
+      <table>
+        <tr>
+          <th>Score</th>
+          <th>Operator</th>
+        </tr>
+        
+          <tr>
+            <td>1.2</td>
+            <td>  +</td>
+          </tr>
+        
+          <tr>
+            <td>1.0</td>
+            <td>  lit_fixnum</td>
+          </tr>
+        
+          <tr>
+            <td>1.0</td>
+            <td>  ==</td>
+          </tr>
+        
+      </table>
+    
+
+<p>Generated on Fri Jan 01 22:49:57 -0800 2010</p>	
+
+    </div>
+  </body>
+</html>
