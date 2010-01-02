@@ -1,8 +1,6 @@
 require 'erb'
 require 'spec/rake/spectask'
-
-task :cruise => [ 'ci:spec' ]              
-                      
+                              
 namespace :ci do
   desc "Set up for testing in continuous integration"
   task :setup, [ :db_host, :db_user, :db_pass, :db_name ] => [ "config/database.yml", 
@@ -12,7 +10,7 @@ namespace :ci do
 
   desc "Run tests for CI"
   Spec::Rake::SpecTask.new do |t, args|
-    t.spec_opts = [ "--colour", '--format html', 
+    t.spec_opts = [ "--colour", "--format html:#{ENV['CC_BUILD_ARTIFACTS']}/spec_output", 
       "--loadby mtime", "--reverse"]
     # t.rcov = true  
   end                            
