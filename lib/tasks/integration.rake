@@ -18,7 +18,7 @@ namespace :ci do
     t.rcov_opts = lambda do
       IO.readlines("#{RAILS_ROOT}/spec/rcov.opts").map {|l| l.chomp.split " "}.flatten
     end    
-    t.rcov_opts += [ "--output", "html:#{ENV['CC_BUILD_ARTIFACTS']}/coverage"]
+    t.rcov_opts += [ "--output", "#{ENV['CC_BUILD_ARTIFACTS']}/coverage"]
   end                            
   task :spec,  [ :db_host, :db_user, :db_pass, :db_name ] => [ :setup ] 
 end
