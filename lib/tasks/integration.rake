@@ -1,4 +1,5 @@
 ENV['GEM_PATH'] = "/home/idahoev/.gems:#{ENV['GEM_PATH']}"
+ENV['GEM_HOME'] = "/home/idahoev/.gems}"
 
 require 'erb'
 require 'spec/rake/spectask'  
