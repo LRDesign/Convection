@@ -10,9 +10,15 @@ namespace :ci do
 
   desc "Run tests for CI"
   Spec::Rake::SpecTask.new do |t, args|
-    t.spec_opts = [ "--colour", "--format html:#{ENV['CC_BUILD_ARTIFACTS']}/spec_output.html", 
-      "--loadby mtime", "--reverse"]
-    t.rcov = true  
+    t.spec_opts = [ "--colour", "--format", "html:#{ENV['CC_BUILD_ARTIFACTS']}/spec_output.html", 
+      "--loadby", "mtime", "--reverse"]
+    t.spec_opts += ['--options', "\"#{RAILS_ROOT}/spec/spec.opts\""]
+    t.spec_files = FileList['spec/**/*_spec.rb']
+    t.rcov = true
+    t.rcov_opts = lambda do
+      IO.readlines("#{RAILS_ROOT}/spec/rcov.opts").map {|l| l.chomp.split " "}.flatten
+    end    
+    t.rcov_opts += [ "--output", "html:#{ENV['CC_BUILD_ARTIFACTS']}/coverage"]
   end                            
   task :spec,  [ :db_host, :db_user, :db_pass, :db_name ] => [ :setup ] 
 end
