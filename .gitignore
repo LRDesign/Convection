@@ -41,4 +41,8 @@ vendor/plugins/footnotes/*
 rsa_key*
 sphinx/*
 config/ultrasphinx/*.conf
-public/stylesheets/screen.css
+public/stylesheets/screen.css                     
+coverage/
+artifacts/
+database.yml.backup/
+
