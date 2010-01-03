@@ -2,12 +2,13 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe UsersController do
 
-  before(:each) do
-    @user = Factory(:user)
-  end
+
 
   describe "responding to GET show" do
-
+    before(:each) do
+      @user = Factory(:user)
+    end
+    
     it "should expose the requested user as @user" do
       get :show, :id => @user.id
       assigns[:user].should == @user
@@ -30,7 +31,10 @@ describe UsersController do
  
 
   describe "responding to GET edit" do
-  
+    before(:each) do
+      @user = Factory(:user)
+    end
+    
     it "should expose the requested user as @user" do
       get :edit, :id => @user.id
       assigns[:user].should == @user
@@ -41,45 +45,37 @@ describe UsersController do
   describe "responding to PUT update" do
 
     before(:each) do
-      User.should_receive(:find).with(@user.id).and_return(@user)
-    end
-
-    it "should update the requested user" do
-      @user.should_receive(:update_attributes).with({'these' => 'params'})
-      put :update, :id => @user.id, :user => {:these => 'params'}
+      @user = Factory.create(:user)
     end
 
     describe "with valid params" do
-
-      before(:each) do
-        @user.stub!(:update_attributes => true)
-      end
-
       it "should expose the requested user as @user" do
-        put :update, :id => @user.id
-        assigns(:user).should equal(@user)
+        put :update, :id => @user.id, :user => { :name => 'foobar' }
+        assigns(:user).should == @user
       end
 
       it "should redirect to the user" do
-        put :update, :id => @user.id
+        put :update, :id => @user.id, :user => { :name => 'foobar' } 
         response.should redirect_to(user_url(@user))
+      end                         
+      
+      it "should make the requested changes" do
+        lambda do 
+          put :update, :id => @user.id, :user => { :name => 'foobar' }          
+          @user.reload
+        end.should change(@user, :name).to('foobar')
       end
 
     end
     
     describe "with invalid params" do
-
-      before(:each) do
-        @user.stub!(:update_attributes => false)
-      end
-
       it "should expose the user as @user" do
-        put :update, :id => @user.id
-        assigns(:user).should equal(@user)
+        put :update, :id => @user.id, :user =>  { :name => nil }
+        assigns(:user).should == @user
       end
 
       it "should re-render the 'edit' template" do
-        put :update, :id => @user.id
+        put :update, :id => @user.id, :user => { :name => nil } 
         response.should render_template('edit')
       end
 

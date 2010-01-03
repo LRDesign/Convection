@@ -9,6 +9,11 @@ describe UsersController do
     it "should map #edit" do
       route_for(:controller => "users", :action => "edit", :id => '1').should == "/users/1/edit"
     end  
+    
+    it "should map #update" do
+      route_for(:controller => "users", :action => "update", :id => '1').should == { :path => "/users/1", :method => :put }
+    end  
+    
   end
 
   describe "route recognition" do    
