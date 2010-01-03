@@ -1,29 +1,44 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe UsersController do
+  before(:each) do
+    activate_authlogic
+  end
 
 
-
-  describe "responding to GET show" do
+  describe "responding to GET show" do   
     before(:each) do
-      @user = Factory(:user)
+      @user = Factory(:user)      
     end
-    
-    it "should expose the requested user as @user" do
-      get :show, :id => @user.id
-      assigns[:user].should == @user
-    end
-    
-    describe "with mime type of xml" do
-
-      it "should render the requested user as xml" do
-        request.env["HTTP_ACCEPT"] = "application/xml"
-        User.should_receive(:find).with("37").and_return(@user)
-        @user.should_receive(:to_xml).and_return("generated XML")
-        get :show, :id => "37"
-        response.body.should == "generated XML"
+    describe "while logged in" do
+      before(:each) do
+        login_as @user
+      end
+        
+      it "should succeed" do
+        get :show, :id => @user.id
+        response.should be_success
       end
 
+      it "should expose the requested user as @user" do
+        get :show, :id => @user.id
+        assigns[:user].should == @user
+      end     
+    end
+    
+    describe "while not logged in" do    
+      before(:each) do
+        logout
+      end
+      it "should redirect to login url" do
+        get :show, :id => @user.id
+        response.should redirect_to(login_path)        
+      end
+      it "should set the flash" do
+        get :show, :id => @user.id
+        flash[:notice].should_not be_nil
+      end
+      
     end
     
   end
@@ -33,6 +48,7 @@ describe UsersController do
   describe "responding to GET edit" do
     before(:each) do
       @user = Factory(:user)
+      login_as @user
     end
     
     it "should expose the requested user as @user" do
@@ -44,9 +60,10 @@ describe UsersController do
 
   describe "responding to PUT update" do
 
-    before(:each) do
+    before(:each) do   
       @user = Factory.create(:user)
-    end
+      login_as @user
+    end                  
 
     describe "with valid params" do
       it "should expose the requested user as @user" do

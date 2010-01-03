@@ -21,5 +21,6 @@ module AuthlogicTestHelper
     
     def logout
       @current_user_session = nil
+      UserSession.find.destroy if UserSession.find
     end
 end

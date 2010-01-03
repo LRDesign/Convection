@@ -1,4 +1,5 @@
-class UsersController < ApplicationController
+class UsersController < ApplicationController                           
+  before_filter :require_user
   before_filter :find_user, :only => [ :show, :edit, :update, :destroy ]
 
   # GET /users
