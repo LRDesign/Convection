@@ -45,4 +45,4 @@ public/stylesheets/screen.css
 coverage/
 artifacts/
 database.yml.backup/
-
+coverage*
