@@ -75,7 +75,8 @@ if (Gem.available?('metric_fu') and Gem.available?('rspec'))
       `gem env`.each_line {|line| print "[CruiseControl] #{line}"}
       puts "[CruiseControl] Local gems:"
       `gem list`.each_line {|line| print "[CruiseControl] #{line}"}
-      puts        
+      puts     
+      puts ENV['CC_BUILD_ARTIFACTS']   
     end
   
   
