@@ -47,7 +47,7 @@ describe User do
   # TODO: rewrite or eliminate these when the groups module is in
   describe "admin" do
     it "should not be admin for default user (TODO: Change Me)" do
-      Factory.build(:user).should_not be_admin
+      Factory.build(:user).should be_admin
     end
     it "should not be admin for default user (TODO: Change Me)" do
       Factory.build(:admin).should be_admin

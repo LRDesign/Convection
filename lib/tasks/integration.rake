@@ -1,8 +1,5 @@
 
 require 'rubygems'                                               
-# Dir["#{RAILS_ROOT}/vendor/gems/**"].each do |dir|    
-#   $: << (File.directory?(lib = "#{dir}/lib") ? lib : dir)
-# end 
 
 if (Gem.available?('metric_fu') and Gem.available?('rspec'))
                  
