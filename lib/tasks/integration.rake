@@ -1,8 +1,8 @@
 
 require 'rubygems'                                               
-Dir["#{RAILS_ROOT}/vendor/gems/**"].each do |dir|    
-  $: << (File.directory?(lib = "#{dir}/lib") ? lib : dir)
-end
+# Dir["#{RAILS_ROOT}/vendor/gems/**"].each do |dir|    
+#   $: << (File.directory?(lib = "#{dir}/lib") ? lib : dir)
+# end 
 
 if (Gem.available?('metric_fu') and Gem.available?('rspec'))
                  
@@ -76,7 +76,9 @@ if (Gem.available?('metric_fu') and Gem.available?('rspec'))
       puts "[CruiseControl] Local gems:"
       `gem list`.each_line {|line| print "[CruiseControl] #{line}"}
       puts     
-      puts ENV['CC_BUILD_ARTIFACTS']   
+      ENV.each_pair do |key, val| 
+        puts "[CruiseControl] Env: #{key} => #{val}"
+      end
     end
   
   
