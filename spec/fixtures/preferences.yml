@@ -1,29 +1,32 @@
 # == Schema Information
 #
-# Table name: preferences
+# Table name preferences
 #
-#  id                  :integer(4)      not null, primary key
-#  domain              :string(255)
-#  site_name           :string(255)
-#  smtp_server         :string(255)
-#  smtp_port           :integer(4)
-#  smtp_uses_ssl       :boolean(1)
-#  smtp_username       :string(255)
-#  smtp_password       :string(255)
-#  email_notifications :boolean(1)
-#  analytics           :text
-#  logo_url            :string(255)
-#  created_at          :datetime
-#  updated_at          :datetime
+#  id                  integer(4)      not null primary key
+#  domain              string(255)
+#  site_name           string(255)
+#  smtp_server         string(255)
+#  smtp_port           integer(4)
+#  smtp_uses_ssl       boolean(1)
+#  smtp_username       string(255)
+#  smtp_password       string(255)
+#  email_notifications boolean(1)
+#  analytics           text
+#  logo_url            string(255)
+#  created_at          datetime
+#  updated_at          datetime
 #
 
-# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+# Read about fixtures at http//ar.rubyonrails.org/classes/Fixtures.html
 
 prefs:
-  domain: example.com
-  site_name: Example Site Name
-  smtp_server: smtp.example.com
+  domain:         "your_site_domain.com"
+  site_name:      "Convection File Exchange Made Easy"
+  logo_url:       "/images/convection_logo.png"
+  smtp_server:    "smtp.example.com"
   smtp_port: 25
-  smtp_uses_ssl: false
-  email_notifications: true
-  logo_url: "/images/preferences_logo.png"
+  smtp_uses_tls: false
+  allow_password_resets:  true
+  email_notifications:    true
+  maximum_file_size:      100     # Megabytes    
+  require_ssl:            false   # Site doesn't require SSL connections

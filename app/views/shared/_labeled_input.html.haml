@@ -1,13 +1,17 @@
 - klass = "labeled_input"
 - klass += " required" if (defined?(required) and required)
 
-%div{ :class => klass }      
-  = form.label field, text                           
-  
+/  Allow for overrides to the input, but default to
+/  a text field for the attribute identified by "field"
+- input ||= capture do
   - if size.blank?
     = form.text_field field
   - else
     = form.text_field field, :size => size
+   
+%div{ :class => klass }      
+  = form.label field, text                           
+  = input
   - if defined?(comment) and comment
     %span.comment
       = comment
