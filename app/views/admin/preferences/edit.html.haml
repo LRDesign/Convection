@@ -1,8 +1,34 @@
 - set_headline("Site Preferences")
 
 - form_for @preferences, :url => admin_preferences_path, :method => :put  do |f|
-  = labeled_input f, :site_name
-  = labeled_input f, :domain
-  = labeled_input f, :logo_url
-  = labeled_input f, :smtp_server
+  .form_section
+    %h3 Site Configuration
+    = labeled_input f, :site_name
+    = labeled_input f, :domain, :comment => "Used to make links in email notifications."
+    = labeled_input f, :logo_url
+    = labeled_input f, :require_ssl, :input => f.check_box(:require_ssl)
+      
+  .form_section    
+    %h3 Email Configuration
+    = labeled_input f, :email_notifications, :input => f.check_box(:email_notifications)
+    = labeled_input f, :smtp_server
+    = labeled_input f, :smtp_port
+    = labeled_input f, :smtp_username
+    = labeled_input f, :smtp_password, :input => f.password_field(:smtp_password)
+    = labeled_input f, :smtp_uses_tls, :input => f.check_box(:smtp_uses_tls)
+
+  .form_section      
+    %h3 User Configuration
+    = labeled_input f, :allow_password_resets, {                      |
+      :input => f.check_box(:allow_password_resets),                  |
+      :comment => "Allow users to request password reset themselves." |
+    }                                                                 |  
+        
+  .form_section
+    %h3 Analytics
+    %p 
+      Paste code for Google Analytics (or other per-page include) here to be 
+      automatically included in the footer of every page.
+    = f.text_area :analytics   
+      
   = f.submit

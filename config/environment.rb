@@ -19,6 +19,7 @@ Rails::Initializer.run do |config|
   config.gem "rspec-rails", :lib => false, :version => ">= 1.2.4"
   config.gem "thoughtbot-factory_girl", :lib => "factory_girl", :version => ">= 1.2.1"
   config.gem "chronic"
+  config.gem "tlsmail", :version => ">= 0.0.1"
  
   # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
   # Run "rake -D time" for a list of tasks for finding time zone names.

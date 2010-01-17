@@ -5,10 +5,13 @@ class CreatePreferences < ActiveRecord::Migration
       t.string :site_name
       t.string :smtp_server
       t.integer :smtp_port
-      t.boolean :smtp_uses_ssl
+      t.boolean :smtp_uses_tls
       t.string :smtp_username
       t.string :smtp_password
-      t.boolean :email_notifications
+      t.boolean :email_notifications, :allow_nil => false, :default => true
+      t.boolean :allow_password_resets, :allow_nil => false, :default => true
+      t.boolean :require_ssl
+      t.integer :maximum_file_size   # in MB      
       t.text :analytics
       t.string :logo_url
 
