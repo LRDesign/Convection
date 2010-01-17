@@ -8,10 +8,6 @@ require File.join(File.dirname(__FILE__), 'boot')
 
 Rails::Initializer.run do |config| 
   
-  config.load_paths += Dir["#{RAILS_ROOT}/vendor/gems/**"].map do |dir|    
-    File.directory?(lib = "#{dir}/lib") ? lib : dir
-  end  
-  
   # Required gems 
   config.gem "haml"
   config.gem "authlogic", :version => ">= 2.0.9"
