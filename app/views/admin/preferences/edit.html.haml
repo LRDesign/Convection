@@ -4,7 +4,7 @@
   .form_section
     %h3 Site Configuration
     = labeled_input f, :site_name
-    = labeled_input f, :domain, :comment => "Used to make links in email notifications."
+    = labeled_input f, :domain, :comment => "Used to generate links in email notifications."
     = labeled_input f, :logo_url
     = labeled_input f, :require_ssl, :input => f.check_box(:require_ssl)
       
@@ -19,10 +19,10 @@
 
   .form_section      
     %h3 User Configuration
-    = labeled_input f, :allow_password_resets, {                      |
-      :input => f.check_box(:allow_password_resets),                  |
-      :comment => "Allow users to request password reset themselves." |
-    }                                                                 |  
+    = labeled_input f, :allow_password_resets, {                                            |
+      :input => f.check_box(:allow_password_resets),                                        |
+      :comment => "Allow users to request password reset with 'forgot my password" tool. '  |
+    }                                                                                       |  
         
   .form_section
     %h3 Analytics

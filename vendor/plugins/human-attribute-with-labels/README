@@ -1,0 +1,58 @@
+HumanAttributeOverride
+======================
+
+Read a tutorial for this plugin at http://weblog.redlinesoftware.com/2008/1/2/human-attribute-override-plugin-tutorial
+
+-------
+Updates
+
+Nov. 18, 2008
+
+Label helper overrided to use humanized attributes. [Henrique]
+
+
+Nov. 14, 2007
+
+Fixed a bug where column.human_name didn't use the new attribute name.
+
+This should now produce the correct results:
+
+<% for column in Company.content_columns %>
+  <%= column.human_name %>
+<% end %>
+
+
+Aug. 18, 2007
+
+Attributes can now be specified with symbols or strings (only strings were accepted before)
+ex. attr_human_name :num_employees => 'Number of employees', 'unit_num' => 'Unit#'
+
+Attributes can also be accessed with symbols or strings
+ex.
+Company.human_attribute_name('num_employees') == 'Number of employees'
+Company.human_attribute_name(:num_employees) == 'Number of employees'
+-------
+
+After Rails 1.2, the method human_attribute_name will be removed, so this must be implemented as a plugin to keep the method and it's existing uses of the method intact, while adding additional functionality described below.
+
+
+This plugin allows humanized versions of attributes to be overridden with custom strings to provide a better conversion than humanize may provide.
+
+This is useful in error reporting and possibly legacy databases where more "cryptic" field names may be used in database tables and a humanized version is not very human.
+
+Rails uses these humanized conversions in error reporting with the error_messages_for method and in schema definitions for column names with the human_name method.
+
+For example, a table (Company) has a field called num_employees which when humanized becomes 'Num employees' using the human_attribute_name method (which currently equates to a humanize method call). Ex.
+
+Company.human_attribute_name('num_employees') == 'Num employees'
+
+With this patch you can override this conversion...
+
+class Company
+  attr_human_name 'num_employees' => 'Number of employees'
+  ...
+end
+
+Now the following is true...
+
+Company.human_attribute_name('num_employees') == 'Number of employees'

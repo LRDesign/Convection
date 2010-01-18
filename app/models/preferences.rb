@@ -25,6 +25,8 @@ class Preferences < ActiveRecord::Base
   validates_presence_of :smtp_server,  :if => :using_email?
   
   attr_human_name  :site_name => "Site Name"
+  attr_human_name  :email_notifications => "Send Email?"
+  attr_human_name  :logo_url => "Logo URL"
   attr_human_name  :smtp_server => "SMTP Server"
   attr_human_name  :smtp_port  => "SMTP Port"
   attr_human_name  :smtp_uses_tls => "Use TLS"
