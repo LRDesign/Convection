@@ -1,7 +1,7 @@
 -set_headline "Log In" 
 
 - form_for @user_session do |f|
-  = f.error_messages
+  = f.error_messages :header_message => "Sorry, we could not log you in."
   = labeled_input f, :login
   = labeled_input f, :password, :input => f.password_field(:password)
   .labeled_input

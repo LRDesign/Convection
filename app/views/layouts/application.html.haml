@@ -21,5 +21,7 @@
       =render :partial => 'layouts/nav'
        
       #content
+        =render :partial => 'layouts/flash' , :locals => { :flash => flash }
+      
         %h1= yield :headline if yield :headline
         = yield
