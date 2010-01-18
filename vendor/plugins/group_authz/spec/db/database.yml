@@ -1,3 +1,10 @@
 sqlite3:
   :adapter: sqlite3
   :database: vendor/plugins/group_authz/spec/db/group_authz.sqlite3.db
+
+mysql:
+  :adapter: mysql
+  :database: group_authz
+  :username: root
+  :password:
+  :host: localhost

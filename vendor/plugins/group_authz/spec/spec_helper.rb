@@ -15,6 +15,9 @@ Spec::Runner.configure do |config|
 #  config.use_transactional_fixtures = true
   config.use_instantiated_fixtures  = true
   config.fixture_path = File::join(File.dirname(__FILE__), 'fixtures')
+  config.global_fixtures = [
+    :az_accounts, :groups, :permissions
+  ]
 end
                
 ActiveRecord::Base.logger = Logger.new(plugin_spec_dir + "/debug.log")

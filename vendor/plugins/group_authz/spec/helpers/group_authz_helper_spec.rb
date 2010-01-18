@@ -4,8 +4,6 @@ require 'app/helpers/group_authz_helper'
 describe GroupAuthz::Helper do
   include GroupAuthz::MockAuth
 
-  fixtures :groups, :permissions, :az_accounts
-
   it "should refuse authorization to guests" do
     logout
     helper.should_not be_authorized

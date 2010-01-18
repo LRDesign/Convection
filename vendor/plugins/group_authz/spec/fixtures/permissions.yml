@@ -1,14 +1,14 @@
 controller_access:
-  group: incrowd
+  group: theincrowd
   controller: foo
 
 action_access:
-  group: incrowd
+  group: theincrowd
   controller: bar
   action: baz
 
 record_access:
-  group: incrowd
+  group: theincrowd
   controller: wire
   action: vinyl
   subject_id: 1
