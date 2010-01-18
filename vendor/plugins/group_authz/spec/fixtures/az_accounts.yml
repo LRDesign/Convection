@@ -1,0 +1,6 @@
+authorized:
+  name: "Authorized"
+  groups: incrowd
+
+unauthorized:
+  name: "Unauthorized"
