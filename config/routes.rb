@@ -10,7 +10,7 @@ ActionController::Routing::Routes.draw do |map|
   map.login '/login', :controller => "user_sessions", :action => "new"
   
   map.namespace :admin do |admin|
-    admin.resources :users, :except => [ :show ] 
+    admin.resources :users
     admin.resource  :preferences
   end
   

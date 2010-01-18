@@ -33,7 +33,17 @@ describe Admin::UsersController do
       get :index
       assigns[:users].should == User.find(:all)
     end
-  end      
+  end   
+     
+  ###################################################################################  
+  # GET show
+  ###################################################################################  
+  describe "GET index" do
+    it "should redirect to the edit page" do
+      get :show, :id => @user.id
+      response.should redirect_to(edit_admin_user_path(@user))
+    end
+  end
   
   ###################################################################################  
   # GET new

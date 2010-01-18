@@ -6,6 +6,10 @@ class Admin::UsersController < Admin::AdminController
     @users = User.find(:all)
   end  
   
+  def show
+    redirect_to edit_admin_user_path(User.find(params[:id]))
+  end
+  
   # GET :edit
   def edit
     @user = User.find(params[:id])
