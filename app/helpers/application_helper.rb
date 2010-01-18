@@ -32,7 +32,7 @@ module ApplicationHelper
   # pass { :text => "foo" } to override the label text
   def labeled_input(form, field, options = {}) 
     options[:text] = "&nbsp;" if options[:nolabel]
-    options.reverse_merge!(:text => nil, :size => nil, :required => false)
+    options.reverse_merge!(:text => nil, :size => nil, :required => false, :nolabel => false)
     options.merge!(:form => form, :field => field)
     render(:partial => 'shared/labeled_input', :locals => options)  
   end  
@@ -40,6 +40,12 @@ module ApplicationHelper
   # same function as application_controller.rb's logged_in? method
   def logged_in?
     !current_user.nil?
+  end
+  
+  # displays a checkmark if the field is set true
+  def bool_checked(field)
+    filename = field ? "green_check.png" : "spacer.gif"
+    image_tag(filename, :alt => "yes", :size => "16x16")   
   end
 
 end

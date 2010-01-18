@@ -9,8 +9,12 @@
   - else
     = form.text_field field, :size => size
    
-%div{ :class => klass }      
-  = form.label field, text                           
+%div{ :class => klass }   
+  - unless nolabel
+    = form.label field, text                           
+  - else
+    %label &nbsp;
+    
   = input
   - if defined?(comment) and comment
     %span.comment

@@ -1,11 +1,12 @@
 
-= error_messages_for :user
-- form_for @user, :url => admin_users_path do |f|
+- form_for [:admin, @user] do |f|
+  = f.error_messages :header_message => "Sorry, we couldn't save your changes."
+
   = labeled_input f, :login
   = labeled_input f, :name
   = labeled_input f, :email
-  = labeled_input f, :password
-  = labeled_input f, :password_confirmation   
+  = labeled_input f, :password, :input => f.password_field(:password)
+  = labeled_input f, :password_confirmation, :text => "Confirmation", :input => f.password_field(:password_confirmation)
   
   / TODO: admin will not be a boolean after the groups module is connected
   / so this will need to be removed in favor of an ajax tool for editing group
@@ -13,4 +14,4 @@
   .labeled_input
     = f.label :admin
     = f.check_box :admin
-  = f.submit 
+  = labeled_input f, :submit, :input => f.submit, :nolabel => true  

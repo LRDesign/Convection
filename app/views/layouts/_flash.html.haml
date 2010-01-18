@@ -1,0 +1,3 @@
+- flash.each do |key, msg| 
+  %div{ :class => "flash #{key}" }
+    = content_tag :p, msg

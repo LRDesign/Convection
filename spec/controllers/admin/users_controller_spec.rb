@@ -33,18 +33,17 @@ describe Admin::UsersController do
       get :index
       assigns[:users].should == User.find(:all)
     end
-  end  
-    
+  end   
+     
   ###################################################################################  
   # GET show
   ###################################################################################  
-  describe "GET show" do
-    it "should find the user" do
-      get :show, :id => @user
-      assigns[:user].should == @user
+  describe "GET index" do
+    it "should redirect to the edit page" do
+      get :show, :id => @user.id
+      response.should redirect_to(edit_admin_user_path(@user))
     end
   end
-  
   
   ###################################################################################  
   # GET new
@@ -58,6 +57,60 @@ describe Admin::UsersController do
      end
 
    end
+
+   ###################################################################################  
+   # GET edit
+   ###################################################################################    
+   describe "GET edit" do
+     before(:each) do
+       @user = Factory.create(:user)       
+     end
+      it "should find and expose the user as @user" do
+        get :edit, :id => @user.id
+        assigns[:user].should == @user
+      end
+
+    end
+
+
+  ###################################################################################  
+  # PUT update
+  ###################################################################################  
+  describe "PUT update" do
+    before(:each) do
+      @user = Factory.create(:user, { :login => "original_name "})
+    end
+    
+    describe "with valid params" do
+      it "should succeed" do
+        put :update, :id => @user.id, :user => { :login => "new_name" }
+        response.should be_success
+      end
+      
+      it "should expose the correct user as @user" do
+        put :update, :id => @user.id, :user => { :login => "new_name" }
+        assigns[:user].should == @user
+      end
+      
+      it "should have a success flash message" do
+        put :update, :id => @user.id, :user => { :login => "new_name" }
+        flash[:success].should_not be_nil
+      end
+      
+      it "should update the user record" do
+        lambda do  
+          put :update, :id => @user.id, :user => { :login => "new_name" }
+          @user.reload
+        end.should change{ @user.login }.to("new_name")
+      end
+      
+      it "should re-render the edit page" do
+        put :update, :id => @user.id, :user => { :login => "new_name" }
+        response.should render_template(:edit)       
+      end
+    end    
+  end
+
    
   ###################################################################################  
   # POST create
