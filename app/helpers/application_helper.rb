@@ -32,7 +32,7 @@ module ApplicationHelper
   # pass { :text => "foo" } to override the label text
   def labeled_input(form, field, options = {}) 
     options[:text] = "&nbsp;" if options[:nolabel]
-    options.reverse_merge!(:text => nil, :size => nil, :required => false)
+    options.reverse_merge!(:text => nil, :size => nil, :required => false, :nolabel => false)
     options.merge!(:form => form, :field => field)
     render(:partial => 'shared/labeled_input', :locals => options)  
   end  

@@ -25,7 +25,7 @@ class Admin::UsersController < Admin::AdminController
     @user = User.new(params[:user])
     respond_to do |format|
       if @user.save
-        flash[:notice] = 'User was successfully created.'
+        flash[:success] = 'User was successfully created.'
         format.html { redirect_to(@user) }
       else
         format.html { render :action => "new" }
@@ -33,6 +33,19 @@ class Admin::UsersController < Admin::AdminController
     end
   end
 
+
+  #PUT /users/1
+  def update
+    @user = User.find(params[:id])
+    respond_to do |format|
+      format.html do
+        if (@user.update_attributes(params[:user]))    
+          flash[:success] = 'User updated.'
+        end  
+        render :action => 'edit'
+      end
+    end
+  end
 
   # DELETE /users/1
   def destroy

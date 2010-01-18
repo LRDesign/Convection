@@ -62,6 +62,45 @@ describe Admin::UsersController do
 
     end
 
+
+  ###################################################################################  
+  # PUT update
+  ###################################################################################  
+  describe "PUT update" do
+    before(:each) do
+      @user = Factory.create(:user, { :login => "original_name "})
+    end
+    
+    describe "with valid params" do
+      it "should succeed" do
+        put :update, :id => @user.id, :user => { :login => "new_name" }
+        response.should be_success
+      end
+      
+      it "should expose the correct user as @user" do
+        put :update, :id => @user.id, :user => { :login => "new_name" }
+        assigns[:user].should == @user
+      end
+      
+      it "should have a success flash message" do
+        put :update, :id => @user.id, :user => { :login => "new_name" }
+        flash[:success].should_not be_nil
+      end
+      
+      it "should update the user record" do
+        lambda do  
+          put :update, :id => @user.id, :user => { :login => "new_name" }
+          @user.reload
+        end.should change{ @user.login }.to("new_name")
+      end
+      
+      it "should re-render the edit page" do
+        put :update, :id => @user.id, :user => { :login => "new_name" }
+        response.should render_template(:edit)       
+      end
+    end    
+  end
+
    
   ###################################################################################  
   # POST create
