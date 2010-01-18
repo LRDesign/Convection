@@ -33,18 +33,7 @@ describe Admin::UsersController do
       get :index
       assigns[:users].should == User.find(:all)
     end
-  end  
-    
-  ###################################################################################  
-  # GET show
-  ###################################################################################  
-  describe "GET show" do
-    it "should find the user" do
-      get :show, :id => @user
-      assigns[:user].should == @user
-    end
-  end
-  
+  end      
   
   ###################################################################################  
   # GET new

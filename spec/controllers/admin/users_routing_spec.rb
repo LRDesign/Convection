@@ -9,11 +9,7 @@ describe Admin::UsersController do
     it "should map #new" do
       route_for(:controller => "admin/users", :action => "new").should == "admin/users/new"
     end
-  
-    it "should map #show" do
-      route_for(:controller => "admin/users", :action => "show", :id => '1').should == "admin/users/1"
-    end
-  
+    
     it "should map #edit" do
       route_for(:controller => "admin/users", :action => "edit", :id => '1').should == "admin/users/1/edit"
     end
@@ -39,11 +35,7 @@ describe Admin::UsersController do
     it "should generate params for #create" do
       params_from(:post, "/admin/users").should == {:controller => "admin/users", :action => "create"}
     end
-  
-    it "should generate params for #show" do
-      params_from(:get, "/admin/users/1").should == {:controller => "admin/users", :action => "show", :id => "1"}
-    end
-  
+    
     it "should generate params for #edit" do
       params_from(:get, "/admin/users/1/edit").should == {:controller => "admin/users", :action => "edit", :id => "1"}
     end
@@ -54,6 +46,12 @@ describe Admin::UsersController do
   
     it "should generate params for #destroy" do
       params_from(:delete, "/admin/users/1").should == {:controller => "admin/users", :action => "destroy", :id => "1"}
+    end
+  end
+  
+  describe "unmappable routes" do
+    it "should not map #show" do
+      {:get => "/admin/users/1"}.should_not be_routable
     end
   end
 end
