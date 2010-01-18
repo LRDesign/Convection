@@ -5,11 +5,11 @@ class Admin::UsersController < Admin::AdminController
   def index
     @users = User.find(:all)
   end  
-    
-  # GET :show
-  def show
-  end
   
+  # GET :edit
+  def edit
+    @user = User.find(params[:id])
+  end
   
   # GET /users/new
   def new

@@ -47,6 +47,21 @@ describe Admin::UsersController do
      end
 
    end
+
+   ###################################################################################  
+   # GET edit
+   ###################################################################################    
+   describe "GET edit" do
+     before(:each) do
+       @user = Factory.create(:user)       
+     end
+      it "should find and expose the user as @user" do
+        get :edit, :id => @user.id
+        assigns[:user].should == @user
+      end
+
+    end
+
    
   ###################################################################################  
   # POST create

@@ -41,5 +41,11 @@ module ApplicationHelper
   def logged_in?
     !current_user.nil?
   end
+  
+  # displays a checkmark if the field is set true
+  def bool_checked(field)
+    filename = field ? "green_check.png" : "spacer.gif"
+    image_tag(filename, :alt => "yes", :size => "16x16")   
+  end
 
 end
