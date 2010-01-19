@@ -9,6 +9,7 @@ namespace :group_authz do
       next unless existing_migrations.empty?
       puts "Copying #{File::basename(path)} into #{migration_dir}"
       FileUtils::cp(path, File::join(migration_dir, [migration_prefix, File::basename(path)].join("_"))) 
+      migration_prefix = migration_prefix.next
     end
   end
 

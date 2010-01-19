@@ -1,4 +1,4 @@
-admin = Group.create!(
+admin_group = Group.create!(
   :name => "Administration"
 )
 
@@ -13,6 +13,6 @@ module GroupAuthz
       )
     end
 
-    #create_permission(admin, "admin/permissions")
+    #create_permission(admin_group, "admin/permissions")
   end
 end
