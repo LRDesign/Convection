@@ -35,4 +35,8 @@ class User < ActiveRecord::Base
   def admin?
     groups.include? Group.admin_group
   end
+
+  def admin
+    return admin?
+  end
 end
