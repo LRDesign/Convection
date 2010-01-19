@@ -12,6 +12,9 @@ Factory.define :admins, :class => Group do |g|
   g.name "Administration"
 end
 
+Factory.define :group do |g|
+end
+
 Factory.define :admin, :parent => :user do |u|
   u.groups {|u| [ u.association(:admins) ]}
 end
