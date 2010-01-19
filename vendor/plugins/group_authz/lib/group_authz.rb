@@ -14,6 +14,11 @@ module GroupAuthz
       end
     end
 
+    def authorized(authorized)
+      flash[:group_authorization] = authorized
+      return authorized
+    end
+
     module ClassMethods
       def needs_authorization(*actions)
         before_filter CheckAuthorization
@@ -29,17 +34,17 @@ module GroupAuthz
       def self.filter(controller)
         if controller.class.read_inheritable_attribute(:whole_controller_authorization)
           if controller.authorized?
-            return true
+            return authorized(true)
           else
             controller.redirect_to_lobby("You are not authorized to use these tools.")
-            return false
+            return authorized(false)
           end
         elsif (controller.class.read_inheritable_attribute(:requires_action_authorization) || []).include?(controller.action_name.to_sym)
           if controller.authorized?
-            return true
+            return authorized(true)
           else
             controller.redirect_to_lobby("You are not authorized to perform this action.  Perhaps you need to log in?")
-            return false
+            return authorized(false)
           end
         else
           return true

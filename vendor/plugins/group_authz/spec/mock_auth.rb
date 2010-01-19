@@ -1,4 +1,7 @@
 module GroupAuthz
+  if defined?(:AuthnFacade)
+    remove_const(:AuthnFacade)
+  end
   module AuthnFacade
     @@current_user = nil
 

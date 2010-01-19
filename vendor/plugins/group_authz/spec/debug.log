@@ -4507,3 +4507,407 @@ Unable to load az_account, underlying cause no such file to load -- az_account
   [4;35;1mPermission Load (0.2ms)[0m   [0mSELECT * FROM "permissions" WHERE ("permissions"."subject_id" IS NULL AND "permissions"."action" IS NULL AND "permissions"."controller" = 'wire' AND "permissions"."group_id" IN (NULL)) LIMIT 1[0m
   [4;36;1mPermission Load (0.2ms)[0m   [0;1mSELECT * FROM "permissions" WHERE ("permissions"."subject_id" IS NULL AND "permissions"."action" = 'vinyl' AND "permissions"."controller" = 'wire' AND "permissions"."group_id" IN (NULL)) LIMIT 1[0m
   [4;35;1mPermission Load (0.3ms)[0m   [0mSELECT * FROM "permissions" WHERE ("permissions"."subject_id" = 1 AND "permissions"."action" = 'vinyl' AND "permissions"."controller" = 'wire' AND "permissions"."group_id" IN (NULL)) LIMIT 1[0m
+  [4;36;1mSQL (0.7ms)[0m   [0;1mselect sqlite_version(*)[0m
+  [4;35;1mSQL (1.3ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (15.2ms)[0m   [0;1mDROP TABLE "az_accounts"[0m
+  [4;35;1mSQL (4.8ms)[0m   [0mCREATE TABLE "az_accounts" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255)) [0m
+  [4;36;1mSQL (0.8ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (6.0ms)[0m   [0mDROP TABLE "groups"[0m
+  [4;36;1mSQL (5.6ms)[0m   [0;1mCREATE TABLE "groups" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255)) [0m
+  [4;35;1mSQL (0.8ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (5.5ms)[0m   [0;1mDROP TABLE "az_accounts_groups"[0m
+  [4;35;1mSQL (6.1ms)[0m   [0mCREATE TABLE "az_accounts_groups" ("az_account_id" integer, "group_id" integer, "created_at" datetime, "updated_at" datetime) [0m
+  [4;36;1mSQL (5.5ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (9.8ms)[0m   [0mDROP TABLE "permissions"[0m
+  [4;36;1mSQL (5.1ms)[0m   [0;1mCREATE TABLE "permissions" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "group_id" integer, "controller" varchar(255), "action" varchar(255), "subject_id" integer) [0m
+  [4;35;1mSQL (0.8ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1mSELECT version FROM "schema_migrations"[0m
+  [4;36;1mSQL (0.7ms)[0m   [0;1mselect sqlite_version(*)[0m
+  [4;35;1mSQL (1.2ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (5.5ms)[0m   [0;1mDROP TABLE "az_accounts"[0m
+  [4;35;1mSQL (4.2ms)[0m   [0mCREATE TABLE "az_accounts" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255)) [0m
+  [4;36;1mSQL (1.2ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (6.9ms)[0m   [0mDROP TABLE "groups"[0m
+  [4;36;1mSQL (11.7ms)[0m   [0;1mCREATE TABLE "groups" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255)) [0m
+  [4;35;1mSQL (0.7ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (6.0ms)[0m   [0;1mDROP TABLE "az_accounts_groups"[0m
+  [4;35;1mSQL (4.6ms)[0m   [0mCREATE TABLE "az_accounts_groups" ("az_account_id" integer, "group_id" integer, "created_at" datetime, "updated_at" datetime) [0m
+  [4;36;1mSQL (0.8ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (7.2ms)[0m   [0mDROP TABLE "permissions"[0m
+  [4;36;1mSQL (9.8ms)[0m   [0;1mCREATE TABLE "permissions" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "group_id" integer, "controller" varchar(255), "action" varchar(255), "subject_id" integer) [0m
+  [4;35;1mSQL (0.7ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1mSELECT version FROM "schema_migrations"[0m
+  [4;36;1mSQL (0.7ms)[0m   [0;1mselect sqlite_version(*)[0m
+  [4;35;1mSQL (1.2ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (6.1ms)[0m   [0;1mDROP TABLE "az_accounts"[0m
+  [4;35;1mSQL (4.8ms)[0m   [0mCREATE TABLE "az_accounts" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255)) [0m
+  [4;36;1mSQL (0.7ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (4.1ms)[0m   [0mDROP TABLE "groups"[0m
+  [4;36;1mSQL (6.5ms)[0m   [0;1mCREATE TABLE "groups" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255)) [0m
+  [4;35;1mSQL (0.7ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (6.6ms)[0m   [0;1mDROP TABLE "az_accounts_groups"[0m
+  [4;35;1mSQL (6.2ms)[0m   [0mCREATE TABLE "az_accounts_groups" ("az_account_id" integer, "group_id" integer, "created_at" datetime, "updated_at" datetime) [0m
+  [4;36;1mSQL (0.7ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (6.0ms)[0m   [0mDROP TABLE "permissions"[0m
+  [4;36;1mSQL (8.5ms)[0m   [0;1mCREATE TABLE "permissions" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "group_id" integer, "controller" varchar(255), "action" varchar(255), "subject_id" integer) [0m
+  [4;35;1mSQL (0.7ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1mSELECT version FROM "schema_migrations"[0m
+  [4;36;1mSQL (0.7ms)[0m   [0;1mselect sqlite_version(*)[0m
+  [4;35;1mSQL (1.4ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (6.0ms)[0m   [0;1mDROP TABLE "az_accounts"[0m
+  [4;35;1mSQL (3.9ms)[0m   [0mCREATE TABLE "az_accounts" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255)) [0m
+  [4;36;1mSQL (0.7ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (3.7ms)[0m   [0mDROP TABLE "groups"[0m
+  [4;36;1mSQL (3.4ms)[0m   [0;1mCREATE TABLE "groups" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255)) [0m
+  [4;35;1mSQL (0.7ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (4.5ms)[0m   [0;1mDROP TABLE "az_accounts_groups"[0m
+  [4;35;1mSQL (4.6ms)[0m   [0mCREATE TABLE "az_accounts_groups" ("az_account_id" integer, "group_id" integer, "created_at" datetime, "updated_at" datetime) [0m
+  [4;36;1mSQL (0.7ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (9.5ms)[0m   [0mDROP TABLE "permissions"[0m
+  [4;36;1mSQL (5.3ms)[0m   [0;1mCREATE TABLE "permissions" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "group_id" integer, "controller" varchar(255), "action" varchar(255), "subject_id" integer) [0m
+  [4;35;1mSQL (0.7ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.5ms)[0m   [0;1mSELECT version FROM "schema_migrations"[0m
+  [4;36;1mSQL (0.7ms)[0m   [0;1mselect sqlite_version(*)[0m
+  [4;35;1mSQL (1.8ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (6.3ms)[0m   [0;1mDROP TABLE "az_accounts"[0m
+  [4;35;1mSQL (4.4ms)[0m   [0mCREATE TABLE "az_accounts" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255)) [0m
+  [4;36;1mSQL (0.7ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (6.8ms)[0m   [0mDROP TABLE "groups"[0m
+  [4;36;1mSQL (4.3ms)[0m   [0;1mCREATE TABLE "groups" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255)) [0m
+  [4;35;1mSQL (0.7ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (4.9ms)[0m   [0;1mDROP TABLE "az_accounts_groups"[0m
+  [4;35;1mSQL (5.1ms)[0m   [0mCREATE TABLE "az_accounts_groups" ("az_account_id" integer, "group_id" integer, "created_at" datetime, "updated_at" datetime) [0m
+  [4;36;1mSQL (0.7ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (9.0ms)[0m   [0mDROP TABLE "permissions"[0m
+  [4;36;1mSQL (5.0ms)[0m   [0;1mCREATE TABLE "permissions" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "group_id" integer, "controller" varchar(255), "action" varchar(255), "subject_id" integer) [0m
+  [4;35;1mSQL (0.7ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1mSELECT version FROM "schema_migrations"[0m
+  [4;36;1mSQL (0.7ms)[0m   [0;1mselect sqlite_version(*)[0m
+  [4;35;1mSQL (1.2ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (7.1ms)[0m   [0;1mDROP TABLE "az_accounts"[0m
+  [4;35;1mSQL (4.2ms)[0m   [0mCREATE TABLE "az_accounts" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255)) [0m
+  [4;36;1mSQL (0.7ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (3.2ms)[0m   [0mDROP TABLE "groups"[0m
+  [4;36;1mSQL (7.3ms)[0m   [0;1mCREATE TABLE "groups" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255)) [0m
+  [4;35;1mSQL (0.8ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (4.9ms)[0m   [0;1mDROP TABLE "az_accounts_groups"[0m
+  [4;35;1mSQL (14.0ms)[0m   [0mCREATE TABLE "az_accounts_groups" ("az_account_id" integer, "group_id" integer, "created_at" datetime, "updated_at" datetime) [0m
+  [4;36;1mSQL (0.7ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (10.0ms)[0m   [0mDROP TABLE "permissions"[0m
+  [4;36;1mSQL (4.3ms)[0m   [0;1mCREATE TABLE "permissions" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "group_id" integer, "controller" varchar(255), "action" varchar(255), "subject_id" integer) [0m
+  [4;35;1mSQL (0.6ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1mSELECT version FROM "schema_migrations"[0m
+  [4;36;1mSQL (0.7ms)[0m   [0;1mselect sqlite_version(*)[0m
+  [4;35;1mSQL (1.4ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (5.9ms)[0m   [0;1mDROP TABLE "az_accounts"[0m
+  [4;35;1mSQL (6.0ms)[0m   [0mCREATE TABLE "az_accounts" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255)) [0m
+  [4;36;1mSQL (0.9ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (6.2ms)[0m   [0mDROP TABLE "groups"[0m
+  [4;36;1mSQL (4.8ms)[0m   [0;1mCREATE TABLE "groups" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255)) [0m
+  [4;35;1mSQL (2.1ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (5.4ms)[0m   [0;1mDROP TABLE "az_accounts_groups"[0m
+  [4;35;1mSQL (11.5ms)[0m   [0mCREATE TABLE "az_accounts_groups" ("az_account_id" integer, "group_id" integer, "created_at" datetime, "updated_at" datetime) [0m
+  [4;36;1mSQL (0.7ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (4.8ms)[0m   [0mDROP TABLE "permissions"[0m
+  [4;36;1mSQL (4.4ms)[0m   [0;1mCREATE TABLE "permissions" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "group_id" integer, "controller" varchar(255), "action" varchar(255), "subject_id" integer) [0m
+  [4;35;1mSQL (0.8ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.4ms)[0m   [0;1mSELECT version FROM "schema_migrations"[0m
+  [4;36;1mSQL (0.7ms)[0m   [0;1mselect sqlite_version(*)[0m
+  [4;35;1mSQL (1.3ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (6.9ms)[0m   [0;1mDROP TABLE "az_accounts"[0m
+  [4;35;1mSQL (4.0ms)[0m   [0mCREATE TABLE "az_accounts" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255)) [0m
+  [4;36;1mSQL (0.7ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (3.6ms)[0m   [0mDROP TABLE "groups"[0m
+  [4;36;1mSQL (3.5ms)[0m   [0;1mCREATE TABLE "groups" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255)) [0m
+  [4;35;1mSQL (0.7ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (6.1ms)[0m   [0;1mDROP TABLE "az_accounts_groups"[0m
+  [4;35;1mSQL (4.3ms)[0m   [0mCREATE TABLE "az_accounts_groups" ("az_account_id" integer, "group_id" integer, "created_at" datetime, "updated_at" datetime) [0m
+  [4;36;1mSQL (0.9ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (8.2ms)[0m   [0mDROP TABLE "permissions"[0m
+  [4;36;1mSQL (4.1ms)[0m   [0;1mCREATE TABLE "permissions" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "group_id" integer, "controller" varchar(255), "action" varchar(255), "subject_id" integer) [0m
+  [4;35;1mSQL (0.7ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1mSELECT version FROM "schema_migrations"[0m
+  [4;36;1mSQL (0.7ms)[0m   [0;1mselect sqlite_version(*)[0m
+  [4;35;1mSQL (1.2ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (6.1ms)[0m   [0;1mDROP TABLE "az_accounts"[0m
+  [4;35;1mSQL (4.9ms)[0m   [0mCREATE TABLE "az_accounts" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255)) [0m
+  [4;36;1mSQL (0.7ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (3.9ms)[0m   [0mDROP TABLE "groups"[0m
+  [4;36;1mSQL (4.3ms)[0m   [0;1mCREATE TABLE "groups" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255)) [0m
+  [4;35;1mSQL (0.8ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (5.0ms)[0m   [0;1mDROP TABLE "az_accounts_groups"[0m
+  [4;35;1mSQL (4.3ms)[0m   [0mCREATE TABLE "az_accounts_groups" ("az_account_id" integer, "group_id" integer, "created_at" datetime, "updated_at" datetime) [0m
+  [4;36;1mSQL (0.8ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (8.1ms)[0m   [0mDROP TABLE "permissions"[0m
+  [4;36;1mSQL (5.7ms)[0m   [0;1mCREATE TABLE "permissions" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "group_id" integer, "controller" varchar(255), "action" varchar(255), "subject_id" integer) [0m
+  [4;35;1mSQL (0.8ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.7ms)[0m   [0;1mSELECT version FROM "schema_migrations"[0m
+  [4;36;1mSQL (0.7ms)[0m   [0;1mselect sqlite_version(*)[0m
+  [4;35;1mSQL (1.2ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (6.4ms)[0m   [0;1mDROP TABLE "az_accounts"[0m
+  [4;35;1mSQL (5.6ms)[0m   [0mCREATE TABLE "az_accounts" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255)) [0m
+  [4;36;1mSQL (0.7ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (6.0ms)[0m   [0mDROP TABLE "groups"[0m
+  [4;36;1mSQL (4.7ms)[0m   [0;1mCREATE TABLE "groups" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255)) [0m
+  [4;35;1mSQL (0.9ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (4.3ms)[0m   [0;1mDROP TABLE "az_accounts_groups"[0m
+  [4;35;1mSQL (8.0ms)[0m   [0mCREATE TABLE "az_accounts_groups" ("az_account_id" integer, "group_id" integer, "created_at" datetime, "updated_at" datetime) [0m
+  [4;36;1mSQL (4.0ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (4.0ms)[0m   [0mDROP TABLE "permissions"[0m
+  [4;36;1mSQL (7.3ms)[0m   [0;1mCREATE TABLE "permissions" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "group_id" integer, "controller" varchar(255), "action" varchar(255), "subject_id" integer) [0m
+  [4;35;1mSQL (0.7ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1mSELECT version FROM "schema_migrations"[0m
+  [4;35;1mAzAccount Load (0.4ms)[0m   [0mSELECT * FROM "az_accounts" WHERE ("az_accounts"."id" = 7699913) [0m
+  [4;36;1mGroup Load (0.6ms)[0m   [0;1mSELECT * FROM "groups" INNER JOIN "az_accounts_groups" ON "groups".id = "az_accounts_groups".group_id WHERE ("az_accounts_groups".az_account_id = 7699913 ) [0m
+  [4;35;1mPermission Load (0.6ms)[0m   [0mSELECT * FROM "permissions" WHERE ("permissions"."subject_id" IS NULL AND "permissions"."action" IS NULL AND "permissions"."group_id" IN (969278476) AND "permissions"."controller" = 'foo') LIMIT 1[0m
+  [4;36;1mAzAccount Load (0.4ms)[0m   [0;1mSELECT * FROM "az_accounts" WHERE ("az_accounts"."id" = 7699913) [0m
+  [4;35;1mGroup Load (0.5ms)[0m   [0mSELECT * FROM "groups" INNER JOIN "az_accounts_groups" ON "groups".id = "az_accounts_groups".group_id WHERE ("az_accounts_groups".az_account_id = 7699913 ) [0m
+  [4;36;1mPermission Load (0.2ms)[0m   [0;1mSELECT * FROM "permissions" WHERE ("permissions"."subject_id" IS NULL AND "permissions"."action" IS NULL AND "permissions"."group_id" IN (969278476) AND "permissions"."controller" = 'bar') LIMIT 1[0m
+  [4;35;1mPermission Load (0.5ms)[0m   [0mSELECT * FROM "permissions" WHERE ("permissions"."subject_id" IS NULL AND "permissions"."action" = 'baz' AND "permissions"."group_id" IN (969278476) AND "permissions"."controller" = 'bar') LIMIT 1[0m
+  [4;36;1mAzAccount Load (0.4ms)[0m   [0;1mSELECT * FROM "az_accounts" WHERE ("az_accounts"."id" = 7699913) [0m
+  [4;35;1mGroup Load (0.5ms)[0m   [0mSELECT * FROM "groups" INNER JOIN "az_accounts_groups" ON "groups".id = "az_accounts_groups".group_id WHERE ("az_accounts_groups".az_account_id = 7699913 ) [0m
+  [4;36;1mPermission Load (0.3ms)[0m   [0;1mSELECT * FROM "permissions" WHERE ("permissions"."subject_id" IS NULL AND "permissions"."action" IS NULL AND "permissions"."group_id" IN (969278476) AND "permissions"."controller" = 'bar') LIMIT 1[0m
+  [4;35;1mPermission Load (0.2ms)[0m   [0mSELECT * FROM "permissions" WHERE ("permissions"."subject_id" IS NULL AND "permissions"."action" = 'bat' AND "permissions"."group_id" IN (969278476) AND "permissions"."controller" = 'bar') LIMIT 1[0m
+  [4;36;1mPermission Load (0.2ms)[0m   [0;1mSELECT * FROM "permissions" WHERE ("permissions"."subject_id" = 23 AND "permissions"."action" = 'bat' AND "permissions"."group_id" IN (969278476) AND "permissions"."controller" = 'bar') LIMIT 1[0m
+  [4;35;1mAzAccount Load (0.4ms)[0m   [0mSELECT * FROM "az_accounts" WHERE ("az_accounts"."id" = 7699913) [0m
+  [4;36;1mGroup Load (0.7ms)[0m   [0;1mSELECT * FROM "groups" INNER JOIN "az_accounts_groups" ON "groups".id = "az_accounts_groups".group_id WHERE ("az_accounts_groups".az_account_id = 7699913 ) [0m
+  [4;35;1mPermission Load (0.3ms)[0m   [0mSELECT * FROM "permissions" WHERE ("permissions"."subject_id" IS NULL AND "permissions"."action" IS NULL AND "permissions"."group_id" IN (969278476) AND "permissions"."controller" = 'wire') LIMIT 1[0m
+  [4;36;1mPermission Load (0.2ms)[0m   [0;1mSELECT * FROM "permissions" WHERE ("permissions"."subject_id" IS NULL AND "permissions"."action" = 'vinyl' AND "permissions"."group_id" IN (969278476) AND "permissions"."controller" = 'wire') LIMIT 1[0m
+  [4;35;1mPermission Load (0.5ms)[0m   [0mSELECT * FROM "permissions" WHERE ("permissions"."subject_id" = 1 AND "permissions"."action" = 'vinyl' AND "permissions"."group_id" IN (969278476) AND "permissions"."controller" = 'wire') LIMIT 1[0m
+  [4;36;1mAzAccount Load (0.4ms)[0m   [0;1mSELECT * FROM "az_accounts" WHERE ("az_accounts"."id" = 7699913) [0m
+  [4;35;1mGroup Load (0.7ms)[0m   [0mSELECT * FROM "groups" INNER JOIN "az_accounts_groups" ON "groups".id = "az_accounts_groups".group_id WHERE ("az_accounts_groups".az_account_id = 7699913 ) [0m
+  [4;36;1mPermission Load (0.3ms)[0m   [0;1mSELECT * FROM "permissions" WHERE ("permissions"."subject_id" IS NULL AND "permissions"."action" IS NULL AND "permissions"."group_id" IN (969278476) AND "permissions"."controller" = 'wire') LIMIT 1[0m
+  [4;35;1mPermission Load (0.2ms)[0m   [0mSELECT * FROM "permissions" WHERE ("permissions"."subject_id" IS NULL AND "permissions"."action" = 'vinyl' AND "permissions"."group_id" IN (969278476) AND "permissions"."controller" = 'wire') LIMIT 1[0m
+  [4;36;1mPermission Load (0.2ms)[0m   [0;1mSELECT * FROM "permissions" WHERE ("permissions"."subject_id" = 2 AND "permissions"."action" = 'vinyl' AND "permissions"."group_id" IN (969278476) AND "permissions"."controller" = 'wire') LIMIT 1[0m
+  [4;35;1mAzAccount Load (0.3ms)[0m   [0mSELECT * FROM "az_accounts" WHERE ("az_accounts"."id" = 643930120) [0m
+  [4;36;1mGroup Load (0.2ms)[0m   [0;1mSELECT * FROM "groups" INNER JOIN "az_accounts_groups" ON "groups".id = "az_accounts_groups".group_id WHERE ("az_accounts_groups".az_account_id = 643930120 ) [0m
+  [4;35;1mPermission Load (1.6ms)[0m   [0mSELECT * FROM "permissions" WHERE ("permissions"."subject_id" IS NULL AND "permissions"."action" IS NULL AND "permissions"."group_id" IN (NULL) AND "permissions"."controller" = 'foo') LIMIT 1[0m
+  [4;36;1mPermission Load (0.2ms)[0m   [0;1mSELECT * FROM "permissions" WHERE ("permissions"."subject_id" IS NULL AND "permissions"."action" = 'nerf' AND "permissions"."group_id" IN (NULL) AND "permissions"."controller" = 'foo') LIMIT 1[0m
+  [4;35;1mPermission Load (0.2ms)[0m   [0mSELECT * FROM "permissions" WHERE ("permissions"."subject_id" = 7 AND "permissions"."action" = 'nerf' AND "permissions"."group_id" IN (NULL) AND "permissions"."controller" = 'foo') LIMIT 1[0m
+  [4;36;1mAzAccount Load (0.3ms)[0m   [0;1mSELECT * FROM "az_accounts" WHERE ("az_accounts"."id" = 643930120) [0m
+  [4;35;1mGroup Load (0.2ms)[0m   [0mSELECT * FROM "groups" INNER JOIN "az_accounts_groups" ON "groups".id = "az_accounts_groups".group_id WHERE ("az_accounts_groups".az_account_id = 643930120 ) [0m
+  [4;36;1mPermission Load (0.3ms)[0m   [0;1mSELECT * FROM "permissions" WHERE ("permissions"."subject_id" IS NULL AND "permissions"."action" IS NULL AND "permissions"."group_id" IN (NULL) AND "permissions"."controller" = 'bar') LIMIT 1[0m
+  [4;35;1mPermission Load (0.2ms)[0m   [0mSELECT * FROM "permissions" WHERE ("permissions"."subject_id" IS NULL AND "permissions"."action" = 'baz' AND "permissions"."group_id" IN (NULL) AND "permissions"."controller" = 'bar') LIMIT 1[0m
+  [4;36;1mPermission Load (0.3ms)[0m   [0;1mSELECT * FROM "permissions" WHERE ("permissions"."subject_id" = 23 AND "permissions"."action" = 'baz' AND "permissions"."group_id" IN (NULL) AND "permissions"."controller" = 'bar') LIMIT 1[0m
+  [4;35;1mAzAccount Load (0.4ms)[0m   [0mSELECT * FROM "az_accounts" WHERE ("az_accounts"."id" = 643930120) [0m
+  [4;36;1mGroup Load (0.2ms)[0m   [0;1mSELECT * FROM "groups" INNER JOIN "az_accounts_groups" ON "groups".id = "az_accounts_groups".group_id WHERE ("az_accounts_groups".az_account_id = 643930120 ) [0m
+  [4;35;1mPermission Load (0.2ms)[0m   [0mSELECT * FROM "permissions" WHERE ("permissions"."subject_id" IS NULL AND "permissions"."action" IS NULL AND "permissions"."group_id" IN (NULL) AND "permissions"."controller" = 'wire') LIMIT 1[0m
+  [4;36;1mPermission Load (0.2ms)[0m   [0;1mSELECT * FROM "permissions" WHERE ("permissions"."subject_id" IS NULL AND "permissions"."action" = 'vinyl' AND "permissions"."group_id" IN (NULL) AND "permissions"."controller" = 'wire') LIMIT 1[0m
+  [4;35;1mPermission Load (0.2ms)[0m   [0mSELECT * FROM "permissions" WHERE ("permissions"."subject_id" = 1 AND "permissions"."action" = 'vinyl' AND "permissions"."group_id" IN (NULL) AND "permissions"."controller" = 'wire') LIMIT 1[0m
+  [4;36;1mSQL (0.7ms)[0m   [0;1mselect sqlite_version(*)[0m
+  [4;35;1mSQL (1.2ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (8.1ms)[0m   [0;1mDROP TABLE "az_accounts"[0m
+  [4;35;1mSQL (5.3ms)[0m   [0mCREATE TABLE "az_accounts" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255)) [0m
+  [4;36;1mSQL (0.7ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (7.2ms)[0m   [0mDROP TABLE "groups"[0m
+  [4;36;1mSQL (7.9ms)[0m   [0;1mCREATE TABLE "groups" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255)) [0m
+  [4;35;1mSQL (0.8ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (11.2ms)[0m   [0;1mDROP TABLE "az_accounts_groups"[0m
+  [4;35;1mSQL (6.7ms)[0m   [0mCREATE TABLE "az_accounts_groups" ("az_account_id" integer, "group_id" integer, "created_at" datetime, "updated_at" datetime) [0m
+  [4;36;1mSQL (0.8ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (6.0ms)[0m   [0mDROP TABLE "permissions"[0m
+  [4;36;1mSQL (6.6ms)[0m   [0;1mCREATE TABLE "permissions" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "group_id" integer, "controller" varchar(255), "action" varchar(255), "subject_id" integer) [0m
+  [4;35;1mSQL (0.9ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (1.5ms)[0m   [0;1mSELECT version FROM "schema_migrations"[0m
+  [4;35;1mAzAccount Load (0.4ms)[0m   [0mSELECT * FROM "az_accounts" WHERE ("az_accounts"."id" = 7699913) [0m
+  [4;36;1mGroup Load (0.6ms)[0m   [0;1mSELECT * FROM "groups" INNER JOIN "az_accounts_groups" ON "groups".id = "az_accounts_groups".group_id WHERE ("az_accounts_groups".az_account_id = 7699913 ) [0m
+  [4;35;1mPermission Load (0.6ms)[0m   [0mSELECT * FROM "permissions" WHERE ("permissions"."subject_id" IS NULL AND "permissions"."action" IS NULL AND "permissions"."controller" = 'foo' AND "permissions"."group_id" IN (969278476)) LIMIT 1[0m
+  [4;36;1mAzAccount Load (0.4ms)[0m   [0;1mSELECT * FROM "az_accounts" WHERE ("az_accounts"."id" = 7699913) [0m
+  [4;35;1mGroup Load (0.6ms)[0m   [0mSELECT * FROM "groups" INNER JOIN "az_accounts_groups" ON "groups".id = "az_accounts_groups".group_id WHERE ("az_accounts_groups".az_account_id = 7699913 ) [0m
+  [4;36;1mPermission Load (0.2ms)[0m   [0;1mSELECT * FROM "permissions" WHERE ("permissions"."subject_id" IS NULL AND "permissions"."action" IS NULL AND "permissions"."controller" = 'bar' AND "permissions"."group_id" IN (969278476)) LIMIT 1[0m
+  [4;35;1mPermission Load (0.5ms)[0m   [0mSELECT * FROM "permissions" WHERE ("permissions"."subject_id" IS NULL AND "permissions"."action" = 'baz' AND "permissions"."controller" = 'bar' AND "permissions"."group_id" IN (969278476)) LIMIT 1[0m
+  [4;36;1mAzAccount Load (0.4ms)[0m   [0;1mSELECT * FROM "az_accounts" WHERE ("az_accounts"."id" = 7699913) [0m
+  [4;35;1mGroup Load (0.6ms)[0m   [0mSELECT * FROM "groups" INNER JOIN "az_accounts_groups" ON "groups".id = "az_accounts_groups".group_id WHERE ("az_accounts_groups".az_account_id = 7699913 ) [0m
+  [4;36;1mPermission Load (0.2ms)[0m   [0;1mSELECT * FROM "permissions" WHERE ("permissions"."subject_id" IS NULL AND "permissions"."action" IS NULL AND "permissions"."controller" = 'bar' AND "permissions"."group_id" IN (969278476)) LIMIT 1[0m
+  [4;35;1mPermission Load (0.2ms)[0m   [0mSELECT * FROM "permissions" WHERE ("permissions"."subject_id" IS NULL AND "permissions"."action" = 'bat' AND "permissions"."controller" = 'bar' AND "permissions"."group_id" IN (969278476)) LIMIT 1[0m
+  [4;36;1mPermission Load (0.3ms)[0m   [0;1mSELECT * FROM "permissions" WHERE ("permissions"."subject_id" = 23 AND "permissions"."action" = 'bat' AND "permissions"."controller" = 'bar' AND "permissions"."group_id" IN (969278476)) LIMIT 1[0m
+  [4;35;1mAzAccount Load (0.3ms)[0m   [0mSELECT * FROM "az_accounts" WHERE ("az_accounts"."id" = 7699913) [0m
+  [4;36;1mGroup Load (0.6ms)[0m   [0;1mSELECT * FROM "groups" INNER JOIN "az_accounts_groups" ON "groups".id = "az_accounts_groups".group_id WHERE ("az_accounts_groups".az_account_id = 7699913 ) [0m
+  [4;35;1mPermission Load (0.2ms)[0m   [0mSELECT * FROM "permissions" WHERE ("permissions"."subject_id" IS NULL AND "permissions"."action" IS NULL AND "permissions"."controller" = 'wire' AND "permissions"."group_id" IN (969278476)) LIMIT 1[0m
+  [4;36;1mPermission Load (0.2ms)[0m   [0;1mSELECT * FROM "permissions" WHERE ("permissions"."subject_id" IS NULL AND "permissions"."action" = 'vinyl' AND "permissions"."controller" = 'wire' AND "permissions"."group_id" IN (969278476)) LIMIT 1[0m
+  [4;35;1mPermission Load (0.7ms)[0m   [0mSELECT * FROM "permissions" WHERE ("permissions"."subject_id" = 1 AND "permissions"."action" = 'vinyl' AND "permissions"."controller" = 'wire' AND "permissions"."group_id" IN (969278476)) LIMIT 1[0m
+  [4;36;1mAzAccount Load (0.4ms)[0m   [0;1mSELECT * FROM "az_accounts" WHERE ("az_accounts"."id" = 7699913) [0m
+  [4;35;1mGroup Load (0.5ms)[0m   [0mSELECT * FROM "groups" INNER JOIN "az_accounts_groups" ON "groups".id = "az_accounts_groups".group_id WHERE ("az_accounts_groups".az_account_id = 7699913 ) [0m
+  [4;36;1mPermission Load (0.2ms)[0m   [0;1mSELECT * FROM "permissions" WHERE ("permissions"."subject_id" IS NULL AND "permissions"."action" IS NULL AND "permissions"."controller" = 'wire' AND "permissions"."group_id" IN (969278476)) LIMIT 1[0m
+  [4;35;1mPermission Load (0.2ms)[0m   [0mSELECT * FROM "permissions" WHERE ("permissions"."subject_id" IS NULL AND "permissions"."action" = 'vinyl' AND "permissions"."controller" = 'wire' AND "permissions"."group_id" IN (969278476)) LIMIT 1[0m
+  [4;36;1mPermission Load (0.2ms)[0m   [0;1mSELECT * FROM "permissions" WHERE ("permissions"."subject_id" = 2 AND "permissions"."action" = 'vinyl' AND "permissions"."controller" = 'wire' AND "permissions"."group_id" IN (969278476)) LIMIT 1[0m
+  [4;35;1mAzAccount Load (0.4ms)[0m   [0mSELECT * FROM "az_accounts" WHERE ("az_accounts"."id" = 643930120) [0m
+  [4;36;1mGroup Load (0.2ms)[0m   [0;1mSELECT * FROM "groups" INNER JOIN "az_accounts_groups" ON "groups".id = "az_accounts_groups".group_id WHERE ("az_accounts_groups".az_account_id = 643930120 ) [0m
+  [4;35;1mPermission Load (0.2ms)[0m   [0mSELECT * FROM "permissions" WHERE ("permissions"."subject_id" IS NULL AND "permissions"."action" IS NULL AND "permissions"."controller" = 'foo' AND "permissions"."group_id" IN (NULL)) LIMIT 1[0m
+  [4;36;1mPermission Load (0.2ms)[0m   [0;1mSELECT * FROM "permissions" WHERE ("permissions"."subject_id" IS NULL AND "permissions"."action" = 'nerf' AND "permissions"."controller" = 'foo' AND "permissions"."group_id" IN (NULL)) LIMIT 1[0m
+  [4;35;1mPermission Load (0.2ms)[0m   [0mSELECT * FROM "permissions" WHERE ("permissions"."subject_id" = 7 AND "permissions"."action" = 'nerf' AND "permissions"."controller" = 'foo' AND "permissions"."group_id" IN (NULL)) LIMIT 1[0m
+  [4;36;1mAzAccount Load (0.3ms)[0m   [0;1mSELECT * FROM "az_accounts" WHERE ("az_accounts"."id" = 643930120) [0m
+  [4;35;1mGroup Load (0.2ms)[0m   [0mSELECT * FROM "groups" INNER JOIN "az_accounts_groups" ON "groups".id = "az_accounts_groups".group_id WHERE ("az_accounts_groups".az_account_id = 643930120 ) [0m
+  [4;36;1mPermission Load (0.2ms)[0m   [0;1mSELECT * FROM "permissions" WHERE ("permissions"."subject_id" IS NULL AND "permissions"."action" IS NULL AND "permissions"."controller" = 'bar' AND "permissions"."group_id" IN (NULL)) LIMIT 1[0m
+  [4;35;1mPermission Load (0.3ms)[0m   [0mSELECT * FROM "permissions" WHERE ("permissions"."subject_id" IS NULL AND "permissions"."action" = 'baz' AND "permissions"."controller" = 'bar' AND "permissions"."group_id" IN (NULL)) LIMIT 1[0m
+  [4;36;1mPermission Load (0.2ms)[0m   [0;1mSELECT * FROM "permissions" WHERE ("permissions"."subject_id" = 23 AND "permissions"."action" = 'baz' AND "permissions"."controller" = 'bar' AND "permissions"."group_id" IN (NULL)) LIMIT 1[0m
+  [4;35;1mAzAccount Load (0.3ms)[0m   [0mSELECT * FROM "az_accounts" WHERE ("az_accounts"."id" = 643930120) [0m
+  [4;36;1mGroup Load (0.2ms)[0m   [0;1mSELECT * FROM "groups" INNER JOIN "az_accounts_groups" ON "groups".id = "az_accounts_groups".group_id WHERE ("az_accounts_groups".az_account_id = 643930120 ) [0m
+  [4;35;1mPermission Load (0.2ms)[0m   [0mSELECT * FROM "permissions" WHERE ("permissions"."subject_id" IS NULL AND "permissions"."action" IS NULL AND "permissions"."controller" = 'wire' AND "permissions"."group_id" IN (NULL)) LIMIT 1[0m
+  [4;36;1mPermission Load (1.2ms)[0m   [0;1mSELECT * FROM "permissions" WHERE ("permissions"."subject_id" IS NULL AND "permissions"."action" = 'vinyl' AND "permissions"."controller" = 'wire' AND "permissions"."group_id" IN (NULL)) LIMIT 1[0m
+  [4;35;1mPermission Load (0.3ms)[0m   [0mSELECT * FROM "permissions" WHERE ("permissions"."subject_id" = 1 AND "permissions"."action" = 'vinyl' AND "permissions"."controller" = 'wire' AND "permissions"."group_id" IN (NULL)) LIMIT 1[0m
