@@ -13,6 +13,6 @@ Factory.define :admins, :class => Group do |g|
 end
 
 Factory.define :admin, :parent => :user do |u|
-  u.groups {|u| [u.association :admins]}
+  u.groups {|u| [ u.association(:admins) ]}
 end
           

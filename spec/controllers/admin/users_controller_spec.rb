@@ -191,7 +191,6 @@ describe Admin::UsersController do
       :name => "Joe Schmoe",
       :login => "joe",
       :email => 'joe@example.com',
-      :admin => 'false',
       :password => "foobar",
       :password_confirmation => "foobar"
     }

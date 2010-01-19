@@ -6,6 +6,6 @@ class Group < ActiveRecord::Base
   has_many :permissions
   
   def self.admin_group
-    @admin_group ||= self.find_by_name('Administration')
+    self.find_by_name('Administration')
   end  
 end
