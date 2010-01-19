@@ -2,7 +2,7 @@ module GroupAuthz
   module AuthnFacade
     @@current_user = nil
 
-    def self.current_user
+    def self.current_user(controller)
       @@current_user
     end
 
