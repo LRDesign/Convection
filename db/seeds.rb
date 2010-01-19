@@ -2,14 +2,20 @@ PASSWORD = "foobar"
 
 # TODO create default groups
 
-User.create!(
+admin_group = Group.create!(
+  :name => "Administration"
+)
+
+admin_user = User.create!(
   :login => "admin",
   :email => "admin@example.com",
   :password => PASSWORD, 
   :password_confirmation => PASSWORD,
   :name => "Administrator",
-  :admin => true  # TODO replace this with admin group membership
 )
+
+admin_user.groups << admin_group
+admin_user.save
 
 Preferences.create!(
   :domain => "your_site_domain.com",
@@ -22,10 +28,6 @@ Preferences.create!(
   :email_notifications => true,
   :maximum_file_size => 100,      # Megabytes    
   :require_ssl => false           # Site doesn't require SSL connections
-)
-
-admin = Group.create!(
-  :name => "Administration"
 )
 
 module GroupAuthz
