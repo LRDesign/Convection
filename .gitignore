@@ -9,6 +9,7 @@ tmp/.*
 tmp/profile*
 .DS_Store
 ui.log
+cli.log
 .conductor/state
 .conductor/temp/*
 screenlog.*
@@ -39,6 +40,8 @@ secret
 .*.sw?
 vendor/**/**/doc/*
 vendor/plugins/footnotes/*
+vendor/plugins/group_authz/spec/db/group_authz.sqlite3.db
+vendor/plugins/group_authz/spec/debug.log
 rsa_key*
 sphinx/*
 config/ultrasphinx/*.conf
