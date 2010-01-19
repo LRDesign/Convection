@@ -4,7 +4,6 @@ class CreateUsers < ActiveRecord::Migration
       t.string :login
       t.string :email
       t.string :name
-      t.boolean :admin    # TODO rip this out when authentication is implemented
 
       # Authlogic stuff
       t.string    :crypted_password,    :null => false                # optional, see below

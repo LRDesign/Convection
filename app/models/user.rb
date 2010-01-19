@@ -30,7 +30,9 @@ class User < ActiveRecord::Base
   end  
   validates_presence_of :name, :email
   
-  # TODO: implement an admin? method that pulls from the groups module
-  
-  
+  has_and_belongs_to_many :groups
+
+  def admin?
+    groups.include? Group.admin_group
+  end
 end

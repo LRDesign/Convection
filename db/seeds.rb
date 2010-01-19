@@ -11,7 +11,7 @@ admin_user = User.create!(
   :email => "admin@example.com",
   :password => PASSWORD, 
   :password_confirmation => PASSWORD,
-  :name => "Administrator",
+  :name => "Administrator"
 )
 
 admin_user.groups << admin_group
