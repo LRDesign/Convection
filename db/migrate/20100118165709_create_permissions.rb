@@ -1,4 +1,4 @@
-class CreatePermission < ActiveRecord::Migration
+class CreatePermissions < ActiveRecord::Migration
   def self.up
     create_table :permissions do |t|
       t.references :group
