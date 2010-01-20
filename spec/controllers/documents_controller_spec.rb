@@ -1,5 +1,24 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
+describe DocumentsController, "complex interaction" do
+  before do
+    active_authlogic
+  end
+
+  it "should allow uploader to download" do
+    login_as(:quentin)
+
+    @new_document = Factory.build(:document)
+
+    Document.should_receive(:new).with({'these' => 'params'}).and_return(@new_document)
+    post :create, :document => {:these => 'params'}
+    assigns(:document).should equal(@new_document)
+
+    #TODO download_file
+    controller.should be_authorized
+  end
+end
+
 describe DocumentsController do      
 
   before(:each) do  
