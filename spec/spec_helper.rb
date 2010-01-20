@@ -22,3 +22,4 @@ Spec::Runner.configure do |config|
   config.global_fixtures = [ :users, :preferences ]      
 end
                
+require 'group_authz/spec_helper'

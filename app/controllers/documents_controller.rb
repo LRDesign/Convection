@@ -2,6 +2,8 @@ class DocumentsController < ApplicationController
   before_filter :find_document, :only => [ :show, :edit, :update, :destroy ] 
   before_filter :require_user
 
+  needs_authorization :download
+
   # GET /documents
   # GET /documents.xml
   def index

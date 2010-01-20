@@ -1,9 +1,11 @@
+require 'group_authz_helper'
+
 module GroupAuthz
   module Application
     def self.included(klass)
       klass.extend(ClassMethods)
     end
-    include AuthorizationHelper
+    include Helper
 
     def redirect_to_lobby(message = "You aren't authorized for that")
       flash[:error] = message
@@ -34,17 +36,17 @@ module GroupAuthz
       def self.filter(controller)
         if controller.class.read_inheritable_attribute(:whole_controller_authorization)
           if controller.authorized?
-            return authorized(true)
+            return controller.authorized(true)
           else
             controller.redirect_to_lobby("You are not authorized to use these tools.")
-            return authorized(false)
+            return controller.authorized(false)
           end
         elsif (controller.class.read_inheritable_attribute(:requires_action_authorization) || []).include?(controller.action_name.to_sym)
           if controller.authorized?
-            return authorized(true)
+            return controller.authorized(true)
           else
             controller.redirect_to_lobby("You are not authorized to perform this action.  Perhaps you need to log in?")
-            return authorized(false)
+            return controller.authorized(false)
           end
         else
           return true

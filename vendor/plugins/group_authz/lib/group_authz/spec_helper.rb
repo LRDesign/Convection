@@ -8,32 +8,23 @@ module GroupAuthz
       MatchState = "authorized"
 
       def check_authorization_flag
-        return false unless @controller.flash.has_key?(:group_authorization)
-        return false unless @controller.flash[:group_authorization] == true
-        return true
+        return true if @flash[:group_authorization] == true
+        return false
       end
 
       def matches?(controller)
         @controller = controller
+        @flash = controller.__send__(:flash)
         #controller should be a controller
         return check_authorization_flag
       end
 
-      def failure_method_for_should
-        "Expected #{@controller.inspect} to be #{MatchState}, but flash[:group_authorization] is #{@controller.flash[:group_authorization]}"
+      def failure_message_for_should
+        "Expected #{@controller.class.name}(#{@controller.params.inspect}) to be #{MatchState}, but flash[:group_authorization] is #{@flash[:group_authorization].inspect}"
       end
 
-      def failure_method_for_should_not
-        "Expected #{@controller.inspect} to be #{MatchState}, but flash[:group_authorization] is #{@controller.flash[:group_authorization]}"
-      end
-    end
-
-    class Allowed < Authorized
-      MatchState = "allowed"
-
-      def check_authorization_flag
-        return false if @controller.flash[:group_authorization] == false
-        return true #nil is okay
+      def failure_message_for_should_not
+        "Expected #{@controller.class.name}(#{@controller.params.inspect}) not to be #{MatchState}, but flash[:group_authorization] is #{@flash[:group_authorization].inspect}"
       end
     end
 
@@ -41,7 +32,7 @@ module GroupAuthz
       MatchState = "forbidden"
 
       def check_authorization_flag
-        return true if @controller.flash[:group_authorization] == false
+        return true if @flash[:group_authorization] == false
         return false
       end
     end
@@ -56,15 +47,11 @@ module GroupAuthz
     def be_forbidden
       return Matcher::Forbidden.new
     end
-
-    def be_allowed
-      return Matcher::Allowed.new
-    end
   end
 end
 
-module Spec::Rails::Example::ControllerExampleGroup
-  class << self
+module Spec::Rails::Example
+  class ControllerExampleGroup
     include GroupAuthz::ControllerExampleGroupMixin
   end
 end
