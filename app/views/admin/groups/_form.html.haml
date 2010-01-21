@@ -1,0 +1,9 @@
+- form_for([:admin, @group]) do |f| 
+  = f.error_messages
+
+  %div
+    = f.label :name, "Group Name"
+    %br  
+    = f.text_field :name
+  %div
+    = f.submit

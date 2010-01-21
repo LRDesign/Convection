@@ -39,4 +39,5 @@ class User < ActiveRecord::Base
   def admin
     return admin?
   end
+    
 end

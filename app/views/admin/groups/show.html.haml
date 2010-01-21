@@ -1,0 +1,9 @@
+%h1= "Group: #{h @group.name}"
+
+%h2 Current Members:
+
+%ul
+  - for user in @users
+    %li= link_to((h user.name), admin_user_path(user))
+
+= link_to 'Back to groups', admin_groups_path
