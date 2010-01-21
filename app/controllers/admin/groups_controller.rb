@@ -15,11 +15,6 @@ class Admin::GroupsController < Admin::AdminController
 
   def show
     @group = Group.find(params[:id])
-    @users = @group.users
-    
-  # rescue ActiveRecord::R
-  #   flash[:notice] = "No such group."
-  #   redirect_to admin_groups_path
   end
 
   # GET /groups/new

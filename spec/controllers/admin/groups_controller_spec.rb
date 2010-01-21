@@ -45,10 +45,10 @@ describe Admin::GroupsController do
         assigns[:group].should == @group
       end
       
-      it "should find and paginate the group's users" do
-        get :show, :id => @group.id
-        assigns[:users].should == [ @user1, @user2 ]
-      end
+      # it "should find and paginate the group's users" do
+      #   get :show, :id => @group.id
+      #   assigns[:users].should == [ @user1, @user2 ]
+      # end
     end
    
     describe "POST create" do
