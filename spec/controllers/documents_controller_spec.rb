@@ -50,6 +50,20 @@ describe DocumentsController do
     
   end
 
+  describe "responding to GET download" do
+    it "should expose the requested document as @document" do
+      controller.should_receive(:send_file).with("#{RAILS_ROOT}/file-storage/datas/#{@document.id}/original/value for data_file_name.").and_return(nil)
+
+      get :download, :id => @document.id
+      response.should be_success
+    end
+
+#    it "should return a failure if file doesn't exist" do
+#      get :download, :document_id => 0
+#      response.should_not be_success
+#    end
+  end
+
   describe "responding to GET new" do
   
     it "should expose a new document as @document" do

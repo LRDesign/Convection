@@ -1,6 +1,8 @@
 ActionController::Routing::Routes.draw do |map|
   map.resources :documents
 
+  map.download_document "/documents/:id/download/:style", :controller => "documents", :action => "download", :style => "original"
+
   # regular user controller cannot create or destroy users
   map.resources :users, :except => [ :index, :new, :create, :destroy ], :requirements => { :id => /[0-9]+/ }  
   
