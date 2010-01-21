@@ -39,5 +39,8 @@ class User < ActiveRecord::Base
   def admin
     return admin?
   end
-    
+
+  def display_name
+    name.blank? ? login : name
+  end
 end
