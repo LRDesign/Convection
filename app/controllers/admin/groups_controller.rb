@@ -15,11 +15,11 @@ class Admin::GroupsController < Admin::AdminController
 
   def show
     @group = Group.find(params[:id])
-    # debugger
     
-    # TODO NOTE: the following iterator will not run.   You can't iterate this array in the view either.
-    # however, loading a group in console, you can iterate @group.users... 
-    @group.users.each { |u| puts u.login }
+    p "---------------------------"
+    p @group.users
+    p @group.users.class
+    @group.users.each { |u| p u }
   end
 
   # GET /groups/new
