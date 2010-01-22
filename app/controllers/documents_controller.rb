@@ -3,12 +3,12 @@ class DocumentsController < ApplicationController
   before_filter :require_user
 
   needs_authorization :download
-  dynamic_authorization do |criteria|
+  dynamic_authorization do |user, criteria|
     case criteria[:action]
-    when :download
-      Document.find(criteria[:subject_id]).each do |doc|
-        return true if doc.user == current_user
-      end
+    when "download"
+      doc = Document.find(criteria[:id].to_i)
+      return false if doc.nil?
+      return true if doc.user == user
     end
     return false
   end

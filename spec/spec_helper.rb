@@ -23,3 +23,11 @@ Spec::Runner.configure do |config|
 end
                
 require 'group_authz/spec_helper'
+
+module GroupAuthz
+  class AuthnFacade
+    def self.current_user(controller)
+      Object::current_user
+    end
+  end
+end

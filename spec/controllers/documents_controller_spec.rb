@@ -1,6 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
-describe DocumentsController, "complex interaction" do
+describe DocumentsController, "with authz restrictions" do
   before do
     activate_authlogic
 
@@ -8,18 +8,25 @@ describe DocumentsController, "complex interaction" do
 
     @new_document = Factory.build(:document)
 
+
     Document.should_receive(:new).with({'these' => 'params'}).and_return(@new_document)
     post :create, :document => {:these => 'params'}
   end
 
   it "should allow uploader to download" do
+    controller.stub!(:send_file).with("#{RAILS_ROOT}/file-storage/datas/#{@new_document.id}/original/value for data_file_name.").and_return(nil)
     get :download, :id => @new_document.id
 
     controller.should be_authorized
+    response.should be_success
   end
 
   it "should not allow just any other user to download" do
-    login_as(Factory(:user))
+    logout
+
+    user = Factory(:user, :name => "Robert Rodriguez")
+    login_as(user)
+
     get :download, :id => @new_document.id
 
     controller.should be_forbidden
@@ -77,12 +84,8 @@ describe DocumentsController do
   end
 
   describe "responding to GET download" do
-    it "should expose the requested document as @document" do
-      controller.should_receive(:send_file).with("#{RAILS_ROOT}/file-storage/datas/#{@document.id}/original/value for data_file_name.").and_return(nil)
-
-      get :download, :id => @document.id
-      response.should be_success
-    end
+    #it "should expose the requested document as @document" do 
+    #Removed in favor of "should allow uploader to download"
 
 #    it "should return a failure if file doesn't exist" do
 #      get :download, :document_id => 0

@@ -40,7 +40,7 @@ module GroupAuthz
         groups = criteria[:group] ? [criteria[:group]] : user.groups
 
         (read_inheritable_attribute(:dynamic_authorization_procs) || []).each do |prok|
-          approval = prok.call(criteria)
+          approval = prok.call(user, criteria)
           next if approval == false
           next if approval.blank?
           return true

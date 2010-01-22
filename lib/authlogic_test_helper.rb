@@ -1,7 +1,7 @@
 module AuthlogicTestHelper
     
     def current_user(stubs = {})
-      current_user_session.person
+      current_user_session.user
     end
     
     alias :current_person :current_user

@@ -5,7 +5,9 @@ module GroupAuthz
         @controller = nil
       end
 
-      MatchState = "authorized"
+      def match_state
+        "authorized"
+      end
 
       def check_authorization_flag
         return true if @flash[:group_authorization] == true
@@ -20,16 +22,18 @@ module GroupAuthz
       end
 
       def failure_message_for_should
-        "Expected #{@controller.class.name}(#{@controller.params.inspect}) to be #{MatchState}, but flash[:group_authorization] is #{@flash[:group_authorization].inspect}"
+        "Expected #{@controller.class.name}(#{@controller.params.inspect}) to be #{match_state}, but flash[:group_authorization] is <#{@flash[:group_authorization].inspect}>"
       end
 
       def failure_message_for_should_not
-        "Expected #{@controller.class.name}(#{@controller.params.inspect}) not to be #{MatchState}, but flash[:group_authorization] is #{@flash[:group_authorization].inspect}"
+        "Expected #{@controller.class.name}(#{@controller.params.inspect}) not to be #{match_state}, but flash[:group_authorization] is <#{@flash[:group_authorization].inspect}>"
       end
     end
 
     class Forbidden < Authorized
-      MatchState = "forbidden"
+      def match_state
+        "forbidden"
+      end
 
       def check_authorization_flag
         return true if @flash[:group_authorization] == false
