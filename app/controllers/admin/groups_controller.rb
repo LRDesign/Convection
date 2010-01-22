@@ -15,6 +15,14 @@ class Admin::GroupsController < Admin::AdminController
 
   def show
     @group = Group.find(params[:id])
+    
+    p "---------------------------A"
+    p @group.users
+    p "---------------------------B"
+    p @group.users.class
+    p "---------------------------C"
+    @group.users.each { |u| p u }
+    p "---------------------------D"
   end
 
   # GET /groups/new
