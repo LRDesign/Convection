@@ -1,6 +1,7 @@
 PASSWORD = "foobar"
 
 # TODO create default groups
+puts "Seeding database...."
 
 admin_group = Group.create!(
   :name => "Administration"
@@ -44,3 +45,5 @@ module GroupAuthz
     #create_permission(admin, "admin/permissions")
   end
 end
+
+puts "Seeding done.  Users: #{User.count} Groups: #{Group.count} Preferences:  #{Preferences.count}"
