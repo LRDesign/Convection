@@ -8,6 +8,6 @@
   %ul
     - @group.users.each do |user|
       %li= h user.display_name
-      %li= link_to (h user.display_name), admin_user_path(user)
+      %li= link_to((h user.display_name), admin_user_path(user))
 
 = link_to 'Back to groups', admin_groups_path
