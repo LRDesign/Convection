@@ -19,9 +19,11 @@ module GroupAuthz
     def check_authorized
       current_user = AuthnFacade.current_user(self)
 
+      criteria = {:action => action_name, :id => params[:id]}
+
       return false if current_user.blank?
 
-      if self.class.can_authorize(current_user)
+      if self.class.can_authorize(current_user, criteria)
         flash[:group_authorization] = true
         return true
       else
@@ -44,7 +46,6 @@ module GroupAuthz
           return true
         end
 
-        p criteria
         select_on = {
           :group_id => groups.map{|grp| grp.id},
           :controller => controller_path,
@@ -53,16 +54,13 @@ module GroupAuthz
         }
 
         permissions = GroupAuthz::Permission.find(:first, :conditions => select_on)
-        p [select_on, permissions]
         return true unless permissions.nil?
 
-        select_on[:action] = criteria[:action] || action_name
-        p [select_on, permissions]
+        select_on[:action] = criteria[:action]
         permissions = GroupAuthz::Permission.find(:first, :conditions => select_on)
         return true unless permissions.nil?
 
-        select_on[:subject_id] = criteria[:id] || params["id"]
-        p [select_on, permissions]
+        select_on[:subject_id] = criteria[:id]
         permissions = GroupAuthz::Permission.find(:first, :conditions => select_on)
         return (not permissions.nil?)
       end
