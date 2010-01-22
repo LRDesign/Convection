@@ -3,6 +3,15 @@ class DocumentsController < ApplicationController
   before_filter :require_user
 
   needs_authorization :download
+  dynamic_authorization do |action, id|
+    case action
+    when :download
+      Document.find(id).each do |doc|
+        return true if doc.user == current_user
+      end
+    end
+    return false
+  end
 
   # GET /documents
   # GET /documents.xml
