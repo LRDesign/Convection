@@ -1,13 +1,6 @@
 # Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper      
 
-
-  # Stores a headline for later rendering by the layout
-  def set_headline(headline)
-    content_for(:headline, headline)
-  end
-
-
   # Passes the supplied block to the named partial
   def block_to_partial(partial_name, options = {}, &block)    
     # replace :id with :cssid and :class with :cssclass
