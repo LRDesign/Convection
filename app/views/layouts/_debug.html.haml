@@ -1,13 +1,13 @@
 - if ENV["RAILS_ENV"] == "development"
   #debug                                     
     %h2 Debugging Info
-  
+               
     -tabbed_panel do |tabctx|
       -tabctx.panel("Params") do
-        - my_debug(params)      
+        - lrd_debug(params)      
       -tabctx.panel("Session") do
-        - my_debug(session)
+        - lrd_debug(session)
       -tabctx.panel("Emails")  do
-        - my_debug(ActionMailer::Base.deliveries)
+        - lrd_debug(ActionMailer::Base.deliveries)
       -tabctx.panel("Env")  do
-        - my_debug(request.env)               
+        - lrd_debug(request.env)               
