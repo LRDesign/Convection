@@ -36,29 +36,27 @@ module LRD
     # pass { :text => "foo" } to override the label text
     def labeled_input(form, field, options = {}) 
       options[:text] = "&nbsp;" if options[:nolabel]
-      options.reverse_merge!(:text => nil, :size => nil, :required => false, :nolabel => false)
+      options.reverse_merge!(:text => nil, :size => 30, :required => false, :nolabel => false)
       options.merge!(:form => form, :field => field)     
-      
+
       cssclass = "labeled_input"
       cssclass += " required" if options[:required]
-      
-      input ||= capture do                                                
-        if options[:size].blank?
-          form.text_field field 
-        else
-          form.text_field field, :size => options[:size]
-        end
-      end  
-      
-      label = form.label field, options[:text]
-      
+
+      # debugger
+
+      unless input = options[:input]
+        input = form.text_field field, :size => options[:size]
+      end
+
+      label = form.label field, options[:text]      
       comment = options[:comment] ? content_tag( :span, { :class => 'comment' } ) { options[:comment] }  : ""
-      
+
+      # debugger
       content_tag :div, { :class => cssclass } do
         label + input + comment 
-      end  
-              
-    end
+      end              
+    end          
+
   end
 end               
               
