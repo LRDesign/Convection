@@ -1,0 +1,22 @@
+<%- if ENV["RAILS_ENV"] == "development" %>
+  <div id='debug'>                                     
+    <h2>Debugging Info</h2>
+               
+    <%- tabbed_panel do |tabctx| -%>
+      <%- tabctx.panel("Params") do -%>
+        <%= lrd_debug(params) -%>         
+      <% end %>        
+      <%- tabctx.panel("Session") do -%>
+        <%= lrd_debug(session) -%>
+      <% end %>        
+      <%- tabctx.panel("Emails") do -%>
+        <%= lrd_debug(ActionMailer::Base.deliveries) -%>
+      <% end %>        
+      <%- tabctx.panel("Env") do -%>
+        <%= lrd_debug(request.env) -%>
+      <% end %>        
+    <% end %>        
+  </div>  
+<% end %>
+         
+        
