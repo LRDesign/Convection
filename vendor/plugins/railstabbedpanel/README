@@ -1,0 +1,56 @@
+= Copyright Notice and Legal Information
+
+RailsTabbedPanel is Copyright 2007 New Medio.
+
+RailsTabbedPanel is free software; you can redistribute it and/or modify
+it under the terms of the GNU Lesser General Public License as published by
+the Free Software Foundation; either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+The LGPL is in the file LGPL.txt and the GPL is in the file GPL.txt .
+
+= RailsTabbedPanel
+
+This helper (which is auto-included into ActionView) enables you to easily 
+create tabbed panels in Rails.  In this version, only client-side tabbed
+panels are supported.  It also requires a minimal amount of CSS support
+in your application.  A simple version of the CSS might look like this:
+
+  /* Tabbed Panel Styles */
+  .panel_selected {
+        display: block;
+  }
+
+  .panel_unselected {
+        display: none;
+  }
+
+  .tab_selected {
+        background-color: gray;
+  }
+
+  .tab_unselected {
+        background-color: white;
+  }
+
+  /* End Tabbed Panel Styles */
+
+Basic usage looks like this:
+
+  <% tabbed_panel do |tabctx| %>
+     <% tabctx.panel("First Tab", :active => true) do %>
+        This is tab one!
+     <% end %>
+     <% tabctx.panel("Second Tab") do %>
+        This is tab two!
+     <% end %>
+  <% end %>
+
