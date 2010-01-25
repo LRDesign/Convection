@@ -15,6 +15,18 @@ describe LRD::ViewHelper do
       end
     end
   end   
-  
+                 
+  describe "labeled_input" do
+    before(:each) do
+      @form = mock(ActionView::Helpers::FormHelper)
+    end
+    
+    it "should return a string" do  
+      @form.stub!(:text_field).and_return("<input name='field' />")
+      @form.stub!(:label).and_return("<label for='field'>")
+      helper.labeled_input(@form, :field).is_a?(String).should be_true      
+    end
+  end                 
+                 
    
 end
