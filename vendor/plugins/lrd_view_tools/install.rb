@@ -2,8 +2,6 @@
 
 require 'ftools'
 
-
-
 File.mkdir_p File.join(root_dir, 'public', 'stylesheets', 'sass') 
 
 install_file File.join(lrd_view_tools_dir, 'stylesheets', 'reset.css'), File.join(root_dir, 'public', 'stylesheets', 'reset.sass')
@@ -25,7 +23,8 @@ def install_file(source,dest)
   
   if File.exists?(dest)
     p "Not installing #{dest}, file exists"   
-  else 
+  else           
+    p "Installing #{dest}"
     File.copy(source, dest)
   end    
 end
