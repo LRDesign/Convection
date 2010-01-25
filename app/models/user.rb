@@ -31,6 +31,7 @@ class User < ActiveRecord::Base
   validates_presence_of :name, :email
   
   has_and_belongs_to_many :groups
+  has_many :documents
 
   def admin?
     groups.include? Group.admin_group

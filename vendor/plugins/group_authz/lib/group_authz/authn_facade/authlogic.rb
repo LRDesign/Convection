@@ -6,7 +6,7 @@ else
       def self.current_user(controller)
         #This assumes authlogic is implemented as recommended - otherwise 
         #you'll need to develop your own AuthnFacade
-        return controller.current_user
+        return controller.__send__(:current_user)
       end
     end
   end

@@ -11,4 +11,4 @@
     %li= link_to "Home", home_url
     - if logged_in?
       %li= link_to "Account Settings", edit_user_path(current_user)
-    %li= link_to "Files", '#'   # TODO: implement
+    %li= link_to "Files", documents_path   # TODO: implement

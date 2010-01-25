@@ -9,6 +9,7 @@ tmp/.*
 tmp/profile*
 .DS_Store
 ui.log
+cli.log
 .conductor/state
 .conductor/temp/*
 screenlog.*
@@ -21,6 +22,7 @@ db/schema.sql
 db/schema.rb
 db/*.sqlite3*
 config/database.yml
+file-storage/
 public/photos/*
 public/thumbnails
 public/documents
@@ -39,6 +41,8 @@ secret
 .*.sw?
 vendor/**/**/doc/*
 vendor/plugins/footnotes/*
+vendor/plugins/group_authz/spec/db/group_authz.sqlite3.db
+vendor/plugins/group_authz/spec/debug.log
 rsa_key*
 sphinx/*
 config/ultrasphinx/*.conf

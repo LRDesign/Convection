@@ -2,6 +2,17 @@ class DocumentsController < ApplicationController
   before_filter :find_document, :only => [ :show, :edit, :update, :destroy ] 
   before_filter :require_user
 
+  needs_authorization :download
+  dynamic_authorization do |user, criteria|
+    case criteria[:action]
+    when "download"
+      doc = Document.find(criteria[:id].to_i)
+      return false if doc.nil?
+      return true if doc.user == user
+    end
+    return false
+  end
+
   # GET /documents
   # GET /documents.xml
   def index

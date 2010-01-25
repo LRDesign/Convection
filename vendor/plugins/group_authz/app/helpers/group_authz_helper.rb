@@ -9,29 +9,25 @@ module GroupAuthz
   module Helper
     def authorized?(criteria={})
       current_user = AuthnFacade.current_user(self)
-
       return false if current_user.blank?
+      controller_class_path = criteria[:controller]
+      controller_class_path = controller_class_path.to_s if Symbol === controller_class_path
+      controller_class = ::ApplicationController
 
-      groups = criteria[:group] ? [criteria[:group]] : current_user.groups
-      #require 'ruby-debug'; debugger
+      if String === controller_class_path
+        controller_class_name = controller_class_path.camelize + "Controller"
+        begin 
+          controller_class = controller_class_name.constantize
+        rescue NameError
+          controller_class = ::ApplicationController
+        end
+      else
+        controller_class = controller.class
+      end
 
-      select_on = {
-        :group_id => groups.map{|grp| grp.id},
-        :controller => criteria[:controller] || controller_name,
-        :action => nil,
-        :subject_id => nil
-      }
+      criteria = {:action => action_name, :id => params[:id]}.merge(criteria)
 
-      permissions = GroupAuthz::Permission.find(:first, :conditions => select_on)
-      return true unless permissions.nil?
-
-      select_on[:action] = criteria[:action] || action_name
-      permissions = GroupAuthz::Permission.find(:first, :conditions => select_on)
-      return true unless permissions.nil?
-
-      select_on[:subject_id] = criteria[:id] || params["id"]
-      permissions = GroupAuthz::Permission.find(:first, :conditions => select_on)
-      return (not permissions.nil?)
+      controller_class.can_authorize(current_user, criteria)
     end
   end
 end
