@@ -1,8 +1,24 @@
 # Install hook code here
 
-require 'ftools'
+require 'ftools'            
+require 'fileutils'
 
-File.mkdir_p File.join(root_dir, 'public', 'stylesheets', 'sass') 
+# plugins_dir = File.expand_path(__FILE__)
+lrd_view_tools_dir = File.dirname(__FILE__)
+root_dir = File.join(lrd_view_tools_dir, '..', '..', '..')
+
+def install_file(source,dest)   
+  if File.exists?(dest)
+    puts "\tExists:     #{dest}"   
+  else           
+    puts "\tInstalling: #{dest}"
+    File.copy(source, dest)
+  end    
+end
+          
+dir = File.join(root_dir, 'public', 'stylesheets', 'sass')                                                            
+puts "\tEnsuring directory #{dir} "
+FileUtils.mkdir_p dir
 
 install_file File.join(lrd_view_tools_dir, 'stylesheets', 'reset.css'), File.join(root_dir, 'public', 'stylesheets', 'reset.sass')
 install_file File.join(lrd_view_tools_dir, 'stylesheets', 'sass', 'debug.sass'), File.join(root_dir, 'public', 'stylesheets', 'sass', 'debug.sass')
@@ -16,15 +32,3 @@ install_file File.join(lrd_view_tools_dir, 'images', 'blank.gif'), File.join(roo
 install_file File.join(lrd_view_tools_dir, 'images', 'check.png'), File.join(root_dir, 'public', 'images', 'check.png')
 
 
-def install_file(source,dest)   
-  plugins_dir = File.expand_path(".")
-  lrd_view_tools_dir = File.join(plugins_dir, 'lrd_view_tools')
-  root_dir = File.join(lrd_view_tools_dir, '..', '..', '..')
-  
-  if File.exists?(dest)
-    p "Not installing #{dest}, file exists"   
-  else           
-    p "Installing #{dest}"
-    File.copy(source, dest)
-  end    
-end
