@@ -31,6 +31,10 @@ module ApplicationHelper
   # same function as application_controller.rb's logged_in? method
   def logged_in?
     !current_user.nil?
+  end          
+  
+  def page_block(title = nil, &block)
+    block_to_partial("shared/page_block", { :title => title } , block)    
   end
   
 end
