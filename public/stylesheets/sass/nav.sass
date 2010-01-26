@@ -1,16 +1,34 @@
 @import constants.sass
 
-#nav, #admin_nav
+#nav
+  :margin-top 0
   :width 100%
-  :border 1px solid black
+  :font-size 12px
   h3
     :float left
   ul
-    :list-style none
+    :list-style none    
+    :margin 0
+    :padding-left 0    
     li
       :float left
       :list-style none
-      :margin 0 1em
+      :margin 0 1em 0 0 
+      :background #004
+      :color white
+      :width 10em
+      :text-align center
+      :height 16px
+      :padding-top 4px
+      
+    li, li a    
+      :color white
+      :text-decoration none
+      
+    li:hover, li:hover a
+      :background #600
+  ul:after
+    +clearfix
       
 #nav:after, #admin_nav:after  
   +clearfix  

@@ -13,10 +13,19 @@ admin_user = User.create!(
   :password => PASSWORD, 
   :password_confirmation => PASSWORD,
   :name => "Administrator"
-)
+)     
 
 admin_user.groups << admin_group
 admin_user.save
+
+regular_user = User.create!(
+  :login => "user",
+  :email => "user@example.com",
+  :password => PASSWORD, 
+  :password_confirmation => PASSWORD,
+  :name => "John Q. User"
+)
+
 
 Preferences.create!(
   :domain => "your_site_domain.com",
