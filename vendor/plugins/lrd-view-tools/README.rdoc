@@ -1,0 +1,70 @@
+=LRD ViewTools
+     
+Standard view helpers and stylesheet defaults for Logical Reality Design 
+Projects.
+                
+== Installing 
+
+script/plugin install git://github.com/LRDesign/lrd-view-tools.git
+
+This will copy a bunch of files to <RAILS_ROOT>/public/images, 
+<RAILS_ROOT>/public/stylesheets, and <RAILS_ROOT>/public/stylesheets/sass,
+but will not overwrite existing files.
+                                     
+== Simple labeled inputs for forms:
+  
+  labeled_input(form, field)
+  
+  Produces a <label> <input> pair for a text field in a standard form helper.
+  The included stylesheet forms.sass will format the label as an 8-em wide
+  float to the left of the input.
+
+  Usage example:
+    form_for(@user) do |form
+      = labeled_input(form, :name)
+      = labeled_input(form, :email)
+      = labeled_input(form, nil, :input => form.submit("Save Changes"))
+    end
+  
+  Options:
+    The output defaults to <input type="text" name="#{field}"> for the 
+    but can be overridden in a number of ways:
+       
+    #Override the form element:  
+    labeled_input(form, :boolean_field, :input => form.checkbox(:boolean_field))
+
+    #Force a blank label:
+    labeled_input(form, :fieldname, :nolabel => true )
+    
+    #Alter label text:
+    labeled_input(form, :fieldname, :text => "Other Text")
+    
+    #Add a comment after the input:
+    labeled_input(form, :password_confirmation, :comment => "Re-enter password")
+                                                                      
+== Pass a block to partial:    
+            
+  block_to_partial(partial_name, options = {}, &block) 
+  
+  Usage example:
+    block_to_partial('shared/my_partial') do
+      <p>Paragraph to be yielded inside the partial.</p>
+    end
+                                                      
+  The block will be available to the partial as 'body', and any options
+  will be passed through as locals.   In addition, options[:id] and 
+  options[:class] will get converted to locals 'cssid' and 'cssclass'
+  to avoid name collisions.
+  
+== A better debug()
+
+   lrd_debug(var) will output var, wrapped in <pre></pre>, but using a
+   recursive pp output to handle large objects.
+   
+   Usage example (in HAML):
+   if ENV["RAILS_ENV"] == development
+   #debug                             
+     %h2 Request environment:
+     = lrd_debug(request.env)
+   
+Copyright (c) 2010 Evan Dorn, released under the MIT license
