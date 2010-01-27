@@ -21,12 +21,14 @@
             =link_to image_tag(@preferences.logo_url, :alt => "logo"), home_url
           %h1{:style => 'float: right'}= @preferences.site_name       
         = render :partial => 'layouts/nav'
-        = render :partial => 'layouts/sidebar'
-       
-        #content    
-          = render :partial => 'layouts/flash' , :locals => { :flash => flash }
+        
+        #content-wrap 
+          = render :partial => 'layouts/sidebar'        
+          #content    
+            = render :partial => 'layouts/flash' , :locals => { :flash => flash }
       
-          %h1= yield :headline if yield :headline
-          = yield
-
+            %h1= yield :headline if yield :headline
+            = yield                             
+          
+        = render :partial => 'layouts/footer'
       = render :partial => 'layouts/debug'  
