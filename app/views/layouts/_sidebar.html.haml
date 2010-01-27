@@ -1,3 +1,12 @@
 #sidebar    
+    
+  - if logged_in? and current_user.admin?
+    - page_block("Admin Tools", :id => 'admin_tools') do
+      %ul
+        %li= link_to "Site Preferences", edit_admin_preferences_path
+        %li= link_to "User Administration", admin_users_path
+        %li= link_to "Groups", admin_groups_path    
+        
   - page_block("Upload a File") do 
     %p Tools to upload a file here.
+  

@@ -1,6 +1,6 @@
 module NavHelper
 
-  def menu_item(name, path)      
+  def menu_item(name, path)     
     cssclass = current_page?(path) ? 'selected' : 'unselected'
     content_tag :li, link_to(name, path), :class => cssclass
   end
@@ -14,7 +14,6 @@ module NavHelper
       menu_items << menu_item("Log Out", logout_path)
     else
       menu_items << menu_item("Log In", login_path)
-      menu_items << menu_item("Register", new_user_path)
     end  
     menu_items
   end     
