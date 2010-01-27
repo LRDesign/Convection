@@ -23,7 +23,7 @@ end
 
 ensure_directory(File.join(root_dir, 'public', 'stylesheets', 'sass'))
 
-install_file File.join(lrd_view_tools_dir, 'stylesheets', 'reset.css'), File.join(root_dir, 'public', 'stylesheets', 'reset.sass')
+install_file File.join(lrd_view_tools_dir, 'stylesheets', 'reset.css'), File.join(root_dir, 'public', 'stylesheets', 'reset.css')
 install_file File.join(lrd_view_tools_dir, 'stylesheets', 'sass', 'debug.sass'), File.join(root_dir, 'public', 'stylesheets', 'sass', 'debug.sass')
 install_file File.join(lrd_view_tools_dir, 'stylesheets', 'sass', 'constants.sass'), File.join(root_dir, 'public', 'stylesheets', 'sass', 'constants.sass')
 install_file File.join(lrd_view_tools_dir, 'stylesheets', 'sass', 'screen.sass'), File.join(root_dir, 'public', 'stylesheets', 'sass', 'screen.sass')

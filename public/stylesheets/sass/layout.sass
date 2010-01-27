@@ -13,6 +13,9 @@ body
 #header
   :height 160px  
   :color white
+  h1
+    :margin-top 2em
+ 
   
 #logo
   :height 120px
@@ -23,12 +26,16 @@ body
 #nav
   :height 20px
   :border 0px
+                 
+!sidebar_width = 240px
+!column_spacing = 20px
   
 #sidebar
-  :width 240px
-  :float right 
-
-.sidebar_box
-  :border 1px solid black
-  :background white
+  :width= !sidebar_width
+  :margin-top 2em
+  :float right
   
+#content
+  :width= (920px - !sidebar_width - !column_spacing) 
+  :float left
+  :padding-top 1em
