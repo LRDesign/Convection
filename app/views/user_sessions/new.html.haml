@@ -4,9 +4,4 @@
   = f.error_messages :header_message => "Sorry, we could not log you in."
   = labeled_input f, :login
   = labeled_input f, :password, :input => f.password_field(:password)
-  .labeled_input
-    %label &nbsp;
-    = f.check_box :remember_me 
-  .labeled_input
-    %label &nbsp;
-    = f.submit "Log In"
+  = labeled_input f, nil, :input => f.submit("Log In"), :nolabel => true
