@@ -1,13 +1,13 @@
 - rowclass = cycle('odd', 'even')
-%tr{ :class => rowclass }
+%tr.info{ :class => rowclass }
    %td= h document.name
    %td= h number_to_human_size(document.data.size)
    %td= h document.data.content_type
    %td= h document.data.updated_at
    %td= h document.user.name rescue ""
 
-   %td= link_to "Download", document.data.url(:original, false)
-   %td= link_to 'Edit', edit_document_path(document)
-   %td= link_to 'Destroy', document, :confirm => 'Are you sure?', :method => :delete
+   %td{ :rowspan => '2' }= link_to "Download", document.data.url(:original, false)
+   %td{ :rowspan => '2' }= link_to 'Edit', edit_document_path(document)
+   %td{ :rowspan => '2' }= link_to 'Destroy', document, :confirm => 'Are you sure?', :method => :delete
 %tr.description{ :class => rowclass }
    %td{ :colspan => '5' }= h document.description

@@ -1,11 +1,7 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe UsersController do
-  describe "route generation" do
-    it "should map #show" do
-      route_for(:controller => "users", :action => "show", :id => '1').should == "/users/1"
-    end
-  
+  describe "route generation" do  
     it "should map #edit" do
       route_for(:controller => "users", :action => "edit", :id => '1').should == "/users/1/edit"
     end  
@@ -17,10 +13,6 @@ describe UsersController do
   end
 
   describe "route recognition" do    
-    it "should generate params for #show" do
-      params_from(:get, "/users/1").should == {:controller => "users", :action => "show", :id => "1"}
-    end
-  
     it "should generate params for #edit" do
       params_from(:get, "/users/1/edit").should == {:controller => "users", :action => "edit", :id => "1"}
     end
@@ -34,6 +26,10 @@ describe UsersController do
   describe "unavailable routes" do
     it "should not route GET index" do
       {:get => '/users'}.should_not be_routable
+    end
+    
+    it "should not route GET show" do
+      {:get => '/users/1'}.should_not be_routable      
     end
     
     it "should not route GET new" do
