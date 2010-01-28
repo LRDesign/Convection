@@ -8,5 +8,6 @@
         %li= link_to "Groups", admin_groups_path    
         
   - page_block("Upload a File") do 
-    %p Tools to upload a file here.
+    %p{ :style => 'text-align: center;'}
+      =button_to "Upload a File", new_document_path, :method => :get
   

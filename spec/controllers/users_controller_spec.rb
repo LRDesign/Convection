@@ -6,45 +6,6 @@ describe UsersController do
   end
 
 
-  describe "responding to GET show" do   
-    before(:each) do
-      @user = Factory(:user)      
-    end
-    describe "while logged in" do
-      before(:each) do
-        login_as @user
-      end
-        
-      it "should succeed" do
-        get :show, :id => @user.id
-        response.should be_success
-      end
-
-      it "should expose the requested user as @user" do
-        get :show, :id => @user.id
-        assigns[:user].should == @user
-      end     
-    end
-    
-    describe "while not logged in" do    
-      before(:each) do
-        logout
-      end
-      it "should redirect to login url" do
-        get :show, :id => @user.id
-        response.should redirect_to(login_path)        
-      end
-      it "should set the flash" do
-        get :show, :id => @user.id
-        flash[:notice].should_not be_nil
-      end
-      
-    end
-    
-  end
-
- 
-
   describe "responding to GET edit" do
     before(:each) do
       @user = Factory(:user)
@@ -71,9 +32,9 @@ describe UsersController do
         assigns(:user).should == @user
       end
 
-      it "should redirect to the user" do
+      it "should redirect to the edit page" do
         put :update, :id => @user.id, :user => { :name => 'foobar' } 
-        response.should redirect_to(user_url(@user))
+        response.should redirect_to(edit_user_url(@user))
       end                         
       
       it "should make the requested changes" do

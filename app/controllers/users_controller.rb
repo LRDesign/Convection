@@ -1,28 +1,7 @@
 class UsersController < ApplicationController                           
   before_filter :require_user
-  before_filter :find_user, :only => [ :show, :edit, :update, :destroy ]
+  before_filter :find_user, :only => [ :edit, :update ]
                                                                 
-
-  # GET /users
-  # GET /users.xml
-  def index
-    @users = User.find(:all)
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.xml  { render :xml => @users }
-    end
-  end
-
-  # GET /users/1
-  # GET /users/1.xml
-  def show
-    respond_to do |format|
-      format.html # show.html.erb
-      format.xml  { render :xml => @user }
-    end
-  end
-
 
   # GET /users/1/edit
   def edit
@@ -33,8 +12,8 @@ class UsersController < ApplicationController
   def update
     respond_to do |format|
       if @user.update_attributes(params[:user])
-        flash[:notice] = 'User was successfully updated.'
-        format.html { redirect_to(@user) }
+        flash[:notice] = 'Settings updated.'
+        format.html { redirect_to(edit_user_path(@user)) }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
