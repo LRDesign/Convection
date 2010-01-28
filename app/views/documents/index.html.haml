@@ -1,27 +1,14 @@
-%h1 Listing documents
+- set_headline "Available Documents"
 
 %table.listing
   %tr
     %th Name
-    %th Description
-    %th Data file name
-    %th Data content type
-    %th File size
-    %th Data updated at
-    %th User
+    %th Size
+    %th File Type
+    %th Uploaded On
+    %th Uploaded By
+    %th{ :colspan => '3' }
 
-- for document in @documents
-  %tr
-    %td= h document.name
-    %td= h document.description
-    %td= h number_to_human_size(document.data.size)
-    %td= h document.data.updated_at
-    %td= h document.user.name rescue ""
-
-    %td= link_to 'Show', document
-    %td= link_to 'Edit', edit_document_path(document)
-    %td= link_to 'Destroy', document, :confirm => 'Are you sure?', :method => :delete
-
-%br
-
-= link_to 'New document', new_document_path
+= render :partial => 'document', :collection => @documents
+ 
+      

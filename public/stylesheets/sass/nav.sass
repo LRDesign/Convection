@@ -1,6 +1,5 @@
 @import constants.sass
                       
-!tab_color = #004
 
 #nav
   :margin-top 0
@@ -16,13 +15,13 @@
       :float left
       :list-style none
       :margin 0 1em 0 0 
-      :background= !tab_color
-      :color white
+      :background= !title_bg_color
+      :color= !title_text_color
       :width 10em
       :text-align center
       :height 16px
       :padding-top 4px 
-      :border= solid !tab_color
+      :border= solid !title_bg_color
       :border-width 0 1px 1px 1px
       
     li, li a    
@@ -31,14 +30,14 @@
       :font-weight bold
 
     li.selected, li.selected a
-      :color= !tab_color
+      :color= !title_bg_color
       :background= !page_background
       
     li:hover, li:hover a
       :background #600
     
     li.selected:hover, li.selected:hover a
-      :color white
+      :color= !title_text_color
       
   ul:after
     +clearfix
