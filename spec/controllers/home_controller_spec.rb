@@ -2,16 +2,31 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe HomeController do
 
-  #Delete these examples and add some real ones
-  it "should use HomeController" do
-    controller.should be_an_instance_of(HomeController)
+  before(:each) do
+    activate_authlogic
   end
 
 
   describe "GET 'index'" do
-    it "should be successful" do
-      get 'index'
-      response.should be_success
+    describe "when logged in" do
+      before(:each) do
+        login_as Factory(:user)
+      end
+      it "should redirect to the documents index" do
+        get :index
+        response.should redirect_to(documents_path)
+      end
+    end
+
+    describe "when logged out" do
+      before(:each) do
+        logout
+      end
+      it "should redirect to the login page" do
+        get :index
+        response.should redirect_to(login_path)
+      end
+      
     end
   end
 end
