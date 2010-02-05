@@ -35,10 +35,18 @@ class Preferences < ActiveRecord::Base
   attr_human_name  :require_ssl => "Require SSL"
   attr_human_name  :allow_password_resets => "Allow Resets"
   attr_human_name  :maximum_file_size => "Max. File Size"    
+                      
+  SMTP_PREFS = [ :smtp_server, :smtp_port, :smtp_uses_tls, :smtp_username, :smtp_password ]  
   
+  # returns true if any of the attributes in SMTP_PREFS are dirty
+  def smtp_prefs_changed?
+    SMTP_PREFS.any? { |p| self.changed.include?(p.to_s)  }
+  end
+
   private  
   def using_email?
     email_notifications?
-  end
+  end                   
+     
   
 end

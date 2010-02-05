@@ -36,4 +36,34 @@ describe Preferences do
     ).should_not be_valid
   end
   
+  describe "smtp_prefs_changed?" do
+    before(:each) do
+      @prefs = Factory.create(:preferences)
+    end
+    it "should be true if smtp_server is chnaged" do
+      @prefs.smtp_server = "some.name"
+      @prefs.should be_smtp_prefs_changed
+    end       
+    it "should be true if smtp_port is chnaged" do
+      @prefs.smtp_port = 527
+      @prefs.should be_smtp_prefs_changed
+    end
+    it "should be true if smtp_uses_tls is chnaged" do
+      @prefs.smtp_uses_tls = !@prefs.smtp_uses_tls
+      @prefs.should be_smtp_prefs_changed
+    end
+    it "should be true if smtp_username is chnaged" do
+      @prefs.smtp_username = "my_name"
+      @prefs.should be_smtp_prefs_changed
+    end            
+    it "should be true if smtp_password is chnaged" do
+      @prefs.smtp_password = "my_password"
+      @prefs.should be_smtp_prefs_changed
+    end            
+    it "should not be true if site_name is changed" do
+      @prefs.site_name = "Some Site Name"
+      @prefs.should_not be_smtp_prefs_changed      
+    end
+  end
+  
 end

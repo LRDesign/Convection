@@ -30,7 +30,7 @@ describe Admin::PreferencesController do
     before(:each) do
       @preferences = Preferences.find(:first)
     end
-
+    
     it "should find the preferences" do
       put :update, :preferences => { :site_name => 'Foobar' }
       assigns[:preferences].should == @preferences
@@ -46,6 +46,13 @@ describe Admin::PreferencesController do
       it "should redirect to the edit page" do
         put :update, :preferences => { :site_name => 'Foobar' }
         response.should redirect_to(edit_admin_preferences_url)
+      end         
+      
+      describe "that include email params" do
+        it "should call set_smtp_preferences" do  
+          controller.should_receive(:set_smtp_preferences)
+          put :update, :preferences => { :smtp_server => 'smtp2.example.com' }
+        end
       end
     end
     
