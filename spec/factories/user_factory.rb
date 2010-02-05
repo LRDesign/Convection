@@ -12,7 +12,8 @@ Factory.define :admins, :class => Group do |g|
   g.name "Administration"
 end
 
-Factory.define :group do |g|
+Factory.define :group do |g| 
+  g.sequence(:name) {|n| "group_#{n}"}
 end
 
 Factory.define :admin, :parent => :user do |u|

@@ -90,7 +90,7 @@ class DocumentsController < ApplicationController
   # DELETE /documents/1.xml
   def destroy
     @document.destroy
-
+    #TODO delete the file from disk
     respond_to do |format|
       format.html { redirect_to(documents_url) }
       format.xml  { head :ok }
