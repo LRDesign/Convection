@@ -17,7 +17,7 @@ describe UsersController do
       assigns[:user].should == @user
     end
 
-  end
+  end         
 
   describe "responding to PUT update" do
 

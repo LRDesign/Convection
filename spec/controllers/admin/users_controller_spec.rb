@@ -118,6 +118,7 @@ describe Admin::UsersController do
   describe "POST create" do
     before(:each) do
       @new_user = Factory.build(:user)
+      @all_users_group = Factory.create(:group, :name => "All Users" )
     end
 
     describe "with valid params" do
@@ -131,6 +132,11 @@ describe Admin::UsersController do
         User.stub!(:new).and_return(@new_user)
         post :create, :user => valid_params
         response.should redirect_to(user_url(@new_user))
+      end
+      
+      it "should add the user to the all_users group" do
+        post :create, :user => valid_params
+        User.find(:last).groups.should include(@all_users_group)
       end
     end
     

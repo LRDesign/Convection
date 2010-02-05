@@ -50,5 +50,6 @@ describe Admin::GroupsUsersController do
       @user.reload.groups.should_not include(@group)        
     end    
     
+    it "should not allow removing a user from all_users"     
   end
 end
