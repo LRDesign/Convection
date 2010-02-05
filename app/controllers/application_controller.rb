@@ -18,6 +18,9 @@ class ApplicationController < ActionController::Base
   # filter_parameter_logging :password
   helper_method :current_user_session, :current_user
 
+
+  before_filter :mailer_set_url_options
+
   private
   def current_user_session
     return @current_user_session if defined?(@current_user_session)
@@ -43,7 +46,7 @@ class ApplicationController < ActionController::Base
     if current_user
       store_location
       flash[:notice] = "You must be logged out to access this page"
-      redirect_to account_url
+      redirect_to root_url
       return false
     end
   end
@@ -60,6 +63,10 @@ class ApplicationController < ActionController::Base
   private
   def retrieve_site_preferences
     @preferences ||= Preferences.find(:first)
+  end
+
+  def mailer_set_url_options
+    ActionMailer::Base.default_url_options[:host] = request.host_with_port
   end
 
   # Scrub sensitive parameters from the log

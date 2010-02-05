@@ -2,15 +2,15 @@ class Notifier < ActionMailer::Base
   
   def upload_notification(document)
     recipients site_preferences.admin_email
-    from       site_preferences.from_email
+    from       site_preferences.from_email 
     subject    formatted_subject("Upload Notifications")
     body       :document => document
   end                   
   
   def password_reset_instructions(user) 
-    subject "Password Reset Instructions"
-    from    "Binary Logic Notifier " 
-    recipients user.email 
+    subject     "Password Reset Instructions"
+    from        "Binary Logic Notifier " 
+    recipients  user.email 
     body :edit_password_reset_url => edit_password_reset_url(user.perishable_token)
   end
 

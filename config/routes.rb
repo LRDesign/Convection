@@ -20,5 +20,6 @@ ActionController::Routing::Routes.draw do |map|
     admin.ungroup_user '/ungroup_user', :controller => 'groups_users', :action => 'destroy', :conditions => { :method => :delete }
   end
   
-  map.home '/', :controller => 'home', :action => 'index'             
+  map.home '/', :controller => 'home', :action => 'index'         
+  map.root :controller => 'home', :action => 'index'    
 end
