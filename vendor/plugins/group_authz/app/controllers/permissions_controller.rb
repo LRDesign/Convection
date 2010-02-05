@@ -1,9 +1,10 @@
 class PermissionsController < AuthzController
   needs_authorization
+  admin_authorized
 
   def create
-    group = params[:group]
-    return if Group.find_by_id(group).nil?
+    group = Group.find_by_id(params[:group])
+    return if group.nil?
 
     permission_selector = {
       :controller => params[:p_controller], 
@@ -20,11 +21,7 @@ class PermissionsController < AuthzController
     end
 
     respond_to do |format|
-      format.js do       
-        render :update do |page|
-          page.replace_html :pages_permissions, :partial => 'pages/admin_tools', :locals => { :page => page } 
-        end 
-      end
+      format.js 
       format.html do
         redirect_to :back
       end

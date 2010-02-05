@@ -14,6 +14,7 @@ describe GroupsController do
     end
 
     it "should redirect away from index with an error message" do
+      pending "relocation to host app"
       get :index
       response.should be_redirect
       flash[:error].should_not be_nil

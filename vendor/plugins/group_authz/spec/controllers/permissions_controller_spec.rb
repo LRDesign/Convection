@@ -1,11 +1,12 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
-describe Admin::PermissionsController do
+describe PermissionsController do
+  include GroupAuthz::MockAuth
+  integrate_views
   before(:each) do
-    activate_authlogic
-    @person = login_as(users(:admin))    
+    @person = login_as(Factory.create(:az_admin))    
     request.env["HTTP_ACCEPT"] = "application/javascript" 
-    @group = groups(:registered)
+    @group = Factory.create(:group)
   end
 
   describe "POST Created" do

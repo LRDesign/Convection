@@ -77,6 +77,16 @@ module GroupAuthz
       def dynamic_authorization(&block)
         write_inheritable_array(:dynamic_authorization_procs, [proc &block])
       end
+
+      def admin_authorized(*actions)
+        actions.map!{|action| action.to_s}
+        dynamic_authorization do |user, criteria|
+          unless actions.nil? or actions.empty?
+            return false unless actions.include?(criteria[:action].to_s)
+          end
+          return user.groups.include?(Group.admin_group)
+        end
+      end
     end
 
     class CheckAuthorization
