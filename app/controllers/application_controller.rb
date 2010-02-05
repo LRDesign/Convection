@@ -5,7 +5,10 @@ require 'group_authz'
 
 class ApplicationController < ActionController::Base
   include AuthenticatedSystem
-  include GroupAuthz::Application
+  include GroupAuthz::Application                       
+  include SslRequirement
+  
+  
   before_filter :retrieve_site_preferences
   
   helper :all # include all helpers, all the time

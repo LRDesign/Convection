@@ -46,7 +46,11 @@ describe DocumentsController do
     it "should expose all documents as @documents" do
       get :index
       assigns[:documents].should == [@document]
-    end
+    end           
+    
+    it "should include documents the user uploaded in the list" 
+    it "should include documents the user's group can access" 
+    it "should not include documents the user can't access"
 
     describe "with mime type of xml" do
   
@@ -126,7 +130,7 @@ describe DocumentsController do
         post :create, :document => {:these => 'params'}
         assigns(:document).should equal(@new_document)
       end
-
+               
       it "should redirect to the created document" do
         Document.stub!(:new).and_return(@new_document)
         post :create, :document => {}
