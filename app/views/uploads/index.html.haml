@@ -1,0 +1,14 @@
+- set_headline "Documents You've Uploaded"
+
+%table.listing
+  %tr
+    %th Name
+    %th Size
+    %th File Type
+    %th Uploaded On
+    %th Uploaded By
+    %th{ :colspan => '3' }
+
+  = render :partial => 'documents/document', :collection => @documents
+ 
+      
