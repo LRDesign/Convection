@@ -10,7 +10,8 @@
 #  smtp_uses_tls         :boolean(1)
 #  smtp_username         :string(255)
 #  smtp_password         :string(255)
-#  email_notifications   :boolean(1)      default(TRUE)
+#  upload_notifications  :boolean(1)      default(TRUE)
+#  admin_email           :string(255)
 #  allow_password_resets :boolean(1)      default(TRUE)
 #  require_ssl           :boolean(1)
 #  maximum_file_size     :integer(4)
@@ -32,7 +33,7 @@ describe Preferences do
   
   it "should not be valid if notifications are turned on but no server is set" do
     Factory.build(:preferences, 
-      :email_notifications => true, :smtp_server => nil
+      :upload_notifications => true, :smtp_server => nil
     ).should_not be_valid
   end
   

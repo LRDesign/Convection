@@ -5,6 +5,8 @@ Factory.define :preferences do |p|
   p.smtp_server   "smtp.example.com"
   p.smtp_port     25
   p.smtp_uses_tls false
-  p.logo_url      "/images/convection_logo.png"  
+  p.logo_url      "/images/convection_logo.png"      
+  p.upload_notifications true
+  p.admin_email   "admin@example.com"
 end
 

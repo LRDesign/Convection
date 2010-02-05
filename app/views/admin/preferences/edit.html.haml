@@ -9,8 +9,12 @@
     = labeled_input f, :require_ssl, :input => f.check_box(:require_ssl)
       
   .form_section    
+    %h3 Notifications
+    = labeled_input f, :upload_notifications, :input => f.check_box(:upload_notifications), :comment => "Notify administrator of new uploads."
+    = labeled_input f, :admin_email, :comment => "Administrator's email for notifications."
+    
+  .form_section    
     %h3 Email Configuration
-    = labeled_input f, :email_notifications, :input => f.check_box(:email_notifications)
     = labeled_input f, :smtp_server
     = labeled_input f, :smtp_port
     = labeled_input f, :smtp_username

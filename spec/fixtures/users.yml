@@ -6,7 +6,6 @@
 #  login               :string(255)
 #  email               :string(255)
 #  name                :string(255)
-#  admin               :boolean(1)
 #  crypted_password    :string(255)     not null
 #  password_salt       :string(255)     not null
 #  persistence_token   :string(255)     not null

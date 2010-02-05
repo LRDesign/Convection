@@ -73,7 +73,7 @@ describe Admin::PreferencesController do
   
   
   def invalid_params
-    {:preferences => { :site_name => 'Foobar', :email_notifications => true, :smtp_server => nil }}
+    {:preferences => { :site_name => 'Foobar', :upload_notifications => true, :smtp_server => nil }}
   end
 
 end
