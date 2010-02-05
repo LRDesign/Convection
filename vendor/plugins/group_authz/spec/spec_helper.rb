@@ -29,3 +29,7 @@ load(File.join(plugin_spec_dir, "db", "schema.rb"))
 require File::join(plugin_spec_dir, "mock_auth")
 
 Group::account_column = :az_accounts
+
+class AuthzController < ActionController::Base
+    include GroupAuthz::Application
+end

@@ -1,9 +1,9 @@
-require File.expand_path(File.dirname(__FILE__) + '/../../spec_helper')
+require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
-describe Admin::GroupsUsersController do
+describe GroupsUsersController do
 
   before(:each) do 
-    activate_authlogic
+#    activate_authlogic
     @admin = login_as( Factory.create(:admin) )
     request.env['HTTP_REFERER'] = "http://test.host/previous/page"
     @user = Factory.create(:user)

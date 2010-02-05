@@ -1,4 +1,4 @@
-class Admin::GroupsUsersController < ApplicationController
+class GroupsUsersController < AuthzController
   before_filter :get_instance_vars
   
   def create

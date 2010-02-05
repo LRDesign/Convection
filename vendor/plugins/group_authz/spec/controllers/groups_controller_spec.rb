@@ -1,6 +1,6 @@
-require File.expand_path(File.dirname(__FILE__) + '/../../spec_helper')
+require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
-describe Admin::GroupsController do
+describe GroupsController do
   def mock_group(stubs={})
     @mock_group ||= mock_model(Group, stubs)
   end
@@ -102,11 +102,6 @@ describe Admin::GroupsController do
         delete :destroy, :id => @group.id
         lambda { Group.find(@group.id) }.should raise_error(ActiveRecord::RecordNotFound)         
       end
-      
     end    
-    
   end
-
-
-
 end

@@ -1,6 +1,5 @@
-class Admin::GroupsController < Admin::AdminController
+class GroupsController < AuthzController
   PER_PAGE = 20
-  
 
   # GET /groups
   # GET /groups.xml
