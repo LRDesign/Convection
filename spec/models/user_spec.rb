@@ -53,6 +53,29 @@ describe User do
       Factory.build(:admin).should be_admin
     end
     
+  end                             
+  
+  describe "document permissions" do  
+    before(:each) do      
+      @user = Factory.create(:user) 
+      @group = Factory.create(:group)
+      @user.groups << @group
+      @user.save!
+      @doc = Factory.create(:document)
+    end                        
+    it "shouldn't give the user show access" do
+      @user.can?(:show, @doc).should be_false      
+    end
+    it "should give show access if the group has show permissions" do
+      @group.permissions.create(:controller => 'documents', :action => 'show', :subject_id => @doc.id)
+      @user.can?(:show, @doc).should be_true            
+    end    
+    it "should not give show access just because a different group has show perms" do                 
+      @group2 = Factory.create(:group)
+      @group2.permissions.create(:controller => 'documents', :action => 'show', :subject_id => @doc.id)
+      @user.can?(:show, @doc).should be_false                  
+    end
+    
   end
   
 end

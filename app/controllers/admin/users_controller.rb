@@ -1,6 +1,6 @@
 class Admin::UsersController < Admin::AdminController
   before_filter :find_user, :only => [ :show, :edit, :update, :destroy ]
-    
+     
   # GET :index
   def index
     @users = User.find(:all)
@@ -27,8 +27,9 @@ class Admin::UsersController < Admin::AdminController
   # POST /users
   def create
     @user = User.new(params[:user])
+    @user.groups << Group.find_by_name('All Users')    
     respond_to do |format|
-      if @user.save
+      if @user.save  
         flash[:success] = 'User was successfully created.'
         format.html { redirect_to(@user) }
       else

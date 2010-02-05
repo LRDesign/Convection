@@ -3,9 +3,8 @@ PASSWORD = "foobar"
 # TODO create default groups
 puts "Seeding database...."
 
-admin_group = Group.create!(
-  :name => "Administration"
-)
+admin_group = Group.create!( :name => "Administration" )            
+all_users_group = Group.create!( :name => "All Users" )
 
 admin_user = User.create!(
   :login => "admin",
@@ -16,6 +15,7 @@ admin_user = User.create!(
 )     
 
 admin_user.groups << admin_group
+admin_user.groups << all_users_group
 admin_user.save
 
 regular_user = User.create!(
@@ -26,6 +26,8 @@ regular_user = User.create!(
   :name => "John Q. User"
 )
 
+regular_user.groups << all_users_group
+regular_user.save                                    
 
 Preferences.create!(
   :domain => "your_site_domain.com",

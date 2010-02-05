@@ -43,5 +43,18 @@ class User < ActiveRecord::Base
 
   def display_name
     name.blank? ? login : name
+  end  
+         
+  # returns true if the user can do *action* on *document*
+  def can?(action, document)
+    groups.any? do |group|
+      !Permission.find(:first, :conditions => 
+        { :controller => 'documents',
+          :group_id => group.id,
+          :action => action.to_s,
+          :subject_id => document.id
+        }
+      ).nil?    
+    end
   end
 end

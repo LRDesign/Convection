@@ -9,8 +9,8 @@ describe "/documents/show.html.haml" do
 
   it "should render attributes in <p>" do
     render "/documents/show.html.haml"
-    response.should have_text(/value\ for\ name/)
-    response.should have_text(/value\ for\ description/)
+    response.should have_text(/#{@document.name}/)
+    response.should have_text(/#{@document.description}/)
   end
 end
 
