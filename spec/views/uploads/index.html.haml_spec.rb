@@ -3,8 +3,8 @@ require File.expand_path(File.dirname(__FILE__) + '/../../spec_helper')
 describe "/uploads/index" do
   before(:each) do
     assigns[:documents] = [
-      Factory.build(:document),
-      Factory.build(:document)
+      Factory.create(:document),
+      Factory.create(:document)
       ]
     render 'uploads/index'
   end
