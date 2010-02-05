@@ -58,13 +58,19 @@ describe User do
   describe "document permissions" do  
     before(:each) do      
       @user = Factory.create(:user) 
+      @other = Factory.create(:user)
       @group = Factory.create(:group)
       @user.groups << @group
       @user.save!
-      @doc = Factory.create(:document)
+      @doc = Factory.create(:document, :user => @other)
     end                        
     it "shouldn't give the user show access" do
       @user.can?(:show, @doc).should be_false      
+    end                                               
+    it "should give the user show access if they created the doc" do
+      @doc.user = @user
+      @doc.save!
+      @user.can?(:show, @doc).should be_true      
     end
     it "should give show access if the group has show permissions" do
       @group.permissions.create(:controller => 'documents', :action => 'show', :subject_id => @doc.id)
@@ -74,7 +80,8 @@ describe User do
       @group2 = Factory.create(:group)
       @group2.permissions.create(:controller => 'documents', :action => 'show', :subject_id => @doc.id)
       @user.can?(:show, @doc).should be_false                  
-    end
+    end    
+    
     
   end
   

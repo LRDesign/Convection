@@ -37,26 +37,46 @@ describe DocumentsController do
 
   before(:each) do  
     activate_authlogic 
-    login_as(:quentin)    
-    @document = Factory(:document)
+    @user = login_as(Factory.create(:user))    
+    @other = Factory.create(:user)
+    @document = Factory.create(:document)
   end
 
   describe "responding to GET index" do
-
-    it "should expose all documents as @documents" do
+    
+    it "should include documents the user owns" do
+      @document.user = @user
+      @document.save!
       get :index
       assigns[:documents].should == [@document]
-    end           
-    
-    it "should include documents the user uploaded in the list" 
-    it "should include documents the user's group can access" 
-    it "should not include documents the user can't access"
+    end 
+
+    describe "for documents created by someone else" do
+      before(:each) do
+        @document.user = @other
+        @document.save!        
+      end
+
+      it "should not include the docs if the user can't access" do
+        get :index
+        assigns[:documents].should_not include(@document)
+      end
+
+      it "should include the docs if the user's group has access" do
+        @user.groups << ( @group = Factory(:group))
+        @user.save!
+        Permission.create!(:controller => 'documents', :action => 'show', :group_id => @group.id, :subject_id => @document.id)
+        get :index
+        assigns[:documents].should include(@document)
+      end
+    end
 
     describe "with mime type of xml" do
   
       it "should render all documents as xml" do
         request.env["HTTP_ACCEPT"] = "application/xml"
         Document.should_receive(:find).with(:all).and_return(documents = mock("Array of Documents"))
+        documents.should_receive(:select).and_return(documents)
         documents.should_receive(:to_xml).and_return("generated XML")
         get :index
         response.body.should == "generated XML"

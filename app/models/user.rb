@@ -47,6 +47,7 @@ class User < ActiveRecord::Base
          
   # returns true if the user can do *action* on *document*
   def can?(action, document)
+    return true if self == document.user
     groups.any? do |group|
       !Permission.find(:first, :conditions => 
         { :controller => 'documents',

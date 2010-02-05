@@ -1,14 +1,17 @@
 - set_headline "Available Documents"
 
-%table.listing
-  %tr
-    %th Name
-    %th Size
-    %th File Type
-    %th Uploaded On
-    %th Uploaded By
-    %th{ :colspan => '3' }
+- unless @documents.blank?
 
-  = render :partial => 'document', :collection => @documents
- 
+  %table.listing
+    %tr
+      %th Name
+      %th Size
+      %th File Type
+      %th Uploaded On
+      %th Uploaded By
+      %th{ :colspan => '3' }
+
+    = render :partial => 'document', :collection => @documents
+-else
+  %p There are no documents available to you at this time.
       
