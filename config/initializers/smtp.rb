@@ -3,7 +3,7 @@ include SMTPSystem
 unless env.test?
   begin 
      prefs = Preferences.find(:first)
-  rescue ActiveRecord::RecordNotFound
+  rescue
     puts "Not initializing SMTP; Preferences do not exist yet."
     nil
   end                           
