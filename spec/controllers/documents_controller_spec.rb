@@ -155,6 +155,16 @@ describe DocumentsController do
         Document.stub!(:new).and_return(@new_document)
         post :create, :document => {}
         response.should redirect_to(document_url(@new_document))
+      end              
+      
+      describe "if upload_notifications is turned on" do
+        it "should generate an email" do    
+          Preferences.find(:first).update_attributes(:upload_notifications => true) 
+          Document.stub!(:new).and_return(@new_document)
+          lambda do
+            post :create, :document => {}
+          end.should change{ ActionMailer::Base.deliveries.count }.by(1)
+        end
       end
       
     end

@@ -61,7 +61,8 @@ class DocumentsController < ApplicationController
 
     respond_to do |format|
       if @document.save
-        flash[:notice] = 'Document was successfully created.'
+        flash[:notice] = 'Document was successfully created.'    
+        Notifier.deliver_upload_notification(@document) if @preferences.upload_notifications?
         format.html { redirect_to(@document) }
         format.xml  { render :xml => @document, :status => :created, :location => @document }
       else

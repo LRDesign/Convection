@@ -20,6 +20,7 @@
     = labeled_input f, :smtp_username
     = labeled_input f, :smtp_password, :input => f.password_field(:smtp_password)
     = labeled_input f, :smtp_uses_tls, :input => f.check_box(:smtp_uses_tls)
+    = labeled_input f, :from_email, :comment => "From: address for outgoing emails."
 
   .form_section      
     %h3 User Configuration

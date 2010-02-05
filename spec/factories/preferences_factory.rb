@@ -8,5 +8,6 @@ Factory.define :preferences do |p|
   p.logo_url      "/images/convection_logo.png"      
   p.upload_notifications true
   p.admin_email   "admin@example.com"
+  p.from_email    "admin@example.com"
 end
 

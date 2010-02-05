@@ -25,6 +25,7 @@ class Preferences < ActiveRecord::Base
   validates_presence_of :domain,       :if => :using_email?
   validates_presence_of :smtp_server,  :if => :using_email?
   validates_presence_of :admin_email,  :if => :upload_notifications?
+  validates_presence_of :from_email,   :if => :using_email?
   
   attr_human_name  :site_name => "Site Name"
   attr_human_name  :upload_notifications => "Notify Admin?"

@@ -10,6 +10,8 @@ class CreatePreferences < ActiveRecord::Migration
       t.string :smtp_password
       t.boolean :upload_notifications, :allow_nil => false, :default => true
       t.string  :admin_email
+      t.string  :from_email
+      t.string  :email_subject_prefix
       t.boolean :allow_password_resets, :allow_nil => false, :default => true
       t.boolean :require_ssl
       t.integer :maximum_file_size   # in MB      
