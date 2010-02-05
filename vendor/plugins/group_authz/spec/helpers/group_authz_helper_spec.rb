@@ -1,10 +1,6 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 require 'app/helpers/group_authz_helper'
 
-class AuthzController < ActionController::Base
-  include GroupAuthz::Application
-end
-
 class FooController < AuthzController
 end
 

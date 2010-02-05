@@ -20,7 +20,11 @@ module GroupAuthz
     end
 
     def login_as(user)
-      AuthnFacade.current_user = az_accounts(user)
+      if AzAccount === user
+        AuthnFacade.current_user = user
+      else
+        AuthnFacade.current_user = az_accounts(user)
+      end
     end
   end
 end

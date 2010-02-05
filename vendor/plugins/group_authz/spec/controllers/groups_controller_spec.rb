@@ -1,15 +1,15 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe GroupsController do
+  include GroupAuthz::MockAuth
+
   def mock_group(stubs={})
     @mock_group ||= mock_model(Group, stubs)
   end
 
-  describe "loggin in as non-admin" do
+  describe "logging in as non-admin" do
     before(:each) do
-      activate_authlogic
-      @person = Factory.create(:admin)
-      @person.groups.delete(Group.admin_group)
+      @person = Factory.create(:az_account)
       @person = login_as(@person)
     end
 
@@ -22,8 +22,7 @@ describe GroupsController do
 
   describe "logged in as admin" do
     before(:each) do
-      activate_authlogic
-      @person = login_as(Factory.create(:admin))
+      @person = login_as(Factory.create(:az_admin))
     end
     
     describe "GET index" do
@@ -37,8 +36,8 @@ describe GroupsController do
     describe "GET show" do
       before(:each) do
         @group = Factory.create(:group, :name => 'foo')
-        @group.users << @user1 = Factory.create(:user)
-        @group.users << @user2 = Factory.create(:user)        
+        @group.members << @user1 = Factory.create(:az_account)
+        @group.members << @user2 = Factory.create(:az_account)        
       end
       it "should find and expose the requested group as @group" do
         get :show, :id => @group.id

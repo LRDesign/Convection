@@ -1,0 +1,3 @@
+GroupUsersController => GroupMembersController
+
+Group::members alias for the member class?  (::users etc)

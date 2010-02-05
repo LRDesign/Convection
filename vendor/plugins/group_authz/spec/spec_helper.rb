@@ -1,4 +1,5 @@
 ENV["RAILS_ENV"] ||= 'test'
+
 require File.expand_path(File.join(File.dirname(__FILE__),'..','..','..','..','config','environment'))
 require 'spec/rails' 
                               
@@ -27,8 +28,14 @@ ActiveRecord::Base.establish_connection(databases[ENV["DB"] || "sqlite3"])
 load(File.join(plugin_spec_dir, "db", "schema.rb"))
 
 require File::join(plugin_spec_dir, "mock_auth")
+require File::join(plugin_spec_dir, "routes")
 
-Group::account_column = :az_accounts
+Dir.glob(File::join(plugin_spec_dir, "factories", "*.rb")) do |path|
+  require path
+end
+
+
+Group::member_class = AzAccount
 
 class AuthzController < ActionController::Base
     include GroupAuthz::Application

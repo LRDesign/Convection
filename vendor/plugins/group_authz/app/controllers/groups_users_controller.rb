@@ -21,7 +21,7 @@ class GroupsUsersController < AuthzController
 
   private
   def get_instance_vars   
-    @user = User.find_by_id(params[:user_id])
+    @user = Group.member_class.find_by_id(params[:user_id])
     @group = Group.find_by_id(params[:group_id])     
   end
 end

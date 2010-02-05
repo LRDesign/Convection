@@ -3,12 +3,18 @@ class Group < ActiveRecord::Base
   validates_uniqueness_of :name
   
   has_many :permissions
-  
-  def self.admin_group
-    self.find_by_name('Administration')
-  end  
 
-  def self.account_column=(account_column_name)
-    has_and_belongs_to_many account_column_name
+  def self.member_class=(member_class)
+    @member_class = member_class
+    has_and_belongs_to_many :members, :class_name => member_class.name
   end
+  
+  class << self
+    def admin_group
+      self.find_by_name('Administration')
+    end  
+
+    attr_reader :member_class
+  end
+
 end
