@@ -1,0 +1,12 @@
+- set_headline "Forgot Password"
+ 
+%p Fill out the form below and instructions to reset your password will be emailed to you:
+
+- form_tag password_resets_path do 
+  .labeled_input 
+    %label Email:
+    = text_field_tag "email"       
+  .labeled_input 
+    %label &nbsp;
+    = submit_tag "Reset my password" 
+    

@@ -5,3 +5,5 @@
   = labeled_input f, :login
   = labeled_input f, :password, :input => f.password_field(:password)
   = labeled_input f, nil, :input => f.submit("Log In"), :nolabel => true
+
+= link_to "Reset Password", new_password_reset_path if @preferences.allow_password_resets?

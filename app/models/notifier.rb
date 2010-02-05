@@ -5,7 +5,15 @@ class Notifier < ActionMailer::Base
     from       site_preferences.from_email
     subject    formatted_subject("Upload Notifications")
     body       :document => document
+  end                   
+  
+  def password_reset_instructions(user) 
+    subject "Password Reset Instructions"
+    from    "Binary Logic Notifier " 
+    recipients user.email 
+    body :edit_password_reset_url => edit_password_reset_url(user.perishable_token)
   end
+
 
   def formatted_subject(subject)
     if site_preferences.email_subject_prefix
