@@ -2,11 +2,11 @@
 
 %h2 Current Members:
 
-- if @group.users.blank?
+- if @group.members.blank?
   %p This group has no users.
 - else    
   %ul
-    - @group.users.each do |user|
+    - @group.members.each do |user|
       %li= h user.display_name
       %li= link_to((h user.display_name), admin_user_path(user))
 

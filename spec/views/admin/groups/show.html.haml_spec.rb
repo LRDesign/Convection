@@ -7,8 +7,8 @@ describe "/admin/groups/show.html.haml" do
     activate_authlogic
     @admin = login_as(Factory(:admin))
     @group = Factory.create(:group, :name => 'foo')
-    @group.users << @user1 = Factory.create(:user)
-    @group.users << @user2 = Factory.create(:user)        
+    @group.members << @user1 = Factory.create(:user)
+    @group.members << @user2 = Factory.create(:user)        
     
     assigns[:group] = @group
     assigns[:users] = [ @user1, @user2 ]
