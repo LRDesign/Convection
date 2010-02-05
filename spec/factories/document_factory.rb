@@ -1,6 +1,6 @@
 Factory.define :document do |document|
-  document.name "value for name"
-  document.description "value for description"
+  document.sequence(:name) { |n| "Document Name #{n}"}
+  document.description "Description"
   document.data_file_name "value for data_file_name"
   document.data_content_type "value for data_content_type"
   document.data_file_size "value for data_size"

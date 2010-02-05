@@ -9,7 +9,7 @@ module NavHelper
     menu_items = []    
     if current_user
       menu_items << menu_item("Downloads", documents_path )
-      menu_items << menu_item("My Uploads", "/my_uploads" )
+      menu_items << menu_item("My Uploads", "/uploads" )
       menu_items << menu_item("Account", edit_user_path(current_user) )
       menu_items << menu_item("Log Out", logout_path)
     else
