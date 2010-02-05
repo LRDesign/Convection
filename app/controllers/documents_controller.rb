@@ -16,7 +16,7 @@ class DocumentsController < ApplicationController
   # GET /documents
   # GET /documents.xml
   def index
-    @documents = Document.find(:all)
+    @documents = Document.find(:all).select{ |doc| current_user.can?(:show, doc) }
 
     respond_to do |format|
       format.html # index.html.erb

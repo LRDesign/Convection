@@ -1,13 +1,19 @@
 - rowclass = cycle('odd', 'even')
 %tr.info{ :class => rowclass }
-   %td= h document.name
-   %td= h number_to_human_size(document.data.size)
-   %td= h document.data.content_type
-   %td= h document.data.updated_at
-   %td= h document.user.name rescue ""
+  %td= h document.name
+  %td= h number_to_human_size(document.data.size)
+  %td= h document.data.content_type
+  %td= h document.data.updated_at
+  %td= h document.user.name rescue ""
 
-   %td{ :rowspan => '2' }= link_to image_tag('download.png'), document.data.url(:original, false), :title => "Download Document"  
-   %td{ :rowspan => '2' }= link_to image_tag('edit.png'), edit_document_path(document), :title => "Edit Document"
-   %td{ :rowspan => '2' }= link_to image_tag('delete.png'), document, :confirm => 'Are you sure?', :method => :delete, :title => "Delete Document"
+   
+  %td{ :rowspan => '2' }= link_to image_tag('download.png'), document.data.url(:original, false), :title => "Download Document"  
+   
+  - if current_user.can?(:edit, document)
+    %td{ :rowspan => '2' }= link_to image_tag('edit.png'), edit_document_path(document), :title => "Edit Document"
+    %td{ :rowspan => '2' }= link_to image_tag('delete.png'), document, :confirm => 'Are you sure?', :method => :delete, :title => "Delete Document"
+  - else
+    %td{ :rowspan => '2', :colspan => '2' } &nbsp;  
+     
 %tr.description{ :class => rowclass }
-   %td{ :colspan => '5' }= h document.description
+  %td{ :colspan => '5' }= h document.description

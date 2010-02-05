@@ -1,11 +1,10 @@
 require File.expand_path(File.dirname(__FILE__) + '/../../spec_helper') 
 
 describe "/uploads/index" do
-  before(:each) do
-    assigns[:documents] = [
-      Factory.create(:document),
-      Factory.create(:document)
-      ]
+  before(:each) do           
+    activate_authlogic                
+    login_as Factory(:user)    
+    assigns[:documents] = [ Factory(:document), Factory(:document) ]             
     render 'uploads/index'
   end
 

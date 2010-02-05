@@ -6,7 +6,9 @@ describe "/documents/index.html.haml" do
   before(:each) do
     # @data = mock_model(Paperclip::Attachment, :null_object => true, :url => "http://example.com/foo.jpg")
     # doc = Factory(:document)
-    # doc.stub!(:data).and_return(@data)
+    # doc.stub!(:data).and_return(@data)   
+    activate_authlogic                
+    login_as Factory(:user)
     assigns[:documents] = [ Factory(:document), Factory(:document) ]
   end
 

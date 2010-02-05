@@ -1,14 +1,16 @@
 - set_headline "Documents You've Uploaded"
+                                          
+- unless @documents.blank?
+  %table.listing
+    %tr
+      %th Name
+      %th Size
+      %th File Type
+      %th Uploaded On
+      %th Uploaded By
+      %th{ :colspan => '3' }
 
-%table.listing
-  %tr
-    %th Name
-    %th Size
-    %th File Type
-    %th Uploaded On
-    %th Uploaded By
-    %th{ :colspan => '3' }
-
-  = render :partial => 'documents/document', :collection => @documents
- 
+    = render :partial => 'documents/document', :collection => @documents
+-else
+  %p You have not uploaded any documents. 
       
