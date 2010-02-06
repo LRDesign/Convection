@@ -131,7 +131,7 @@ describe Admin::UsersController do
       it "should redirect to the created user" do
         User.stub!(:new).and_return(@new_user)
         post :create, :user => valid_params
-        response.should redirect_to(user_url(@new_user))
+        response.should redirect_to(admin_user_url(@new_user))
       end
       
       it "should add the user to the all_users group" do
