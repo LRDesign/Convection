@@ -55,8 +55,10 @@ module GroupAuthz
       )
     end
 
+    all_users_group = Group.first(:conditions => {:name => "All Users"})
     #create_permission(admin, "admin/permissions")
+    create_permission(all_users_group, "documents", "upload")
   end
 end
 
-puts "Seeding done.  Users: #{User.count} Groups: #{Group.count} Preferences:  #{Preferences.count}"
+puts "Seeding done.  Users: #{User.count} Groups: #{Group.count} Permissions: #{Permission.count} Preferences: #{Preferences.count}"
