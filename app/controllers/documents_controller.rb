@@ -2,7 +2,9 @@ class DocumentsController < ApplicationController
   before_filter :find_document, :only => [ :show, :edit, :update, :destroy ] 
   before_filter :require_user
 
-  needs_authorization :download
+  needs_authorization :download, :edit, :update, :new, :create, :destroy
+  grant_aliases :edit => :update, :new => [:create] #Just by way of demostration
+  
   dynamic_authorization do |user, criteria|
     case criteria[:action]
     when "download"

@@ -56,7 +56,14 @@ module GroupAuthz
         permissions = GroupAuthz::Permission.find(:first, :conditions => select_on)
         return true unless permissions.nil?
 
-        select_on[:action] = criteria[:action]
+        action_grants = [criteria[:action]]
+        grant_aliases = read_inheritable_attribute(:grant_alias_hash)
+
+        if not grant_aliases.nil? and grant_aliases.has_key?(criteria[:action])
+          action_grants += grant_aliases[criteria[:action]]
+        end
+
+        select_on[:action] = action_grants
         permissions = GroupAuthz::Permission.find(:first, :conditions => select_on)
         return true unless permissions.nil?
 
@@ -72,6 +79,16 @@ module GroupAuthz
         else
           write_inheritable_array(:requires_action_authorization, actions)
         end
+      end
+
+      def grant_aliases(hash)
+        aliases = read_inheritable_attribute(:grant_alias_hash) || Hash.new{|h,k| h[k] = []}
+        hash.each_pair do |grant, allows|
+          [*allows].each do |allowed|
+            aliases[allowed.to_s] << grant.to_s
+          end
+        end
+        write_inheritable_attribute(:grant_alias_hash, aliases)
       end
 
       def dynamic_authorization(&block)
