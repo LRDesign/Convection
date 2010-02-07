@@ -53,7 +53,7 @@ describe DocumentsController, "with authz restrictions" do
               Preferences.find(:first).update_attributes(:upload_notifications => true) 
               lambda do
                 post :create, :document => {}
-              end.should change{ ActionMailer::Base.deliveries.count }.by(1)
+              end.should change{ ActionMailer::Base.deliveries.size }.by(1)
             end
           end
         end

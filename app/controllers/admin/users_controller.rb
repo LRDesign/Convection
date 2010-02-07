@@ -31,7 +31,7 @@ class Admin::UsersController < Admin::AdminController
     respond_to do |format|
       if @user.save  
         flash[:success] = 'User was successfully created.'
-        format.html { redirect_to(@user) }
+        format.html { redirect_to(admin_user_path(@user)) }
       else
         format.html { render :action => "new" }
       end
