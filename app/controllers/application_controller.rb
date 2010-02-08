@@ -8,6 +8,7 @@ class ApplicationController < ActionController::Base
   include GroupAuthz::Application                       
   include SslRequirement
   
+  ssl_required :all if Rails.env.production? and @preferences.require_ssl?
   
   before_filter :retrieve_site_preferences
   
