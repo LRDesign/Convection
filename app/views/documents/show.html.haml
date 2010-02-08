@@ -1,19 +1,30 @@
+-set_headline "Document Details"
+                   
 %p
-  %b Name:
-  =h @document.name
+  = link_to "Download File", @document.data.url(:original, false)  |
+  = link_to 'Back to List', documents_path
+      
+%table.listing
+  %tr
+    %th Name
+    %td= h @document.name
+  %tr
+    %th Description
+    %td= h @document.description
+  
+  %tr
+    %th File Size
+    %td= number_to_human_size @document.data.size 
+  
+  %tr
+    %th.nobr Data Type
+    %td= h @document.data.content_type
 
-%p
-  %b Description:
-  =h @document.description
+  %tr
+    %th.nobr Uploaded By
+    %td= h @document.user.display_name
 
-%p
-  %b Download File 
-  = link_to "Download", @document.data.url(:original, false)
+  %tr
+    %th.nobr Upload Date
+    %td= h @document.created_at.to_s(:date_and_time)
 
-%p
-  %b File size:
-  = number_to_human_size @document.data.size
-
-= link_to 'Edit', edit_document_path(@document)
-|
-= link_to 'Back', documents_path
