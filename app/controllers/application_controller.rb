@@ -7,11 +7,10 @@ class ApplicationController < ActionController::Base
   include AuthenticatedSystem
   include GroupAuthz::Application                       
   # include SslRequirement    
-             
+  before_filter :retrieve_site_preferences             
   before_filter :ssl_preferred
   
   
-  before_filter :retrieve_site_preferences
   
   helper :all # include all helpers, all the time
   protect_from_forgery # See ActionController::RequestForgeryProtection for details
