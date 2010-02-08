@@ -3,7 +3,7 @@
 
   %head
     %meta{"http-equiv" => "content-type", "content" => "text/html;charset=UTF-8" }
-    %title=  @title ? @title : "Convection"
+    %title=  @title ? @title : @preferences.site_name       
     = stylesheet_link_tag 'universal', :media=>'all' 
     = stylesheet_link_tag 'screen', :media=>'screen, projection' 
     = stylesheet_link_tag 'print', :media=>'print' 

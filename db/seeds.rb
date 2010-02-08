@@ -43,7 +43,7 @@ Preferences.create!(
   :maximum_file_size => 100,      # Megabytes    
   :require_ssl => false           # Site doesn't require SSL connections
 )
-
+               
 module GroupAuthz
   module PermissionSeeds
     def self.create_permission(user, controller, action = nil, subject_id = nil)
@@ -57,7 +57,7 @@ module GroupAuthz
 
     all_users_group = Group.first(:conditions => {:name => "All Users"})
     #create_permission(admin, "admin/permissions")
-    create_permission(all_users_group, "documents", "upload")
+    create_permission(all_users_group, "documents", "new")
   end
 end
 
