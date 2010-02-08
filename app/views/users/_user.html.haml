@@ -1,0 +1,8 @@
+%tr
+  %td= user.login
+  %td= user.email
+  %td= user.name
+
+  %td= link_to 'Show', user
+  %td= link_to 'Edit', edit_user_path(user)
+  %td= link_to 'Destroy', user, :confirm => 'Are you sure?', :method => :delete

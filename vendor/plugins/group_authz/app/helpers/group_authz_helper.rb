@@ -28,6 +28,12 @@ module GroupAuthz
       criteria = {:action => action_name, :id => params[:id]}.merge(criteria)
 
       controller_class.can_authorize(current_user, criteria)
-    end
+    end 
+        
+    # returns an array of group names and ids (suitable for select_tag)
+    # for which <user> is not a member
+    def nonmembered_groups(user)
+      (Group.all - user.groups).map { |g| [ g.name, g.id ] }
+    end    
   end
 end

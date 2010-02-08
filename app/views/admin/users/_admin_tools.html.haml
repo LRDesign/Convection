@@ -1,0 +1,14 @@
+- content_for(:aux) do  
+  - page_block("Admin Tool: Groups", :class => "admin") do
+    %p Edit this user's group memberships here.
+    %table.listing
+      - for group in @user.groups
+        %tr
+          %td= h group.name
+          %td= link_to "X", admin_ungroup_user_url( :user_id => @user.id, :group_id => group.id), :method => :delete 
+
+    %h3 Add user to group:
+    -form_tag(admin_group_user_url, :method => :post) do
+      =hidden_field_tag 'user_id', @user.id
+      =select_tag 'group_id', options_for_select(nonmembered_groups(@user))
+      =submit_tag "Add"

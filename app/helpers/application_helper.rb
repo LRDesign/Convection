@@ -31,6 +31,14 @@ module ApplicationHelper
   # same function as application_controller.rb's logged_in? method
   def logged_in?
     !current_user.nil?
-  end          
+  end                
+  
+  def delete_widget(object)
+    link_to image_tag('delete.png'), object, :confirm => 'Are you sure?', :method => :delete, :title => "Delete #{object.class}"       
+  end
+  
+  def edit_widget(object)
+    link_to image_tag('edit.png'), edit_document_path(object), :title => "Edit #{object.class}"        
+  end
                                  
 end

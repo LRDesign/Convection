@@ -1,4 +1,6 @@
-class GroupsUsersController < AuthzController
+class GroupsUsersController < AuthzController 
+  unloadable 
+  
   before_filter :get_instance_vars
   
   def create

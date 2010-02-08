@@ -7,7 +7,8 @@ ActionController::Routing::Routes.draw do |map|
   # regular user controller cannot list, create or destroy users
   map.resources :users, :except => [ :index, :show, :new, :create, :destroy ], :requirements => { :id => /[0-9]+/ }  
   map.resources :user_sessions        
-  map.resources :password_resets                                                                                     
+  map.resources :password_resets 
+  map.resources :groups                                                                                    
   
   map.logout '/logout', :controller => "user_sessions", :action => "destroy"
   map.login '/login', :controller => "user_sessions", :action => "new"

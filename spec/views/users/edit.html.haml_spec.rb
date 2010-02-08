@@ -3,7 +3,8 @@ require File.expand_path(File.dirname(__FILE__) + '/../../spec_helper')
 describe "/users/edit.html.haml" do
   include UsersHelper
   
-  before(:each) do
+  before(:each) do  
+    activate_authlogic                      
     assigns[:user] = @user = Factory(:user)
   end
 

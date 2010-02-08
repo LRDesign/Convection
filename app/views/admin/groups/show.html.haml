@@ -1,13 +1,17 @@
-%h1= "Group: #{h @group.name}"
+-set_headline "Group: #{h @group.name}"
 
 %h2 Current Members:
 
 - if @group.members.blank?
   %p This group has no users.
-- else    
-  %ul
-    - @group.members.each do |user|
-      %li= h user.display_name
-      %li= link_to((h user.display_name), admin_user_path(user))
+- else
+  %table.listing
+    %tr 
+      %th Login
+      %th Name                              
+      - @group.members(true).each do |user|
+        %tr
+          %td= h user.login
+          %td= link_to((h user.display_name), admin_user_path(user))
 
 = link_to 'Back to groups', admin_groups_path

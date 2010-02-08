@@ -1,4 +1,6 @@
 class GroupsController < AuthzController
+  unloadable
+  
   PER_PAGE = 20
 
   # GET /groups
@@ -13,7 +15,7 @@ class GroupsController < AuthzController
   end
 
   def show
-    @group = Group.find(params[:id])
+    @group = Group.find(params[:id])      
   end
 
   # GET /groups/new

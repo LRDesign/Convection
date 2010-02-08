@@ -1,2 +1,3 @@
-class AuthzController < Admin::AdminController
+class AuthzController < Admin::AdminController         
+  unloadable
 end
