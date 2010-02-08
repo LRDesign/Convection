@@ -6,9 +6,10 @@ require 'group_authz'
 class ApplicationController < ActionController::Base
   include AuthenticatedSystem
   include GroupAuthz::Application                       
-  include SslRequirement
+  # include SslRequirement    
+             
+  before_filter :ssl_preferred
   
-  ssl_required :all if Rails.env.production? and @preferences.require_ssl?
   
   before_filter :retrieve_site_preferences
   
@@ -68,8 +69,17 @@ class ApplicationController < ActionController::Base
 
   def mailer_set_url_options
     ActionMailer::Base.default_url_options[:host] = request.host_with_port
+  end  
+  
+  def ssl_preferred
+    # SslRequirement::ClassMethods::ssl_required :all if Rails.env.production? and @preferences.require_ssl?    
+    if !request.ssl? && Rails.env.production? && @preferences.require_ssl?   
+      redirect_to "https://" + request.host + request.request_uri
+      flash.keep
+      return false    
+    end    
   end
-
+  
   # Scrub sensitive parameters from the log
   filter_parameter_logging :password
 end
