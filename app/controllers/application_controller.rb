@@ -6,7 +6,6 @@ require 'group_authz'
 class ApplicationController < ActionController::Base
   include AuthenticatedSystem
   include GroupAuthz::Application                       
-  # include SslRequirement    
   before_filter :retrieve_site_preferences             
   before_filter :ssl_preferred
   
@@ -71,7 +70,6 @@ class ApplicationController < ActionController::Base
   end  
   
   def ssl_preferred
-    # SslRequirement::ClassMethods::ssl_required :all if Rails.env.production? and @preferences.require_ssl?    
     if !request.ssl? && Rails.env.production? && @preferences.require_ssl?   
       redirect_to "https://" + request.host + request.request_uri
       flash.keep
