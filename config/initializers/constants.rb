@@ -1,4 +1,4 @@
-CONVECTION_VERSION = "v0.9.0"                                                      
+CONVECTION_VERSION = "v1.0.0"                                                      
 
 my_formats = {
 	:short_date => '%Y-%m-%d',
