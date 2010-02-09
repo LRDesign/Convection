@@ -72,7 +72,7 @@ describe User do
       @user.can?(:show, @doc).should be_true      
     end
     it "should give show access if the group has show permissions" do
-      @group.permissions.create(:controller => 'documents', :action => 'show', :subject_id => @doc.id)
+      @group.permissions.create(:controller => 'documents', :action => 'show', :subject_id => @doc.id)  
       @user.can?(:show, @doc).should be_true            
     end    
     it "should not give show access just because a different group has show perms" do                 

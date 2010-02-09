@@ -1,4 +1,6 @@
 -set_headline "Document Details"
+
+= render :partial => 'admin_tools', :locals => { :document => @document } if current_user.admin?
                    
 %p
   = link_to "Download File", @document.data.url(:original, false)  |

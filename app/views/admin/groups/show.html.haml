@@ -9,7 +9,7 @@
     %tr 
       %th Login
       %th Name                              
-      - @group.members(true).each do |user|
+      - @group.members.each do |user|
         %tr
           %td= h user.login
           %td= link_to((h user.display_name), admin_user_path(user))

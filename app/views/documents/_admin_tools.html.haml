@@ -1,0 +1,21 @@
+foobarbaz
+- content_for(:aux) do  
+  - page_block("Admin Tool: Permissions", :class => "admin") do
+ 
+    %p Set view and edit permissions on this document.
+
+    %table.listing         
+      %tr
+        %th Group
+        %th View / Download?
+        %th Edit / Delete?
+      
+      - for group in Group.all
+        %tr
+          %td= h group.name
+          %td= render :partial => 'documents/permit_form', :locals => { :group => group, :action => 'show', :document => @document}                            
+          %td= render :partial => 'documents/permit_form', :locals => { :group => group, :action => 'edit', :document => @document}                            
+        
+
+
+

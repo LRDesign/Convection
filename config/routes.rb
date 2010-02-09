@@ -19,6 +19,7 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :groups
     admin.group_user '/group_user', :controller => 'groups_users', :action => 'create', :conditions => { :method => :post }
     admin.ungroup_user '/ungroup_user', :controller => 'groups_users', :action => 'destroy', :conditions => { :method => :delete }
+    admin.permit_document  '/permit_document', :controller => 'permissions', :action => 'create', :conditions => { :method => :post } 
   end
   
   map.home '/', :controller => 'home', :action => 'index'         

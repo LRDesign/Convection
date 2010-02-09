@@ -3,7 +3,9 @@ require File.expand_path(File.dirname(__FILE__) + '/../../spec_helper')
 describe "/documents/edit.html.haml" do
   include DocumentsHelper
   
-  before(:each) do
+  before(:each) do                 
+    activate_authlogic
+    login_as(Factory(:admin))
     assigns[:document] = @document = Factory(:document)
   end
 

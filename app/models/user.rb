@@ -45,17 +45,10 @@ class User < ActiveRecord::Base
   end  
          
   # returns true if the user can do *action* on *document*
-  def can?(action, document)
+  def can?(action, document)   
+    # debugger
     return true if self == document.user or self.admin?
-    groups.any? do |group|
-      !Permission.find(:first, :conditions => 
-        { :controller => 'documents',
-          :group_id => group.id,
-          :action => action.to_s,
-          :subject_id => document.id
-        }
-      ).nil?    
-    end
+    groups.any? {|group|  group.can?(action.to_s, "documents", document ) }
   end           
   
   def deliver_password_reset_instructions!  

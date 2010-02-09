@@ -4,6 +4,7 @@ class DocumentsController < ApplicationController
 
   needs_authorization :download, :edit, :update, :new, :create, :destroy
   grant_aliases :edit => :update, :new => [:create] #Just by way of demostration
+  admin_authorized :edit
   
   dynamic_authorization do |user, criteria|
     case criteria[:action]
@@ -65,6 +66,10 @@ class DocumentsController < ApplicationController
       if @document.save
         flash[:notice] = 'Document was successfully created.'    
         Notifier.deliver_upload_notification(@document) if @preferences.upload_notifications?
+        debugger if Group.admin_group.nil?
+        ['show', 'edit'].each do |action|
+           Permission.create( :action => action, :controller => 'documents', :subject_id => @document.id, :group_id => Group.admin_group.id )
+        end
         format.html { redirect_to(@document) }
         format.xml  { render :xml => @document, :status => :created, :location => @document }
       else

@@ -10,14 +10,14 @@ class PermissionsController < AuthzController
     permission_selector = {
       :controller => params[:p_controller], 
       :action => params[:p_action], 
-      :subject_id => params[:object], 
-      :group => group
+      :subject_id => params[:object],
+      :group_id => group.id
     }
 
     if params["permission"] == "true"
       Permission.create!(permission_selector)
     else
-      perms = group.permissions.find(:all, :conditions => permission_selector)
+      perms = group.permissions.find(:all, :conditions => permission_selector)        
       perms.each {|perm| perm.destroy}
     end
 

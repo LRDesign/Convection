@@ -1,0 +1,12 @@
+-authorized = group.can?( action, 'documents', document)
+-method = authorized ? :delete : :post 
+-cssid = "document_#{@document.id}_g#{group.id}_a#{action}_checkbox"
+
+-form_tag( admin_permit_document_url) do
+  =hidden_field_tag( "document_#{@document.id}_g#{group.id}_a#{action}_document", document.id, :name => 'object')
+  =hidden_field_tag( "document_#{@document.id}_g#{group.id}_a#{action}_controller", 'documents', :name => 'p_controller')
+  =hidden_field_tag( "document_#{@document.id}_g#{group.id}_a#{action}_action", action, :name => 'p_action')
+  =hidden_field_tag( "document_#{@document.id}_g#{group.id}_a#{action}_group", group.id, :name => 'group')
+  =hidden_field_tag( "document_#{@document.id}_g#{group.id}_a#{action}_permission", !authorized, :name => 'permission')
+  =check_box_tag("permit_foo", "1", authorized, :onclick => 'submit();')         
+

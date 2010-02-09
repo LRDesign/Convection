@@ -1,6 +1,10 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe DocumentsController, "with authz restrictions" do
+  before(:each) do
+    @admins = Factory.create(:admins)    
+  end
+  
   describe "uploading" do
     before do 
       activate_authlogic
@@ -28,13 +32,12 @@ describe DocumentsController, "with authz restrictions" do
       describe "responding to POST create" do
 
         before(:each) do
-          @new_document = Factory.build(:document)
+          @new_document = Factory.create(:document)
           Document.stub!(:new).and_return(@new_document)
         end
 
         it "should be authorized" do
           post :create, :document => {:these => 'params'}
-
           controller.should be_authorized
         end
 
@@ -55,7 +58,23 @@ describe DocumentsController, "with authz restrictions" do
                 post :create, :document => {}
               end.should change{ ActionMailer::Base.deliveries.size }.by(1)
             end
+          end 
+                             
+          
+          
+          it "should give admins show permissions on the doc" do
+            post :create, :document => {:these => 'params'}
+            @admins.should be_can('show', 'documents', @new_document)
           end
+          
+          it "should give admins edit permissions on the doc" do
+            post :create, :document => {:these => 'params'}
+            @admins.should be_can('edit', 'documents', @new_document)
+          end
+          
+          
+                                      
+          
         end
 
         describe "with invalid params" do
@@ -130,11 +149,11 @@ describe DocumentsController, "with authz restrictions" do
 end
 
 describe DocumentsController do      
-
   before(:each) do  
     activate_authlogic 
     @user = login_as(Factory.create(:user))    
     @group = Factory(:group)
+    @admins = Factory.create(:admins)    
     @user.groups << @group
     @other = Factory.create(:user)
     @document = Factory.create(:document)
