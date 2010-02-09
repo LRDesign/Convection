@@ -13,7 +13,8 @@ class Group < ActiveRecord::Base
   def can?(action, controller, object = nil)
     conditions = {
       :controller => controller,
-      :action => action
+      :action => action,
+      :subject_id => nil
     }                   
     return true if self.permissions.find(:first, :conditions => conditions)
     return false if object.nil?

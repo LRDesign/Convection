@@ -3,7 +3,7 @@ class DocumentsController < ApplicationController
   before_filter :require_user
 
   needs_authorization :download, :edit, :update, :new, :create, :destroy
-  grant_aliases :edit => :update, :new => [:create] #Just by way of demostration
+  grant_aliases :edit => [:update, :delete], :new => :create
   admin_authorized :edit
   
   dynamic_authorization do |user, criteria|

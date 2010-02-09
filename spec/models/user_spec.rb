@@ -79,7 +79,13 @@ describe User do
       @group2 = Factory.create(:group)
       @group2.permissions.create(:controller => 'documents', :action => 'show', :subject_id => @doc.id)
       @user.can?(:show, @doc).should be_false                  
-    end    
+    end          
+    it "should give show access because your group can access a different doc" do
+      @doc2 = Factory.create(:document, :user => @other) 
+      @group.permissions.create(:controller => 'documents', :action => 'show', :subject_id => @doc2.id)
+      @user.can?(:show, @doc).should be_false      
+    end
+    
     it "should give access if the user is an admin" do
       admin = Factory.create(:admin)
       admin.can?(:show, @doc).should be_true
