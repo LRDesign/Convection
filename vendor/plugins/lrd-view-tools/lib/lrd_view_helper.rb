@@ -58,10 +58,7 @@ module LRD
       label = form.label field, options[:text]      
       comment = options[:comment] ? content_tag( :span, { :class => 'comment' } ) { options[:comment] }  : ""
 
-      # debugger
-      content_tag :div, { :class => cssclass } do
-        label + input + comment 
-      end              
+      content_tag :div, (label + input + comment), { :class => cssclass }             
     end          
 
   end
