@@ -1,17 +1,39 @@
 == Convection
 
 Convection is an open-source file upload tool for businesses and contractors
-who need to host and swap files with their clients in a secure manner.
+who need to host and swap files with their clients in a secure manner.  Convection is designed to meet the needs of companies who need to swap files
+with clients or contractors under the following constraints:
 
-It is in the initial stages of development; this file will be updated as the
-project matures.                                 
+  * Secure encrypted file transfer (via SSL)
+  * Access control for files, with group permissions
+  * Web based access so that access is not limited by firewalls that may
+    restrict access to SFTP or other port 22 solutions.
 
+== Version
+
+Convection is currently in version 1.0.0.   If you have suggestions for future versions, please contact us: http://lrdesign.com or contribute code (see Contributing, below). 
+
+== Contributing
+
+Open source developers may contribute to Convection at any time.  We recommend
+forking the project on GitHub and issuing a pull request when you have made
+changes.  If we like your changes, we will incorporate them into the master
+project.   You may, of course, make and maintain your own fork at any time.     
+
+== License
+
+Convection is licensed under the MIT License.  Please see the LICENSE file
+for more details.
+                                                                                      
 == Credits
         
 Design and Development: 
-  Logical Reality Design, Altadena California
+  Logical Reality Design, Altadena, California
   Evan Dorn, Lead Developer
-  Judson Lester, Lead Developer
+  Judson Lester, Lead Developer  
+  
+  Part of the development of Convection was funded by Ecliptic Enterprises
+  Corporation of Pasadena, California.  http://eclipticenterprises.com
                                
 Icons:
   This application uses FatCow Icons under the Creative Common Attribution 3.0
