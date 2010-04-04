@@ -37,6 +37,7 @@ class DocumentsController < ApplicationController
   end
 
   def download
+    Notifier.deliver_download_notification(@document)
     find_document
     send_file(@document.data.path)
   end

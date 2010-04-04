@@ -59,8 +59,6 @@ describe DocumentsController, "with authz restrictions" do
               end.should change{ ActionMailer::Base.deliveries.size }.by(1)
             end
           end 
-                             
-          
           
           it "should give admins show permissions on the doc" do
             post :create, :document => {:these => 'params'}
@@ -71,10 +69,6 @@ describe DocumentsController, "with authz restrictions" do
             post :create, :document => {:these => 'params'}
             @admins.should be_can('edit', 'documents', @new_document)
           end
-          
-          
-                                      
-          
         end
 
         describe "with invalid params" do
@@ -133,6 +127,15 @@ describe DocumentsController, "with authz restrictions" do
 
       controller.should be_authorized
       response.should be_success
+    end
+    
+    it "should fire off an email" do
+      lambda do
+        controller.stub!(:send_file).with("#{RAILS_ROOT}/file-storage/datas/#{@new_document.id}/original/value for data_file_name.").and_return(nil)
+        get :download, :id => @new_document.id
+
+        controller.should be_authorized
+      end.should change{ ActionMailer::Base.deliveries.size }.by(1)      
     end
 
     it "should forbidden to other users" do
