@@ -1,8 +1,12 @@
 ENV["RAILS_ENV"] ||= 'test'
 
+$" << File.expand_path(File.join(File.dirname(__FILE__), '..','..','..','..','app','controllers','authz_controller.rb'))
+
+
 require File.expand_path(File.join(File.dirname(__FILE__),'..','..','..','..','config','environment'))
 require 'spec/rails' 
-                              
+require 'group_authz/spec_helper'
+
 # Requires supporting files with custom matchers and macros, etc,
 # in ./support/ and its subdirectories.
 Dir[File.expand_path(File.join(File.dirname(__FILE__),'support','**','*.rb'))].each {|f| require f}
@@ -37,6 +41,3 @@ end
 
 Group::member_class = AzAccount
 
-class AuthzController < ActionController::Base
-    include GroupAuthz::Application
-end

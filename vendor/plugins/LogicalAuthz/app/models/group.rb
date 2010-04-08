@@ -12,13 +12,12 @@ class Group < ActiveRecord::Base
   # returns true if this group can do *action* on *controller* optional object
   def can?(action, controller, object = nil)
     conditions = {
+      :group => self,
       :controller => controller,
       :action => action,
-      :subject_id => nil
+      :id => object.id
     }                   
-    return true if self.permissions.find(:first, :conditions => conditions)
-    return false if object.nil?
-    !self.permissions.find(:first, :conditions => conditions.merge!(:subject_id => object.id)).nil?
+    return GroupAuthz::is_authorized?(conditions)
   end
   
   class << self

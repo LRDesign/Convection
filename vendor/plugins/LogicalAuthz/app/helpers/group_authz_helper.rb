@@ -9,7 +9,7 @@ module GroupAuthz
   module Helper
     def authorized?(criteria=nil)
       criteria ||= {}
-      criteria = {:action => action_name, :id => params[:id]}.merge(criteria)
+      criteria = {:controller => controller, :action => action_name, :id => params[:id]}.merge(criteria)
       unless criteria.has_key?(:group) or criteria.has_key?(:user)
         criteria[:user] = AuthnFacade.current_user(self)
       end

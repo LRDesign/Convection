@@ -59,8 +59,6 @@ describe DocumentsController, "with authz restrictions" do
               end.should change{ ActionMailer::Base.deliveries.size }.by(1)
             end
           end 
-                             
-          
           
           it "should give admins show permissions on the doc" do
             post :create, :document => {:these => 'params'}

@@ -47,6 +47,12 @@ class User < ActiveRecord::Base
   # returns true if the user can do *action* on *document*
   def can?(action, document)   
     # debugger
+    return GroupAuthz.is_authorized?(
+      :user => self,
+      :action => action,
+      :id => document.id,
+      :controller => DocumentsController
+    )
     return true if self == document.user or self.admin?
     groups.any? {|group|  group.can?(action.to_s, "documents", document ) }
   end           

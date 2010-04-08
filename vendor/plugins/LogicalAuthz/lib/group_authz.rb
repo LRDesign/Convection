@@ -1,6 +1,32 @@
 require 'group_authz_helper'
 
 module GroupAuthz
+  PermissionSelect = "controller = :controller AND " +
+    "group_id IN (:group_ids) AND " +
+    "((action IS NULL AND subject_id IS NULL) OR " +
+    "(action IN (:action_names) AND " +
+    "(subject_id IS NULL OR subject_id = :subject_id)))"
+
+  class << self
+    def unauthorized_groups
+      return @unauthorized_groups unless @unauthorized_groups.nil?
+      groups = unauthorized_group_names.map do |name|
+        Group.find_by_name(name)
+      end
+      if Rails.configuration.cache_classes
+        @unauthorized_groups = groups 
+      end
+      return groups
+    end
+    def clear_unauthorized_groups
+      @unauthorized_groups = nil
+    end
+
+    attr_accessor :unauthorized_group_names
+  end
+
+  unauthorized_group_names = []
+
   def self.is_authorized?(criteria={})
     criteria ||= {}
 
@@ -8,7 +34,11 @@ module GroupAuthz
 
     case criteria[:controller]
     when Class
-      controller_class = criteria[:controller]
+      if GroupAuthz::Application > criteria[:controller]
+        controller_class = criteria[:controller]
+      end
+    when GroupAuthz::Application
+      controller_class = criteria[:controller].class
     when String, Symbol
       controller_class_name = criteria[:controller].to_s.camelize + "Controller"
       begin 
@@ -19,19 +49,22 @@ module GroupAuthz
 
     #TODO Fail if controller unspecified?
 
-    criteria[:group] = criteria.has_key?(:group) ? [*criteria[:group]] : []
-    if criteria.has_key?(:user)
+    criteria[:group] = criteria[:group].nil? ? [] : [*criteria[:group]]
+    if criteria.has_key?(:user) and not criteria[:user].nil?
       criteria[:group] += criteria[:user].groups
     end
-    criteria[:groups] = criteria[:group]
+    if criteria[:group].empty?
+      criteria[:group] += unauthorized_groups
+    end
 
     #TODO Fail if group unspecified and user unspecified?
 
-    criteria[:action_aliases] = [*criteria[:action]].map do |action|
+    actions = [*criteria[:action]].compact
+    criteria[:action_aliases] = actions.map do |action|
       controller_class.grant_aliases_for(action)
-    end.flatten
+    end.flatten + actions.map{|action| action.to_sym}
 
-    controller_class.authorization_blocks.each do |prok|
+    controller_class.authorization_procs.each do |prok|
       approval = prok.call(criteria[:user], criteria) #Tempted to remove the user param
       next if approval == false
       next if approval.blank?
@@ -39,22 +72,16 @@ module GroupAuthz
     end
 
     select_on = {
-      :group_id => criteria[:group].map{|grp| grp.id},
+      :group_ids => criteria[:group].map {|grp| grp.id},
       :controller => controller_class.controller_path,
-      :action => nil,
-      :subject_id => nil
+      :action_names => criteria[:action_aliases].map {|a| a.to_s},
+      :subject_id => criteria[:id] 
     }
 
-    permissions = GroupAuthz::Permission.find(:first, :conditions => select_on)
-    return true unless permissions.nil?
-
-    select_on[:action] = [*criteria[:action]] + criteria[:action_aliases]
-    permissions = GroupAuthz::Permission.find(:first, :conditions => select_on)
-    return true unless permissions.nil?
-
-    select_on[:subject_id] = criteria[:id]
-    permissions = GroupAuthz::Permission.find(:first, :conditions => select_on)
-    return (not permissions.nil?)
+    Rails.logger.debug{ select_on.inspect }
+    allowed = GroupAuthz::Permission.exists?([PermissionSelect, select_on])
+    Rails.logger.info{ "Denied: #{select_on.inspect}"} unless allowed
+    return allowed
   end
 
   module Application
@@ -74,7 +101,6 @@ module GroupAuthz
 
     def check_authorized
       current_user = AuthnFacade.current_user(self)
-      return false if current_user.blank?
 
       criteria = {
         :user => current_user, 
@@ -87,7 +113,7 @@ module GroupAuthz
         flash[:group_authorization] = true
         return true
       else
-        redirect_to_lobby("You are not authorized to perform this action.  Perhaps you need to log in?")
+        redirect_to_lobby("Your account is not authorized to perform this action.")
         flash[:group_authorization] = false
         return false
       end
@@ -107,7 +133,7 @@ module GroupAuthz
         aliases = read_inheritable_attribute(:grant_alias_hash) || Hash.new{|h,k| h[k] = []}
         hash.each_pair do |grant, allows|
           [*allows].each do |allowed|
-            aliases[allowed.to_s] << grant.to_s
+            aliases[allowed.to_sym] << grant.to_sym
           end
         end
         write_inheritable_attribute(:grant_alias_hash, aliases)
@@ -115,6 +141,7 @@ module GroupAuthz
       
       def grant_aliases_for(action)
         grant_aliases = read_inheritable_attribute(:grant_alias_hash)
+        action = action.to_sym
 
         if not grant_aliases.nil? and grant_aliases.has_key?(action)
           return grant_aliases[action]
@@ -137,7 +164,7 @@ module GroupAuthz
           unless actions.nil? or actions.empty?
             return false unless actions.include?(criteria[:action].to_s)
           end
-          return user.groups.include?(Group.admin_group)
+          return criteria[:group].include?(Group.admin_group.id)
         end
       end
     end

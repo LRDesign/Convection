@@ -4,14 +4,13 @@ class DocumentsController < ApplicationController
 
   needs_authorization :download, :edit, :update, :new, :create, :destroy
   grant_aliases :edit => [:update, :destroy], :new => :create, :show => :download
-  admin_authorized :edit
+  admin_authorized :new, :edit
   
   dynamic_authorization do |user, criteria|
-    case criteria[:action]
-    when "download"
+    if criteria[:action_aliases].include? :show
       doc = Document.find(criteria[:id].to_i)
       return false if doc.nil?
-      return true if doc.user == user
+      return true if doc.user == criteria[:user]
     end
     return false
   end
@@ -59,6 +58,7 @@ class DocumentsController < ApplicationController
   # POST /documents
   # POST /documents.xml
   def create
+    debugger
     @document = Document.new(params[:document])
     @document.user = current_user
 
@@ -66,7 +66,6 @@ class DocumentsController < ApplicationController
       if @document.save
         flash[:notice] = 'Document was successfully created.'    
         Notifier.deliver_upload_notification(@document) if @preferences.upload_notifications?
-        debugger if Group.admin_group.nil?
         ['show', 'edit'].each do |action|
            Permission.create( :action => action, :controller => 'documents', :subject_id => @document.id, :group_id => Group.admin_group.id )
         end

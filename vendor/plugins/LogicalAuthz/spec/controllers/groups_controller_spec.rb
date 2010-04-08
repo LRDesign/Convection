@@ -10,7 +10,7 @@ describe GroupsController do
   describe "logging in as non-admin" do
     before(:each) do
       @person = Factory.create(:az_account)
-      @person = login_as(@person)
+      login_as(@person)
     end
 
     it "should redirect away from index with an error message" do
@@ -30,6 +30,7 @@ describe GroupsController do
       it "assigns all groups as @groups" do
         Group.stub!(:all).and_return([mock_group])
         get :index
+        controller.should be_authorized
         assigns[:groups].should == [mock_group]
       end
     end
