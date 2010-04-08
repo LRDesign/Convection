@@ -41,7 +41,8 @@ Preferences.create!(
   :admin_email => "admin@your_site_domain.com",
   :from_email => "system@your_site_domain.com",  
   :maximum_file_size => 100,      # Megabytes    
-  :require_ssl => false           # Site doesn't require SSL connections
+  :require_ssl => false,           # Site doesn't require SSL connections
+  :google_analytics_type => ''
 )
                
 module GroupAuthz

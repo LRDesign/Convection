@@ -1,6 +1,8 @@
 - set_headline("Site Preferences")
 
-- form_for @preferences, :url => admin_preferences_path, :method => :put  do |f|
+- form_for @preferences, :url => admin_preferences_path, :method => :put  do |f|    
+  = f.error_messages :header_message => "Sorry, we could not save your preferences."
+
   .form_section
     %h3 Site Configuration
     = labeled_input f, :site_name
@@ -31,15 +33,19 @@
         
   .form_section
     %h3 Google Analytics
-    %p Use this if you are using Google analytics.
+    %p 
+      Use this if you are using Google analytics.  Either traditional (footer) or
+      asynchronous (header) analytics script will be generate for you from your code.
+     
     = labeled_input f, :google_tracking_code, :comment => "E.g. UA-131XXXXXX-X"
-    = labeled_input f, :google_analytics_type
-            
+    = labeled_input f, :google_analytics_type, :input => f.select(:google_analytics_type, Preferences::GOOGLE_ANALYTICS_TYPES)
+
+  .form_section          
     %h3 Other Analytics / Includes
     %p 
       Paste code for other analytics (or other per-page include) here to be 
       automatically included in the footer of every page, right before
-      %lt;</body>%gt;.
-    = f.text_area :analytics   
+      &lt;/body&gt;.
+    = f.text_area :analytics, :size => "60x8"    
       
   = f.submit

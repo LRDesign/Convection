@@ -49,7 +49,7 @@ describe Preferences do
       @prefs = Factory.build(:preferences, :google_tracking_code => "UA-1310000-0")      
     end
     it "should not be valid if an analytics code is entered but type is not selected" do
-      @prefs.google_analytics_type = nil
+      @prefs.google_analytics_type = ''
       @prefs.should_not be_valid      
     end
     it "should be google_analytics? if the code is set and type is 'Traditional'" do

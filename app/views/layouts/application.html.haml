@@ -11,6 +11,7 @@
     = javascript_include_tag :defaults
   
     = yield :header 
+    = render :partial => 'layouts/async_analytics' if @preferences.async_analytics?     
     
   %body
     #inset                         
@@ -35,3 +36,5 @@
           
         = render :partial => 'layouts/footer'
       = render :partial => 'layouts/debug'  
+    = @preferences.analytics if @preferences.analytics  
+    = render :partial => 'layouts/google_analytics' if @preferences.google_analytics?   

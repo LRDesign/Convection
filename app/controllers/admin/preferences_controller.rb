@@ -40,7 +40,7 @@ class Admin::PreferencesController < Admin::AdminController
       @preferences.save
       redirect_to edit_admin_preferences_path
     else
-      render :template => 'edit'
+      render :action => 'edit'
     end
   end
   
