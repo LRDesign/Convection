@@ -4,7 +4,7 @@ class DocumentsController < ApplicationController
 
   needs_authorization :download, :edit, :update, :new, :create, :destroy
   grant_aliases :edit => [:update, :destroy], :new => :create, :show => :download
-  admin_authorized :new, :edit
+  admin_authorized
   
   dynamic_authorization do |user, criteria|
     if criteria[:action_aliases].include? :show
@@ -18,7 +18,7 @@ class DocumentsController < ApplicationController
   # GET /documents
   # GET /documents.xml
   def index
-    @documents = Document.find(:all).select{ |doc| current_user.can?(:show, doc) }
+    @documents = Document.find(:all).select{ |doc| current_user.can?(self, :show, doc) }
 
     respond_to do |format|
       format.html # index.html.erb
@@ -58,7 +58,6 @@ class DocumentsController < ApplicationController
   # POST /documents
   # POST /documents.xml
   def create
-    debugger
     @document = Document.new(params[:document])
     @document.user = current_user
 

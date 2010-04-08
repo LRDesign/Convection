@@ -9,7 +9,7 @@
    
   %td{ :rowspan => '2' }= link_to image_tag('download.png'), document.data.url(:original, false), :title => "Download Document"  
    
-  - if current_user.can?(:edit, document)
+  - if current_user.can?(:documents, :edit, document)
     %td{ :rowspan => '2' }= edit_widget(document)
     %td{ :rowspan => '2' }= delete_widget(document)
   - else

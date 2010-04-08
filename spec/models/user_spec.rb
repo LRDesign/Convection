@@ -64,31 +64,31 @@ describe User do
       @doc = Factory.create(:document, :user => @other)
     end                        
     it "shouldn't give the user show access" do
-      @user.can?(:show, @doc).should be_false      
+      @user.can?(:documents, :show, @doc).should be_false      
     end                                               
     it "should give the user show access if they created the doc" do
       @doc.user = @user
       @doc.save!
-      @user.can?(:show, @doc).should be_true      
+      @user.can?(:documents, :show, @doc).should be_true      
     end
     it "should give show access if the group has show permissions" do
       @group.permissions.create(:controller => 'documents', :action => 'show', :subject_id => @doc.id)  
-      @user.can?(:show, @doc).should be_true            
+      @user.can?(:documents, :show, @doc).should be_true            
     end    
     it "should not give show access just because a different group has show perms" do                 
       @group2 = Factory.create(:group)
       @group2.permissions.create(:controller => 'documents', :action => 'show', :subject_id => @doc.id)
-      @user.can?(:show, @doc).should be_false                  
+      @user.can?(:documents, :show, @doc).should be_false                  
     end          
     it "should give show access because your group can access a different doc" do
       @doc2 = Factory.create(:document, :user => @other) 
       @group.permissions.create(:controller => 'documents', :action => 'show', :subject_id => @doc2.id)
-      @user.can?(:show, @doc).should be_false      
+      @user.can?(:documents, :show, @doc).should be_false      
     end
     
     it "should give access if the user is an admin" do
       admin = Factory.create(:admin)
-      admin.can?(:show, @doc).should be_true
+      admin.can?(:documents, :show, @doc).should be_true
     end
   end
   

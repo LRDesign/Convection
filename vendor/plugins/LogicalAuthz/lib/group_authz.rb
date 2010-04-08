@@ -23,9 +23,12 @@ module GroupAuthz
     end
 
     attr_accessor :unauthorized_group_names
+
+    def unauthorized_group_names
+      @unauthorized_group_names ||= []
+    end
   end
 
-  unauthorized_group_names = []
 
   def self.is_authorized?(criteria={})
     criteria ||= {}
@@ -159,12 +162,12 @@ module GroupAuthz
       end
 
       def admin_authorized(*actions)
-        actions.map!{|action| action.to_s}
+        actions.map!{|action| action.to_sym}
         dynamic_authorization do |user, criteria|
           unless actions.nil? or actions.empty?
-            return false unless actions.include?(criteria[:action].to_s)
+            return false if (actions & criteria[:action_aliases]).empty?
           end
-          return criteria[:group].include?(Group.admin_group.id)
+          return criteria[:group].include?(Group.admin_group)
         end
       end
     end
