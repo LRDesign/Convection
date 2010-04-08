@@ -14,6 +14,7 @@ Rails::Initializer.run do |config|
   config.gem "chronic"
   config.gem "tlsmail", :version => ">= 0.0.1"
   config.gem "will_paginate", :version => ">= 2.3.12"
+  config.gem 'hoptoad_notifier'
  
   # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
   # Run "rake -D time" for a list of tasks for finding time zone names.
