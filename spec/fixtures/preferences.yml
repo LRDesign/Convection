@@ -1,26 +1,3 @@
-# == Schema Information
-#
-# Table name: preferences
-#
-#  id                    :integer(4)      not null, primary key
-#  domain                :string(255)
-#  site_name             :string(255)
-#  smtp_server           :string(255)
-#  smtp_port             :integer(4)
-#  smtp_uses_tls         :boolean(1)
-#  smtp_username         :string(255)
-#  smtp_password         :string(255)
-#  upload_notifications  :boolean(1)      default(TRUE)
-#  admin_email           :string(255)
-#  allow_password_resets :boolean(1)      default(TRUE)
-#  require_ssl           :boolean(1)
-#  maximum_file_size     :integer(4)
-#  analytics             :text
-#  logo_url              :string(255)
-#  created_at            :datetime
-#  updated_at            :datetime
-#
-
 # Read about fixtures at http//ar.rubyonrails.org/classes/Fixtures.html
 
 prefs:
@@ -36,3 +13,31 @@ prefs:
   from_email:             admin@example.com
   maximum_file_size:      100     # Megabytes    
   require_ssl:            false   # Site doesn't require SSL connections
+
+# == Schema Information
+#
+# Table name: preferences
+#
+#  id                    :integer(4)      not null, primary key
+#  domain                :string(255)
+#  site_name             :string(255)
+#  smtp_server           :string(255)
+#  smtp_port             :integer(4)
+#  smtp_uses_tls         :boolean(1)
+#  smtp_username         :string(255)
+#  smtp_password         :string(255)
+#  upload_notifications  :boolean(1)      default(TRUE)
+#  admin_email           :string(255)
+#  from_email            :string(255)
+#  email_subject_prefix  :string(255)
+#  allow_password_resets :boolean(1)      default(TRUE)
+#  require_ssl           :boolean(1)
+#  maximum_file_size     :integer(4)
+#  analytics             :text
+#  logo_url              :string(255)
+#  created_at            :datetime
+#  updated_at            :datetime
+#  google_tracking_code  :string(255)
+#  google_analytics_type :string(255)
+#
+
