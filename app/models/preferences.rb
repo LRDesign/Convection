@@ -1,36 +1,3 @@
-class Preferences < ActiveRecord::Base
-  validates_presence_of :domain,       :if => :using_email?
-  validates_presence_of :smtp_server,  :if => :using_email?
-  validates_presence_of :admin_email,  :if => :upload_notifications?
-  validates_presence_of :from_email,   :if => :using_email?
-  
-  attr_human_name  :site_name => "Site Name"
-  attr_human_name  :upload_notifications => "Notify Admin?"
-  attr_human_name  :logo_url => "Logo URL"
-  attr_human_name  :smtp_server => "SMTP Server"
-  attr_human_name  :smtp_port  => "SMTP Port"
-  attr_human_name  :smtp_uses_tls => "Use TLS"
-  attr_human_name  :smtp_username => "SMTP Username"
-  attr_human_name  :smtp_password => "SMTP Password"    
-  attr_human_name  :require_ssl => "Require SSL"
-  attr_human_name  :allow_password_resets => "Allow Resets"
-  attr_human_name  :maximum_file_size => "Max. File Size"    
-                      
-  SMTP_PREFS = [ :smtp_server, :smtp_port, :smtp_uses_tls, :smtp_username, :smtp_password ]  
-  
-  # returns true if any of the attributes in SMTP_PREFS are dirty
-  def smtp_prefs_changed?
-    SMTP_PREFS.any? { |p| self.changed.include?(p.to_s)  }
-  end
-
-  private  
-  def using_email?
-    upload_notifications || allow_password_resets
-  end                   
-     
-  
-end
-
 # == Schema Information
 #
 # Table name: preferences
@@ -57,4 +24,52 @@ end
 #  google_tracking_code  :string(255)
 #  google_analytics_type :string(255)
 #
+
+class Preferences < ActiveRecord::Base
+  validates_presence_of :domain,       :if => :using_email?
+  validates_presence_of :smtp_server,  :if => :using_email?
+  validates_presence_of :admin_email,  :if => :upload_notifications?
+  validates_presence_of :from_email,   :if => :using_email?      
+  validates_inclusion_of :google_analytics_type, :in => [ nil, "Traditional", "Asynchronous" ]
+  
+  attr_human_name  :site_name => "Site Name"
+  attr_human_name  :upload_notifications => "Notify Admin?"
+  attr_human_name  :logo_url => "Logo URL"
+  attr_human_name  :smtp_server => "SMTP Server"
+  attr_human_name  :smtp_port  => "SMTP Port"
+  attr_human_name  :smtp_uses_tls => "Use TLS"
+  attr_human_name  :smtp_username => "SMTP Username"
+  attr_human_name  :smtp_password => "SMTP Password"    
+  attr_human_name  :require_ssl => "Require SSL"
+  attr_human_name  :allow_password_resets => "Allow Resets"
+  attr_human_name  :maximum_file_size => "Max. File Size"    
+  attr_human_name  :google_tracking_code => "Google Tracking Code" 
+  attr_human_name  :google_analytics_type => "Analytics Type" 
+                      
+  SMTP_PREFS = [ :smtp_server, :smtp_port, :smtp_uses_tls, :smtp_username, :smtp_password ]  
+  
+  # returns true if any of the attributes in SMTP_PREFS are dirty
+  def smtp_prefs_changed?
+    SMTP_PREFS.any? { |p| self.changed.include?(p.to_s)  }
+  end
+               
+  def google_analytics?
+    self.google_tracking_code && self.google_analytics_type == 'Traditional'
+  end
+  def async_analytics?
+    self.google_tracking_code && self.google_analytics_type == 'Asynchronous'
+  end
+                        
+  private  
+  def using_email?
+    upload_notifications || allow_password_resets
+  end                   
+
+  def validate              
+    if self.google_tracking_code && !self.google_analytics_type  
+      self.errors.add_to_base("You must select a Google Analytics type if you enter a tracking code.")
+    end
+  end
+  
+end
 

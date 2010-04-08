@@ -30,10 +30,16 @@
     }                                                                                       |  
         
   .form_section
-    %h3 Analytics
+    %h3 Google Analytics
+    %p Use this if you are using Google analytics.
+    = labeled_input f, :google_tracking_code, :comment => "E.g. UA-131XXXXXX-X"
+    = labeled_input f, :google_analytics_type
+            
+    %h3 Other Analytics / Includes
     %p 
-      Paste code for Google Analytics (or other per-page include) here to be 
-      automatically included in the footer of every page.
+      Paste code for other analytics (or other per-page include) here to be 
+      automatically included in the footer of every page, right before
+      %lt;</body>%gt;.
     = f.text_area :analytics   
       
   = f.submit
