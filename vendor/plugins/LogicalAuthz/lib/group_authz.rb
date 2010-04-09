@@ -1,5 +1,7 @@
 require 'group_authz_helper'
 
+class Group; end
+
 module GroupAuthz
   PermissionSelect = "controller = :controller AND " +
     "group_id IN (:group_ids) AND " +
@@ -82,7 +84,7 @@ module GroupAuthz
     }
 
     Rails.logger.debug{ select_on.inspect }
-    allowed = GroupAuthz::Permission.exists?([PermissionSelect, select_on])
+    allowed = GroupAuthz::permission_model.exists?([PermissionSelect, select_on])
     Rails.logger.info{ "Denied: #{select_on.inspect}"} unless allowed
     return allowed
   end

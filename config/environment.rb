@@ -22,4 +22,3 @@ Rails::Initializer.run do |config|
 end
 
 require 'group_authz/authn_facade/authlogic'
-Group.member_class = User

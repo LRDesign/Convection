@@ -1,10 +1,15 @@
 module GroupAuthz
-  Permission = ::Permission
+  class << self
+    def set_permission_model(klass)
+      @perm_model = klass
+    end
 
-  def self.set_permission_model(klass)
-    remove_const(:Permission)
-    const_set(:Permission, klass)
+    def permission_model
+      @perm_model ||= ::Permission rescue nil
+    end
   end
+
+
 
   module Helper
     def authorized?(criteria=nil)
