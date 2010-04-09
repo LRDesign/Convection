@@ -1,1 +1,1 @@
-#ActionView::Base.send :include, GroupAuthz::Helper
+ActionView::Base.send :include, GroupAuthz::Helper

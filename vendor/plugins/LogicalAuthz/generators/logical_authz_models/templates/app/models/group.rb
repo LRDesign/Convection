@@ -4,10 +4,7 @@ class Group < ActiveRecord::Base
   
   has_many :permissions
 
-  def self.member_class=(member_class)
-    @member_class = member_class
-    has_and_belongs_to_many :members, :class_name => member_class.name
-  end
+  has_and_belongs_to_many :members, :class_name => <%= user_class.inspect%>
 
   # returns true if this group can do *action* on *controller* optional object
   def can?(action, controller, object = nil)

@@ -1,7 +1,5 @@
 require 'group_authz_helper'
 
-class Group; end
-
 module GroupAuthz
   PermissionSelect = "controller = :controller AND " +
     "group_id IN (:group_ids) AND " +
