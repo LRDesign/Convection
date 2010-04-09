@@ -46,7 +46,7 @@ class User < ActiveRecord::Base
          
   # returns true if the user can do *action* on *document*
   def can?(controller, action, object)   
-    return GroupAuthz.is_authorized?(
+    return LogicalAuthz.is_authorized?(
       :user => self,
       :action => action,
       :id => object.id,

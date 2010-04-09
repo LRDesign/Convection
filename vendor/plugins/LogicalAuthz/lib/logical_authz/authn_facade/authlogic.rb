@@ -1,7 +1,7 @@
-if defined? GroupAuthz::AuthnFacade
-  warn "group_authz authentication facade (GroupAuthz::AuthnFacade) already defined - not redefining."
+if defined? LogicalAuthz::AuthnFacade
+  warn "logical_authz authentication facade (LogicalAuthz::AuthnFacade) already defined - not redefining."
 else
-  module GroupAuthz
+  module LogicalAuthz
     class AuthnFacade
       def self.current_user(controller)
         #This assumes authlogic is implemented as recommended - otherwise 

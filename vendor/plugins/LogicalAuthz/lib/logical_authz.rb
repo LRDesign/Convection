@@ -1,6 +1,6 @@
-require 'group_authz_helper'
+require 'logical_authz_helper'
 
-module GroupAuthz
+module LogicalAuthz
   PermissionSelect = "controller = :controller AND " +
     "group_id IN (:group_ids) AND " +
     "((action IS NULL AND subject_id IS NULL) OR " +
@@ -37,10 +37,10 @@ module GroupAuthz
 
     case criteria[:controller]
     when Class
-      if GroupAuthz::Application > criteria[:controller]
+      if LogicalAuthz::Application > criteria[:controller]
         controller_class = criteria[:controller]
       end
-    when GroupAuthz::Application
+    when LogicalAuthz::Application
       controller_class = criteria[:controller].class
     when String, Symbol
       controller_class_name = criteria[:controller].to_s.camelize + "Controller"
@@ -82,7 +82,7 @@ module GroupAuthz
     }
 
     Rails.logger.debug{ select_on.inspect }
-    allowed = GroupAuthz::permission_model.exists?([PermissionSelect, select_on])
+    allowed = LogicalAuthz::permission_model.exists?([PermissionSelect, select_on])
     Rails.logger.info{ "Denied: #{select_on.inspect}"} unless allowed
     return allowed
   end
@@ -112,7 +112,7 @@ module GroupAuthz
         :id => params[:id]
       }
 
-      if GroupAuthz.is_authorized?(criteria)
+      if LogicalAuthz.is_authorized?(criteria)
         flash[:group_authorization] = true
         return true
       else

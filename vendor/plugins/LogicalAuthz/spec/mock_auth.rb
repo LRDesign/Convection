@@ -1,4 +1,4 @@
-module GroupAuthz
+module LogicalAuthz
   if defined?(:AuthnFacade)
     remove_const(:AuthnFacade)
   end

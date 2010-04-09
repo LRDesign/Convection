@@ -5,7 +5,7 @@ $" << File.expand_path(File.join(File.dirname(__FILE__), '..','..','..','..','ap
 
 require File.expand_path(File.join(File.dirname(__FILE__),'..','..','..','..','config','environment'))
 require 'spec/rails' 
-require 'group_authz/spec_helper'
+require 'logical_authz/spec_helper'
 
 # Requires supporting files with custom matchers and macros, etc,
 # in ./support/ and its subdirectories.

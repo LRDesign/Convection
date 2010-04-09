@@ -45,10 +45,10 @@ Preferences.create!(
   :google_analytics_type => ''
 )
                
-module GroupAuthz
+module LogicalAuthz
   module PermissionSeeds
     def self.create_permission(user, controller, action = nil, subject_id = nil)
-      GroupAuthz::Permission.create!(
+      LogicalAuthz::Permission.create!(
         :group_id => user.id,
         :controller => controller,
         :action => action,

@@ -1,4 +1,4 @@
-module GroupAuthz
+module LogicalAuthz
   module Matcher
     class Authorized
       def initialize
@@ -56,6 +56,6 @@ end
 
 module Spec::Rails::Example
   class ControllerExampleGroup
-    include GroupAuthz::ControllerExampleGroupMixin
+    include LogicalAuthz::ControllerExampleGroupMixin
   end
 end

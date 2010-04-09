@@ -1,5 +1,5 @@
 require File.dirname(__FILE__) + '/../spec_helper'
-require 'app/helpers/group_authz_helper'
+require 'app/helpers/logical_authz_helper'
 
 class FooController < AuthzController
 end
@@ -10,8 +10,8 @@ end
 class WireController < AuthzController
 end
 
-describe GroupAuthz::Helper do
-  include GroupAuthz::MockAuth
+describe LogicalAuthz::Helper do
+  include LogicalAuthz::MockAuth
 
   it "should refuse authorization to guests" do
     logout

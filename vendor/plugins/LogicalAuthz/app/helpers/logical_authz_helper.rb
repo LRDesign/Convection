@@ -1,4 +1,4 @@
-module GroupAuthz
+module LogicalAuthz
   class << self
     def set_permission_model(klass)
       @perm_model = klass
@@ -19,7 +19,7 @@ module GroupAuthz
         criteria[:user] = AuthnFacade.current_user(self)
       end
 
-      GroupAuthz.is_authorized?(criteria)
+      LogicalAuthz.is_authorized?(criteria)
     end 
         
     # returns an array of group names and ids (suitable for select_tag)

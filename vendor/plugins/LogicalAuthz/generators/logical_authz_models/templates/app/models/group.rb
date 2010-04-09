@@ -14,7 +14,7 @@ class Group < ActiveRecord::Base
       :action => action,
       :id => object.id
     }                   
-    return GroupAuthz::is_authorized?(conditions)
+    return LogicalAuthz::is_authorized?(conditions)
   end
   
   class << self

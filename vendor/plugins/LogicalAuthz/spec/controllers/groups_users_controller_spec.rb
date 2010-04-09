@@ -1,7 +1,7 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe GroupsUsersController do
-  include GroupAuthz::MockAuth
+  include LogicalAuthz::MockAuth
 
   before(:each) do 
     @admin = login_as( Factory.create(:az_admin) )

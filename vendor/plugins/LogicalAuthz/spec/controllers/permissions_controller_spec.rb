@@ -1,7 +1,7 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe PermissionsController do
-  include GroupAuthz::MockAuth
+  include LogicalAuthz::MockAuth
   integrate_views
   before(:each) do
     @person = login_as(Factory.create(:az_admin))    

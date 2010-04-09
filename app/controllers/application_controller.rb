@@ -1,11 +1,9 @@
 # Filters added to this controller apply to all controllers in the application.
 # Likewise, all the methods added will be available for all controllers.
 
-require 'group_authz'
-
 class ApplicationController < ActionController::Base
   include AuthenticatedSystem
-  include GroupAuthz::Application                       
+  include LogicalAuthz::Application                       
   before_filter :retrieve_site_preferences             
   before_filter :ssl_preferred
   

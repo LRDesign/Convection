@@ -2,10 +2,10 @@ admin_group = Group.create!(
   :name => "Administration"
 )
 
-module GroupAuthz
+module LogicalAuthz
   module PermissionSeeds
     def self.create_permission(user, controller, action = nil, subject_id = nil)
-      GroupAuthz::Permission.create!(
+      LogicalAuthz::permission_model.create!(
         :group_id => user.id,
         :controller => controller,
         :action => action,

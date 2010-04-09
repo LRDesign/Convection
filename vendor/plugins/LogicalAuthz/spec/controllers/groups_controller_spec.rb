@@ -1,7 +1,7 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe GroupsController do
-  include GroupAuthz::MockAuth
+  include LogicalAuthz::MockAuth
 
   def mock_group(stubs={})
     @mock_group ||= mock_model(Group, stubs)

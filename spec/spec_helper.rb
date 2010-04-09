@@ -22,9 +22,9 @@ Spec::Runner.configure do |config|
   config.global_fixtures = [ :users, :preferences ]      
 end
                
-require 'group_authz/spec_helper'
+require 'logical_authz/spec_helper'
 
-module GroupAuthz
+module LogicalAuthz
   class AuthnFacade
     def self.current_user(controller)
       Object::current_user

@@ -21,4 +21,4 @@ Rails::Initializer.run do |config|
   config.active_record.default_timezone = :utc
 end
 
-require 'group_authz/authn_facade/authlogic'
+require 'logical_authz/authn_facade/authlogic'
