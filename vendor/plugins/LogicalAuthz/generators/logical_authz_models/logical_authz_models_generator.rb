@@ -1,5 +1,5 @@
 module LogicalAuthz
-  class ModelsGenerator < Rails::Generators::Base
+  class ModelsGenerator < Rails::Generator::Base
     record do |manifest|
       manifest.class_collisions "Group", "Permission"
       manifest.file "app/models/group.rb", "app/models/group.rb", :collision => :skip
