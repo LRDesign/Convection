@@ -6,7 +6,6 @@ Provides simple, fast group based Authorization facilities for Rails apps.
 Example
 =======
 
-
 class MyController
   needs_authorization :show, :index #other actions available to anyone
   #needs_authorization <- this form makes the whole controller authorized
@@ -16,10 +15,9 @@ class MyController
   end
 end
 
-
 in spec/controller/my_controller_spec.rb:
 
-require 'group_authz/spec_helper'
+require 'logical_authz/spec_helper'
 describe MyController do
   before do
   end
@@ -45,36 +43,39 @@ in app/views/my_view.html.haml
 - else
   Show
 
-
 Getting Started
 ===============
 
-script/plugin install <github link>
-rake group_authz:setup
+script/plugin install git@github.com:LRDesign/LogicalAuthz.git
+script/generate logical_authz_models -u User #<= this needs to be the name of your user model
+rake logical_authz:setup #<= adds some stuff to the end of db/seeds.rb
+
 edit the migration to align it with your project - feel free to leave it alone
-edit db/seeds.rb to add any starting permissions
+edit db/seeds.rb to add any starting permissions or groups
 
 Create a config/initializers/authz.rb:
-  require 'group_authz/authn_facade/authlogic' 
+  require 'logical_authz/authn_facade/authlogic' 
     #if you aren't using authlogic, you'll need to roll your own
+    #(otherwise you'll need to emulate the contents therein somewhere)
   
-  #You only need this line if, for whatever reason, you have a permission model already and need to rename the LogicalAuthz model
-  #GroupAuthz::set_permission_model(WeirdPermissionModel) 
+  #You only need this line if, for whatever reason, you have a 
+  #permission model already and need to rename the LogicalAuthz model
+  #You can set that up by passing a switch to the generator
+  #LogicalAuthz::set_permission_model(WeirdPermissionModel) 
 
-  #You only need this if you want Guest users to be able to do some things that logged in users can't:
-  #GroupAuthz::unauthorized_groups = Group.find(:all, :conditions => {:name => "Guest"}) 
+  #You only need this if you want Guest users to be able to do 
+  #some things that logged in users can't:
+  #LogicalAuthz::unauthorized_groups = Group.find(:all, :conditions => {:name => "Guest"})  
     
-    
-(otherwise you'll need to emulate the contents therein somewhere)
 In your ApplicationController add:
-  include GroupAuthz::Application
-
-If you don't already have a Group model, LogicalAuthz provides one.  If you do...
+  include LogicalAuthz::Application
 
 Gotchas
 =======
 
 LogicalAuthz uses flash to pass information about about authorization between controllers - as a result, if you're using a lazy flash display layout, you'll display a bunch of junk to the user.
+
+If you don't already have a Group model, LogicalAuthz provides one.  If you do...
 
 Copyright (c) 2010 Judson Lester and Logical Reality Design, released under the MIT license
 
