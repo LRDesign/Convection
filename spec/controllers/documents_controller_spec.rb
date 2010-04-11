@@ -51,6 +51,14 @@ describe DocumentsController, "with authz restrictions" do
             post :create, :document => {}
             response.should redirect_to(document_url(@new_document))
           end
+          
+          it "should create a new document and add a log entry" do
+            lambda do
+              post :create, :document => {:these => 'params'}
+              assigns(:document).should equal(@new_document)
+            end.should change{LogEntry.count}.by(1)
+          end
+                    
           describe "if upload_notifications is turned on" do
             it "should generate an email" do    
               Preferences.find(:first).update_attributes(:upload_notifications => true) 
@@ -255,7 +263,7 @@ describe DocumentsController do
   describe "responding to PUT update" do
 
     before(:each) do
-      Document.should_receive(:find).with(@document.id.to_s).and_return(@document)
+      Document.should_receive(:find).twice.with(@document.id.to_s).and_return(@document)
       Factory(:permission, :group => @group, :controller => "documents", :action => "edit")
     end
 

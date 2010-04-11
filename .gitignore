@@ -6,6 +6,7 @@ tmp/**/*
 .dotest/
 .dotest/*.
 tmp/.*
+tmp/restart.txt
 tmp/profile*
 .DS_Store
 ui.log

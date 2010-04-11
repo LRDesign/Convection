@@ -1,6 +1,7 @@
 class UsersController < ApplicationController                           
   before_filter :require_user
   before_filter :find_user, :only => [ :edit, :update ]
+  before_filter :remember_prior, :only => [:edit, :update]
                                                                 
 
   # GET /users/1/edit
@@ -12,6 +13,7 @@ class UsersController < ApplicationController
   def update
     respond_to do |format|
       if @user.update_attributes(params[:user])
+        save_log(@old_user, @user)
         flash[:notice] = 'Settings updated.'
         format.html { redirect_to(edit_user_path(@user)) }
         format.xml  { head :ok }
@@ -24,7 +26,10 @@ class UsersController < ApplicationController
 
 
   private
-
+  def remember_prior
+    @old_user = User.find(params[:id])
+  end
+  
   def find_user
     @user = User.find(params[:id])
     raise ArgumentError, 'Invalid user id provided' unless @user

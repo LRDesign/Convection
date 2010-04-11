@@ -40,5 +40,23 @@ module ApplicationHelper
   def edit_widget(object, options = {})
     link_to image_tag('edit.png'), (options[:path] || edit_polymorphic_path(object)), :title => "Edit #{object.class}"        
   end
+  
+  # returns a hash showing the changes between the before/after states
+  # of two activerecord objects.  If both before and after are specified,
+  # it should return a hash formatted like "object.changes", otherwise,
+  # it should just return the attribute hash of whichever one wasn't nil
+  def loggable_details(before, after = nil)
+    returning Hash.new do |to_ret|
+      if before && after
+        # If we have an update of sorts. (eg: Updating a model)
+        before.change_hash.keys do |key|
+          to_ret.merge!({key.to_sym => [before.change_hash[key], after.change_hash[key]]})
+        end
+      else
+        # No after, just a before model (eg: logging in)
+        to_ret.merge!(before.change_hash)
+      end
+    end
+  end  
                                  
 end

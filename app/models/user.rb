@@ -31,7 +31,11 @@ class User < ActiveRecord::Base
   
   has_and_belongs_to_many :groups
   has_many :documents
-
+  
+  def change_hash
+    {:user_id => id, :login => login, :email => email}
+  end
+  
   def admin?
     groups.include? Group.admin_group
   end

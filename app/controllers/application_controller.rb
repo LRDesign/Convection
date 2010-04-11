@@ -5,6 +5,7 @@ require 'group_authz'
 
 class ApplicationController < ActionController::Base
   include AuthenticatedSystem
+  include ApplicationHelper
   include GroupAuthz::Application                       
   before_filter :retrieve_site_preferences             
   before_filter :ssl_preferred
@@ -18,10 +19,28 @@ class ApplicationController < ActionController::Base
   # filter_parameter_logging :password
   helper_method :current_user_session, :current_user
 
-
   before_filter :mailer_set_url_options
 
   private
+  def save_log(item_before, item_after = nil)
+    item = item_before
+    log_entry = LogEntry.new(
+      :item_type => item.class.to_s.underscore.titleize,
+      :source_id => item.id,
+      :action => params[:action],
+      :details => loggable_details(item_before, item_after)
+    )
+    if item.kind_of?(ActiveRecord::Base)
+      log_entry.table = item.class.table_name
+    end
+    
+    if current_user
+      log_entry.user_id = current_user.id
+    end
+    
+    log_entry.save!
+  end
+    
   def current_user_session
     return @current_user_session if defined?(@current_user_session)
     @current_user_session = UserSession.find
