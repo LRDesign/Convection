@@ -14,6 +14,7 @@ ActionController::Routing::Routes.draw do |map|
   map.login '/login', :controller => "user_sessions", :action => "new"
   
   map.namespace :admin do |admin|
+    admin.resources :logs
     admin.resources :users
     admin.resource  :preferences
     admin.resources :groups

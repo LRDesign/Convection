@@ -38,3 +38,15 @@ Design and Development:
 Icons:
   This application uses FatCow Icons under the Creative Common Attribution 3.0
   license:   http://www.fatcow.com/free-icons/
+
+== Setup
+
+Database:
+	database.yml.example -> database.yml
+
+Seeds:
+	rake db:seed
+
+Gems:
+	rake gems:install
+

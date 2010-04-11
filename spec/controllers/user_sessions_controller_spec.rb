@@ -17,12 +17,19 @@ describe UserSessionsController do
         post :create, :user_session => {:login => @user.login, :password => 'foobar'}
         assigns(:user_session).user.should == @user      
       end
+      
       it "should redirect home" do
         post :create, :user_session => {:login => @user.login, :password => 'foobar'}
         response.should redirect_to(home_url)   
-      end      
+      end
+            
+      it "should add a long entry" do
+        old = LogEntry.count
+        post :create, :user_session => {:login => @user.login, :password => 'foobar'}
+        response.should redirect_to(home_url)           
+        LogEntry.count.should eql(old + 1)
+      end
     end
-    
     
     it "should fail with correct parametets" do
       post :create, :user_session => {:login => @user.login, :password => 'wrong password'}

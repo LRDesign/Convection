@@ -1,0 +1,7 @@
+User <%= @document.user.display_name %> has downloaded a new document.
+
+Document Name:  <%=h @document.name %>
+Document Type:  <%=h @document.data.content_type %>     
+Document Size:  <%=h number_to_human_size(@document.data.size) %>
+
+This is an automated message.

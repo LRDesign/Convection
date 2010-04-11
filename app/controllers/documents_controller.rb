@@ -1,5 +1,6 @@
 class DocumentsController < ApplicationController
   before_filter :find_document, :only => [ :show, :edit, :update, :destroy ] 
+  before_filter :remember_prior, :only => [:update]
   before_filter :require_user
 
   needs_authorization :download, :edit, :update, :new, :create, :destroy
@@ -37,6 +38,7 @@ class DocumentsController < ApplicationController
 
   def download
     find_document
+    Notifier.deliver_download_notification(@document) if @preferences.download_notifications?    
     send_file(@document.data.path)
   end
 
@@ -63,7 +65,8 @@ class DocumentsController < ApplicationController
 
     respond_to do |format|
       if @document.save
-        flash[:notice] = 'Document was successfully created.'    
+        flash[:notice] = 'Document was successfully created.'
+        save_log(@document)
         Notifier.deliver_upload_notification(@document) if @preferences.upload_notifications?
         ['show', 'edit'].each do |action|
            Permission.create( :action => action, :controller => 'documents', :subject_id => @document.id, :group_id => Group.admin_group.id )
@@ -82,6 +85,7 @@ class DocumentsController < ApplicationController
   def update
     respond_to do |format|
       if @document.update_attributes(params[:document])
+        save_log(@old_document, @document)
         flash[:notice] = 'Document was successfully updated.'
         format.html { redirect_to(@document) }
         format.xml  { head :ok }
@@ -104,7 +108,10 @@ class DocumentsController < ApplicationController
   end
 
   private
-
+  def remember_prior
+    @old_document = Document.find(params[:id])
+  end
+  
   def find_document
     @document = Document.find(params[:id]) rescue nil
     raise ArgumentError, 'Invalid document id provided' unless @document

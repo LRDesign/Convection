@@ -13,6 +13,7 @@
   .form_section    
     %h3 Notifications
     = labeled_input f, :upload_notifications, :input => f.check_box(:upload_notifications), :comment => "Notify administrator of new uploads."
+    = labeled_input f, :download_notifications, :input => f.check_box(:download_notifications), :comment => "Notify administrator of new downloads."
     = labeled_input f, :admin_email, :comment => "Administrator's email for notifications."
     
   .form_section    

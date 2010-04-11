@@ -9,6 +9,7 @@ class UserSessionsController < ApplicationController
   def create
     @user_session = UserSession.new(params[:user_session])
     if @user_session.save
+      save_log(@user_session)
       flash[:success] = "Login successful!"
       redirect_back_or_default home_url
     else
