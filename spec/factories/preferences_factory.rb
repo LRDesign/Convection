@@ -9,5 +9,6 @@ Factory.define :preferences do |p|
   p.upload_notifications true
   p.admin_email   "admin@example.com"
   p.from_email    "admin@example.com"
+  p.google_analytics_type ''
 end
 

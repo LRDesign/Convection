@@ -12,6 +12,8 @@
 #  smtp_password         :string(255)
 #  upload_notifications  :boolean(1)      default(TRUE)
 #  admin_email           :string(255)
+#  from_email            :string(255)
+#  email_subject_prefix  :string(255)
 #  allow_password_resets :boolean(1)      default(TRUE)
 #  require_ssl           :boolean(1)
 #  maximum_file_size     :integer(4)
@@ -19,9 +21,10 @@
 #  logo_url              :string(255)
 #  created_at            :datetime
 #  updated_at            :datetime
+#  google_tracking_code  :string(255)
+#  google_analytics_type :string(255)
 #
 
-# Read about fixtures at http//ar.rubyonrails.org/classes/Fixtures.html
 
 prefs:
   domain:         "your_site_domain.com"
@@ -36,3 +39,5 @@ prefs:
   from_email:             admin@example.com
   maximum_file_size:      100     # Megabytes    
   require_ssl:            false   # Site doesn't require SSL connections
+  google_analytics_type:  ""
+

@@ -22,6 +22,7 @@ db/schema.sql
 db/schema.rb
 db/*.sqlite3*
 config/database.yml
+config/initializers/hoptoad.rb
 file-storage/
 public/photos/*
 public/thumbnails
