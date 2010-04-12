@@ -4,10 +4,12 @@ Event.observe(window, 'load',
   function() {
     try
     {
-    if (self.parent.frames.length != 0)
-    self.parent.location=document.location;
+      if (self.parent.frames.length != 0) {
+				alert('reloading parent');
+    		self.parent.location=document.location;
+      }
     }
-    catch (Exception) {}
+    catch (Exception) { alert('failed to reload parent')}
   }
 );
 
