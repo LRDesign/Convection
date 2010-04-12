@@ -24,7 +24,7 @@
         
         #content-wrap 
         
-          = render :partial => 'layouts/sidebar'        
+          = render :partial => 'layouts/sidebar'
           
           #content-column
             = render :partial => 'layouts/flash' , :locals => { :flash => flash }          
@@ -32,7 +32,7 @@
             #content    
               %h1= yield :headline if yield :headline
               #content-body
-                = yield                             
+                = yield
           
         = render :partial => 'layouts/footer'
       = render :partial => 'layouts/debug'  

@@ -1,8 +1,6 @@
-- form_for(@document, :html => { :multipart => true } ) do |f|    
-  = error_messages_for :document
-  = labeled_input f, :name    
-  .labeled_input  
-    = f.label :description
-    = f.text_area :description
-  = labeled_input f, :data, :input => f.file_field(:data) 
-  = labeled_input f, nil, :input => f.submit, :nolabel => true
+= hidden_field_tag 'X-Progress-ID', @uuid 
+= error_messages_for :document
+= labeled_input f, :name
+= labeled_input f, :description, :input => (f.text_area :description)
+= labeled_input f, :data, :input => f.file_field(:data) 
+= labeled_input f, nil, :input => (f.submit 'upload document', :class => 'submit'), :nolabel => true

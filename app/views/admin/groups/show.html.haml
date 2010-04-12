@@ -3,15 +3,31 @@
 %h2 Current Members:
 
 - if @group.members.blank?
-  %p This group has no users.
+	%p This group has no users.
 - else
-  %table.listing
-    %tr 
-      %th Login
-      %th Name                              
-      - @group.members.each do |user|
-        %tr
-          %td= h user.login
-          %td= link_to((h user.display_name), admin_user_path(user))
+	%table.listing
+		%tr 
+			%th Login
+			%th Name															
+			- @group.members.each do |user|
+				%tr
+					%td= h user.login
+					%td= link_to((h user.display_name), admin_user_path(user))
 
+
+%h2 Visible Documents
+
+- if @group.visible_documents.empty?
+	%p This group has no visible documents
+- else
+	%table.listing
+		%tr
+			%th Name
+			%th Size
+			%th File Type
+			%th Uploaded On
+			%th Uploaded By
+			%th{ :colspan => '3' }
+
+		= render :partial => '/documents/document', :collection => @group.visible_documents
 = link_to 'Back to groups', admin_groups_path

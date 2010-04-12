@@ -17,6 +17,14 @@ class Group < ActiveRecord::Base
     return LogicalAuthz::is_authorized?(conditions)
   end
   
+  # Returns the visible documents that the group has access to
+  def visible_documents
+    permissions = self.permissions.find(:all, 
+                    :conditions => ["controller = ? AND action = ?", "documents", "show"])
+    ids = permissions.collect{|p| p.subject_id}
+    Document.find(:all, :conditions => {:id => ids||[]})
+  end
+  
   class << self
     def admin_group
       self.find_by_name('Administration')
