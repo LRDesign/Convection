@@ -69,6 +69,11 @@ class DocumentsController < ApplicationController
     respond_to do |format|
       if @document.save
         flash[:notice] = 'Document was successfully created.'
+        
+        # set an extra flash to keep the success notice around for an extra action if the progress bar is
+        # showing, because the end conditions of the progress bar cause the page to get loaded twice.
+        flash[:persist_flash_notice] = true if @preferences.show_progress_bar
+        
         save_log({ :action => 'UPLOAD', :document => { :after => @document}})
         Notifier.deliver_upload_notification(@document) if @preferences.upload_notifications?
         ['show', 'edit'].each do |action|

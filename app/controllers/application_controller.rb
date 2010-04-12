@@ -9,6 +9,7 @@ class ApplicationController < ActionController::Base
   include LogicalAuthz::Application                       
   before_filter :retrieve_site_preferences             
   before_filter :ssl_preferred
+  before_filter :persist_flash
   
   
   
@@ -73,6 +74,11 @@ class ApplicationController < ActionController::Base
     redirect_to(session[:return_to] || default)
     session[:return_to] = nil
   end
+  
+  def persist_flash
+    flash.keep(:notice) if flash[:persist_flash_notice]
+  end
+  
   
   private
   def retrieve_site_preferences
