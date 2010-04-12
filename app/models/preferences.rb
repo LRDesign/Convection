@@ -68,7 +68,7 @@ class Preferences < ActiveRecord::Base
   end                   
 
   def validate              
-    if self.google_tracking_code && self.google_analytics_type.blank?
+    if !self.google_tracking_code.blank? && self.google_analytics_type.blank?
       self.errors.add(:google_analytics_type,
         "must be selected if you enter a tracking code.")
     end

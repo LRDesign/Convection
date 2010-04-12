@@ -20,6 +20,14 @@ describe DocumentsController, "with authz restrictions" do
 
         Factory(:permission, :group => group, :controller => "documents", :action => "new")
       end
+      
+      it "should generate uuid" do
+        document = Factory.build(:document)
+        Document.should_receive(:new).and_return(document)
+        get :new
+        
+        assigns[:uuid].should_not be_blank
+      end
 
       it "should allow access to new" do
         document = Factory.build(:document)
@@ -247,6 +255,11 @@ describe DocumentsController do
       get :edit, :id => @document.id
       assigns[:document].should == @document
     end
+    
+    it "should generate uuid" do
+      get :edit, :id => @document.id
+      assigns[:uuid].should_not be_blank
+    end    
 
   end
 

@@ -1,6 +1,14 @@
+-content_for :header do
+	= javascript_include_tag 'lowpro', 'upload'
+
 - set_headline "Upload a File"
 
 = link_to 'Back to List', documents_path
 
-= render :partial => "form"  
-
+#progress{:style => 'display: none'}
+	File upload in proress
+	%div#bar{:style => 'width: 0%'}
+		0%
+		
+- form_for(@document, :url => documents_path(@document, "X-Progress-ID" =>  @uuid), :html => { :multipart => true} ) do |f|
+	= render :partial => "form", :locals => {:f => f}

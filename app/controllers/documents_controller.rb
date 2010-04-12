@@ -1,6 +1,7 @@
 class DocumentsController < ApplicationController
   before_filter :find_document, :only => [ :show, :edit, :update, :destroy ] 
   before_filter :remember_prior, :only => [:update]
+  before_filter :initialize_uuid, :only => [:new, :edit]
   before_filter :require_user
 
   needs_authorization :download, :edit, :update, :new, :create, :destroy
@@ -47,7 +48,7 @@ class DocumentsController < ApplicationController
   # GET /documents/new.xml
   def new
     @document = Document.new
-
+    
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @document }
@@ -110,6 +111,11 @@ class DocumentsController < ApplicationController
   end
 
   private
+  def initialize_uuid
+    @uuid = ''
+    (0..29).to_a.map{|x| rand(10)}.each{|i| @uuid = "#{@uuid}#{i}"}    
+  end
+  
   def remember_prior
     @old_document = Document.find(params[:id])
   end

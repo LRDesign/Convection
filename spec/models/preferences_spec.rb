@@ -48,6 +48,12 @@ describe Preferences do
     before(:each) do
       @prefs = Factory.build(:preferences, :google_tracking_code => "UA-1310000-0")      
     end
+    
+    it "should validate just fine if no analytic trackin code" do
+      @prefs.update_attribute(:google_tracking_code, nil)
+      @prefs.should be_valid
+    end
+    
     it "should not be valid if an analytics code is entered but type is not selected" do
       @prefs.google_analytics_type = ''
       @prefs.should_not be_valid      

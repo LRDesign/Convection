@@ -2,7 +2,8 @@
 
 = render :partial => 'admin_tools' if current_user.admin?
 
-= render :partial => "form"  
+- form_for(@document, :url => document_path(@document, "X-Progress-ID" =>  @uuid), :html => { :multipart => true} ) do |f|
+	= render :partial => "form", :locals => {:f => f}
 
 = link_to 'Show', @document
 |
