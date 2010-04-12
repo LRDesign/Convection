@@ -1,14 +1,22 @@
 -content_for :header do
-	= javascript_include_tag 'lowpro', 'upload'
+  = javascript_include_tag 'lowpro', 'upload'
 
 - set_headline "Upload a File"
 
 = link_to 'Back to List', documents_path
 
-#progress{:style => 'display: none'}
-	File upload in proress
-	%div#bar{:style => 'width: 0%'}
-		0%
-		
-- form_for(@document, :url => documents_path(@document, "X-Progress-ID" =>  @uuid), :html => { :multipart => true} ) do |f|
-	= render :partial => "form", :locals => {:f => f}
+- if @preferences.show_progress_bar
+  #progress{:style => 'display: none'}
+    %h3 
+      File upload in progress
+      %span#percentage 0%
+    #bar_outer  
+      #bar{:style => 'width: 0%'}
+    
+  - form_for(@document, :url => documents_path(@document, "X-Progress-ID" =>  @uuid), :html => { :multipart => true} ) do |f|
+    = render :partial => "form", :locals => {:f => f}
+- else
+  - form_for(@document, :html => { :multipart => true} ) do |f|
+    = render :partial => "form", :locals => {:f => f}
+
+    

@@ -41,6 +41,8 @@ class DocumentsController < ApplicationController
     find_document
     Notifier.deliver_download_notification(@document) if @preferences.download_notifications?    
     send_file(@document.data.path)
+    save_log({ :action => 'DOWNLOAD', :document => { :before => @document }})
+    
   end
 
   # GET /documents/new
@@ -67,7 +69,7 @@ class DocumentsController < ApplicationController
     respond_to do |format|
       if @document.save
         flash[:notice] = 'Document was successfully created.'
-        save_log(@document)
+        save_log({ :action => 'UPLOAD', :document => { :after => @document}})
         Notifier.deliver_upload_notification(@document) if @preferences.upload_notifications?
         ['show', 'edit'].each do |action|
            Permission.create( :action => action, :controller => 'documents', :subject_id => @document.id, :group_id => Group.admin_group.id )
@@ -86,7 +88,7 @@ class DocumentsController < ApplicationController
   def update
     respond_to do |format|
       if @document.update_attributes(params[:document])
-        save_log(@old_document, @document)
+        save_log({ :action => 'EDIT', :document => { :before => @old_document, :after => @document}})
         flash[:notice] = 'Document was successfully updated.'
         format.html { redirect_to(@document) }
         format.xml  { head :ok }
@@ -101,6 +103,7 @@ class DocumentsController < ApplicationController
   # DELETE /documents/1.xml
   def destroy
     @document.destroy
+    save_log({ :action => 'DELETE', :document => { :before => @old_document }})
     #TODO delete the file from disk
     respond_to do |format|
       format.html { redirect_to(documents_url) }

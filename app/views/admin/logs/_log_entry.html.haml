@@ -5,8 +5,6 @@
 		- if log_entry.user
 			= link_to(log_entry.user.login, admin_users_path(log_entry.user))
 	%td.nobr
-		= linked_item_name(log_entry)
-	%td.nobr
 		= log_entry.action.upcase
 	%td
 		= render( :partial => 'details_table', :locals => { :details => log_entry.details, :show_update_header => log_entry.is_update_action?, :attributes => {'id' => "changes_#{log_entry.id}", "class" => "listing"} })

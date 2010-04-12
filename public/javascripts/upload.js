@@ -34,7 +34,7 @@ Event.addBehavior({
               if(upload.state == 'uploading'){
                 upload.percent = Math.floor((upload.received / upload.size) * 100);
                 $('bar').setStyle({width: upload.percent + "%"});
-                $('bar').update(upload.percent + "%");
+                $('percentage').update(upload.percent + "%");
               }
             }
           })

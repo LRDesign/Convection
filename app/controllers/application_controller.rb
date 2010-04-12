@@ -21,20 +21,15 @@ class ApplicationController < ActionController::Base
 
   before_filter :mailer_set_url_options
 
-  private
-  def save_log(item_before, item_after = nil)
-    item = item_before
-    log_entry = LogEntry.new(
-      :item_type => item.class.to_s.underscore.titleize,
-      :source_id => item.id,
-      :action => params[:action],
-      :details => loggable_details(item_before, item_after)
-    )
-    if item.kind_of?(ActiveRecord::Base)
-      log_entry.table = item.class.table_name
-    end
+  def save_log(options = {}) 
+    log_entry = LogEntry.new(:action => options[:action])
     
-    if current_user
+    if doc = options[:document]
+      log_entry.document = doc[:before] || doc[:after]
+      log_entry.details = loggable_details(doc[:before], doc[:after])
+    end  
+      
+    if current_user = UserSession.find.user rescue nil
       log_entry.user_id = current_user.id
     end
     

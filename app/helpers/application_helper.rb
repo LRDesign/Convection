@@ -52,9 +52,9 @@ module ApplicationHelper
         before.change_hash.keys do |key|
           to_ret.merge!({key.to_sym => [before.change_hash[key], after.change_hash[key]]})
         end
-      else
-        # No after, just a before model (eg: logging in)
-        to_ret.merge!(before.change_hash)
+      elsif(before || after)
+        # No after, just a before or after model (eg: creating or deleting a model)
+        to_ret.merge!( (before || after).change_hash)
       end
     end
   end  

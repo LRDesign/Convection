@@ -1,15 +1,16 @@
 %table{attributes}
-	- if show_update_header
-		%tr
-			%th
-			%th Before
-			%th After
-	- details.each do |k, v|
-		%tr{:style => 'text-align: right'}
-			&= k
-			- if v.is_a?(Array)
-				- v.each do |array_attr|
-					%td
-						&= array_attr
-			- else
-				&= v
+  - if show_update_header
+    %tr
+      %th
+      %th Before
+      %th After
+  - unless details.blank?   
+    - details.each do |k, v|
+      %tr{:style => 'text-align: right'}
+        &= k
+        - if v.is_a?(Array)
+          - v.each do |array_attr|
+            %td
+              &= array_attr
+        - else
+          &= v

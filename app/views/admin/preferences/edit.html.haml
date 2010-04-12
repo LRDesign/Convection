@@ -9,6 +9,8 @@
     = labeled_input f, :domain, :comment => "Used to generate links in email notifications."
     = labeled_input f, :logo_url
     = labeled_input f, :require_ssl, :input => f.check_box(:require_ssl)
+    = labeled_input f, :show_progress_bar, :input => f.check_box(:show_progress_bar), :comment => "Show AJAX Progress Bar - Requires Apache support, see README."
+    
       
   .form_section    
     %h3 Notifications
