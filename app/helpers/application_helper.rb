@@ -54,7 +54,7 @@ module ApplicationHelper
           map.merge!({ key => [before[key], after[key]]})     
         end 
       end
-    else  (!before.nil? || !after.nil?) 
+    elsif(before || after) 
       item = before || after
       item.attributes.each do |key, val| 
         # only include non-nil attributes
