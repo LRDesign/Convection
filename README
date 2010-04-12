@@ -11,7 +11,29 @@ with clients or contractors under the following constraints:
 
 == Version
 
-Convection is currently in version 1.0.0.   If you have suggestions for future versions, please contact us: http://lrdesign.com or contribute code (see Contributing, below). 
+Convection is currently in version 1.1.0.   If you have suggestions for future versions, please contact us: http://lrdesign.com or contribute code (see Contributing, below). 
+
+== Installing
+
+Database:
+	database.yml.example -> database.yml
+
+Seeds:
+	rake db:seed
+
+Gems:
+	rake gems:install
+
+
+== Progress Bar (Experimental)
+
+Convection can incorporate an AJAX progress bar for uploads; this may be turned on or off in preferences.   This feature is only supported on Apache/passenger, and requires installation of the upload_progress module:
+
+  http://github.com/drogus/apache-upload-progress-module
+  
+More information on how this is implemented may be found here:
+
+  http://railsillustrated.com/screencast-file-uploads-progress-in-rails-passenger.html
 
 == Contributing
 
@@ -40,14 +62,12 @@ Icons:
   This application uses FatCow Icons under the Creative Common Attribution 3.0
   license:   http://www.fatcow.com/free-icons/
 
-== Setup
+== Version History
 
-Database:
-	database.yml.example -> database.yml
+1.1.0a (April 11 2010) Added:
+  • Download notifications
+  • Admin-visible log of logins/logouts/downloads/uploads
+  • Progress Bar
+  • Assorted UI cleanups and improvements
 
-Seeds:
-	rake db:seed
-
-Gems:
-	rake gems:install
-
+1.0.0 (January 2010) Initial release
