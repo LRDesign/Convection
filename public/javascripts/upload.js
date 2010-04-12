@@ -35,10 +35,6 @@ Event.addBehavior({
                 upload.percent = Math.floor((upload.received / upload.size) * 100);
                 $('bar').setStyle({width: upload.percent + "%"});
                 $('percentage').update(upload.percent + "%");
-
-								if(upload.percent == 100) {
-									window.location = "/documents";
-								}
               }
             }
           })

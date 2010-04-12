@@ -57,7 +57,7 @@ describe DocumentsController, "with authz restrictions" do
 
           it "should redirect to the created document" do
             post :create, :document => {}
-            response.should redirect_to(document_url(@new_document))
+            response.should redirect_to(documents_path)
           end
           
           it "should create a new document and add a log entry" do

@@ -74,7 +74,7 @@ class DocumentsController < ApplicationController
         ['show', 'edit'].each do |action|
            Permission.create( :action => action, :controller => 'documents', :subject_id => @document.id, :group_id => Group.admin_group.id )
         end
-        format.html { redirect_to(@document) }
+        format.html { redirect_to documents_path }
         format.xml  { render :xml => @document, :status => :created, :location => @document }
       else
         format.html { render :action => "new" }
