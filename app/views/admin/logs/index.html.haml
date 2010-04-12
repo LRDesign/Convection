@@ -1,12 +1,11 @@
-.page_block
-	%h1 Change Log Entries
+-set_headline "Log Entries"
 	
-	= will_paginate(@log_entries)
+= will_paginate(@log_entries)
 
-	%table.listing
-		%tr
-			%th Datestamp
-			%th User
-			%th Item
-			%th Action
-		= render :partial => 'log_entry', :collection => @log_entries
+%table.listing
+	%tr
+		%th Datestamp
+		%th User
+		%th Item
+		%th Action
+	= render :partial => 'log_entry', :collection => @log_entries

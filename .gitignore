@@ -8,6 +8,7 @@ tmp/**/*
 tmp/.*
 tmp/restart.txt
 tmp/profile*
+sqldumps/*
 .DS_Store
 ui.log
 cli.log
