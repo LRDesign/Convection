@@ -4,10 +4,6 @@ Event.observe(window, 'load',
   function() {
     try
     {
-			alert("Frames length = "+self.parent.frames.length);
-			alert("self is "+self);
-			alert("parent is "+self.parent);
-			
       if (self.parent.frames.length != 0) {
     		self.parent.location=document.location;
       }
