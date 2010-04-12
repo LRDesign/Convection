@@ -3,6 +3,6 @@ class LogEntry < ActiveRecord::Base
   serialize :details
   
   def is_update_action?
-    self.action == 'update' || self.action == 'close'    
+    self.action == 'update'   
   end  
 end

@@ -1,6 +1,6 @@
 - rowclass = cycle('odd', 'even')
 %tr.info{ :class => rowclass }
-  %td= h document.name
+  %td= truncate_filename(h document.name)
   %td= h number_to_human_size(document.data.size)
   %td= h document.data.content_type
   %td= h document.data.updated_at
