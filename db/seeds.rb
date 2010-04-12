@@ -48,7 +48,7 @@ Preferences.create!(
 module LogicalAuthz
   module PermissionSeeds
     def self.create_permission(user, controller, action = nil, subject_id = nil)
-      LogicalAuthz::Permission.create!(
+      Permission.create!(
         :group_id => user.id,
         :controller => controller,
         :action => action,
