@@ -45,18 +45,25 @@ module ApplicationHelper
   # of two activerecord objects.  If both before and after are specified,
   # it should return a hash formatted like "object.changes", otherwise,
   # it should just return the attribute hash of whichever one wasn't nil
-  def loggable_details(before, after = nil)
-    returning Hash.new do |to_ret|
-      if before && after
-        # If we have an update of sorts. (eg: Updating a model)
-        before.change_hash.keys do |key|
-          to_ret.merge!({key.to_sym => [before.change_hash[key], after.change_hash[key]]})
-        end
-      elsif(before || after)
-        # No after, just a before or after model (eg: creating or deleting a model)
-        to_ret.merge!( (before || after).change_hash)
+  def loggable_details(before, after)
+    map = {}
+    if (!before.nil? && !after.nil?)
+      merged_keys = before.attributes.merge(after.attributes).keys
+      merged_keys.each do |key| 
+        if (before[key] != after[key])
+          map.merge!({ key => [before[key], after[key]]})     
+        end 
       end
-    end
+    else  (!before.nil? || !after.nil?) 
+      item = before || after
+      item.attributes.each do |key, val| 
+        # only include non-nil attributes
+        map.merge!({ key => item[key]}) if !val.nil?
+      end
+    end            
+    map
+    
   end  
+
                                  
 end

@@ -1,10 +1,12 @@
 %tr{:class => "#{cycle 'odd','even'}"}
-	%td.nobr
-		= log_entry.created_at.to_s(:long)
-	%td.nobr
-		- if log_entry.user
-			= link_to(log_entry.user.login, admin_users_path(log_entry.user))
-	%td.nobr
-		= log_entry.action.upcase
-	%td
-		= render( :partial => 'details_table', :locals => { :details => log_entry.details, :show_update_header => log_entry.is_update_action?, :attributes => {'id' => "changes_#{log_entry.id}", "class" => "listing"} })
+  %td.nobr
+    = log_entry.created_at.to_s(:long)
+  %td.nobr
+    - if log_entry.user
+      = link_to(log_entry.user.login, admin_users_path(log_entry.user))
+  %td.nobr
+    = log_entry.action.upcase
+  %td
+    - if log_entry.document
+      = link_to( truncate_filename(h log_entry.document.name), log_entry.document) 
+    = render( :partial => 'details_table', :locals => { :details => log_entry.details, :show_update_header => log_entry.is_update_action?, :attributes => {'id' => "changes_#{log_entry.id}", "class" => "listing"} })
