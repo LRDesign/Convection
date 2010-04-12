@@ -1,17 +1,3 @@
-// if this is the iframe
-// reload the parent
-Event.observe(window, 'load',
-  function() {
-    try
-    {
-      if (self.parent.frames.length != 0) {
-    		self.parent.location=document.location;
-      }
-    }
-    catch (Exception) {}
-  }
-);
-
 Event.addBehavior({
   "input.submit:click" : function () {
     $('progress').show();
