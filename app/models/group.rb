@@ -30,7 +30,9 @@ class Group < ActiveRecord::Base
       self.find_by_name('Administration')
     end  
 
-    attr_reader :member_class
+    def member_class
+      User
+    end
   end
 
 end
