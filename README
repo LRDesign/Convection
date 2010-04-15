@@ -63,8 +63,11 @@ Icons:
   license:   http://www.fatcow.com/free-icons/
 
 == Version History
-
-1.1.0a (April 11 2010) Added:
+                         
+1.1.1 Bugfix release
+  • Fixed assignment of users to groups.
+    
+1.1.0 (April 11 2010) Added:
   • Download notifications
   • Admin-visible log of logins/logouts/downloads/uploads
   • Progress Bar
