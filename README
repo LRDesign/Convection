@@ -11,7 +11,7 @@ with clients or contractors under the following constraints:
 
 == Version
 
-Convection is currently in version 1.1.0.   If you have suggestions for future versions, please contact us: http://lrdesign.com or contribute code (see Contributing, below). 
+Convection is currently in version 1.1.2.   If you have suggestions for future versions, please contact us: http://lrdesign.com or contribute code (see Contributing, below). 
 
 == Installing
 
@@ -63,8 +63,11 @@ Icons:
   license:   http://www.fatcow.com/free-icons/
 
 == Version History
+                    
+1.1.2 Bugfix release (April 16, 2010)
+  • Fixed name of downloader in download notification emails.
                          
-1.1.1 Bugfix release
+1.1.1 Bugfix release (April 15, 2010)
   • Fixed assignment of users to groups.
     
 1.1.0 (April 11 2010) Added:
