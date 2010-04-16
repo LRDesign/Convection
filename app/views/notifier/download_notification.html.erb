@@ -1,4 +1,4 @@
-User <%= @document.user.display_name %> has downloaded a new document.
+User <%= current_user.display_name %> has downloaded a document.
 
 Document Name:  <%=h @document.name %>
 Document Type:  <%=h @document.data.content_type %>     

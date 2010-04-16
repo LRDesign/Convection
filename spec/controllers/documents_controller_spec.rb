@@ -124,11 +124,11 @@ describe DocumentsController, "with authz restrictions" do
     before do
       activate_authlogic
 
-      user = Factory(:user)
-      login_as(user)
+      @user = Factory(:user)
+      login_as(@user)
 
       group = Factory(:group)
-      user.groups << group
+      @user.groups << group
       Factory(:permission, :group => group, :controller => "documents", :action => "new")
 
       @new_document = Factory.create(:document)
@@ -144,14 +144,22 @@ describe DocumentsController, "with authz restrictions" do
       controller.should be_authorized
       response.should be_success
     end
-    
-    it "should fire off an email" do
-      lambda do
+                                             
+    describe "email notification" do
+      it "should send an email" do
+        lambda do
+          controller.stub!(:send_file).with("#{RAILS_ROOT}/file-storage/datas/#{@new_document.id}/original/value for data_file_name.").and_return(nil)
+          get :download, :id => @new_document.id
+
+          controller.should be_authorized
+        end.should change{ ActionMailer::Base.deliveries.size }.by(1)      
+      end             
+      it "should include the name of the downloader" do
         controller.stub!(:send_file).with("#{RAILS_ROOT}/file-storage/datas/#{@new_document.id}/original/value for data_file_name.").and_return(nil)
         get :download, :id => @new_document.id
-
-        controller.should be_authorized
-      end.should change{ ActionMailer::Base.deliveries.size }.by(1)      
+        ActionMailer::Base.deliveries.last.body.should =~ /#{@user.name}/
+      end
+      
     end
 
     it "should forbidden to other users" do
