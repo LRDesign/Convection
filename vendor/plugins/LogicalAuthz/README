@@ -43,39 +43,75 @@ in app/views/my_view.html.haml
 - else
   Show
 
+What You Get
+============
+An authorization filter for controllers
+Some handy class method DSL action to adding the filter and controlling which 
+methods it applies to:
+
+needs_authorization(optional_array_of_actions) #or else the whole controller
+grant_aliases(:edit => [:update, :show]) #because if I can edit, I should be i      
+                                         #able to see it
+dynamic_authorization do |criteria|
+  whatever #Allows complete control over hardcoded authorization
+end
+admin_authorized(:optional, :actions) #shortcut for "Admin is always allowed"
+
+A couple of view helpers:
+authorized?(:controller => "name", :user => current_user, :action => :edit) 
+
+The fundamental authorization method:
+LogicalAuthz::is_authorized(:controller => "...", :group => "...", :action => 
+"...", :id => "...") # :user => '' will be translated in the user's groups.
+
+A set of spec matchers: authorized and forbidden.
+
+The Authorization Model
+=======================
+
+A permission related the following things: a group, a controller, an action, 
+and a id.  If a permission exists, it means that members of the group are 
+allowed to perform the controller#action with that params[:id].
+
+id is allowed to be nil, in which case members of the group are allowed to 
+perform that controller#action on any id.  Very useful for Post#create for 
+instance.
+
+action is allowed to be nil, in which case members of the group are allowed to 
+perform any action on the controller.
+
 Getting Started
 ===============
 
 script/plugin install git@github.com:LRDesign/LogicalAuthz.git
+
 script/generate logical_authz_models -u User #<= this needs to be the name of your user model
 rake logical_authz:setup #<= adds some stuff to the end of db/seeds.rb
 
-edit the migration to align it with your project - feel free to leave it alone
-edit db/seeds.rb to add any starting permissions or groups
+edit the migrations to align them with your project - feel free to leave it alone
+edit config/initializers/authz.rb
+edit db/seeds.rb to add:
+require 'db/logical_authz_seeds'
+... and to create any permissions you want to start with
 
-Create a config/initializers/authz.rb:
-  require 'logical_authz/authn_facade/authlogic' 
-    #if you aren't using authlogic, you'll need to roll your own
-    #(otherwise you'll need to emulate the contents therein somewhere)
-  
-  #You only need this line if, for whatever reason, you have a 
-  #permission model already and need to rename the LogicalAuthz model
-  #You can set that up by passing a switch to the generator
-  #LogicalAuthz::set_permission_model(WeirdPermissionModel) 
-
-  #You only need this if you want Guest users to be able to do 
-  #some things that logged in users can't:
-  #LogicalAuthz::unauthorized_groups = Group.find(:all, :conditions => {:name => "Guest"})  
-    
 In your ApplicationController add:
   include LogicalAuthz::Application
 
 Gotchas
 =======
 
-LogicalAuthz uses flash to pass information about about authorization between controllers - as a result, if you're using a lazy flash display layout, you'll display a bunch of junk to the user.
+LogicalAuthz uses flash to pass information about about authorization between
+controllers - as a result, if you're using a lazy flash display layout, you'll
+display a bunch of junk to the user.  Our opinion is that you should probably 
+only be automatically displaying :notice, :info, and :error to the user, but 
+regardless, the flash hash is too useful to only use for displaying information 
+to the user.
 
-If you don't already have a Group model, LogicalAuthz provides one.  If you do...
+If you don't already have a Group model, LogicalAuthz provides one.  If you do, 
+the generator may currently give you some headaches - the plan is to split out 
+the individual models and allow some of them to be omitted.  In the meantime, 
+either you could generate a different group (-g) and reconcile the result, or 
+remove the class_colision line from the generator.
 
 Copyright (c) 2010 Judson Lester and Logical Reality Design, released under the MIT license
 

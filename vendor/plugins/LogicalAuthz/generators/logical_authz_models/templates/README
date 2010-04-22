@@ -1,0 +1,5 @@
+You'll want to add this to your db/seeds.rb:
+require 'db/logical_authz_seeds'
+
+You'll also want to add this to your ApplicationController:
+  include LogicalAuthz::Application

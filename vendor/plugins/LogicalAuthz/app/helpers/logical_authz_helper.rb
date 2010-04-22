@@ -4,8 +4,16 @@ module LogicalAuthz
       @perm_model = klass
     end
 
+    def set_group_model(klass)
+      @group_model = klass
+    end
+
     def permission_model
       @perm_model ||= ::Permission rescue nil
+    end
+
+    def group_model
+      @group_model ||= ::Group rescue nil
     end
   end
 
@@ -25,7 +33,7 @@ module LogicalAuthz
     # returns an array of group names and ids (suitable for select_tag)
     # for which <user> is not a member
     def nonmembered_groups(user)
-      (Group.all - user.groups).map { |g| [ g.name, g.id ] }
+      (LogicalAuthz::group_model.all - user.groups).map { |g| [ g.name, g.id ] }
     end    
   end
 end
