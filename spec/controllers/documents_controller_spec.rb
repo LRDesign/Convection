@@ -143,7 +143,10 @@ describe DocumentsController, "with authz restrictions" do
       controller.should be_authorized
     end
                                              
-    describe "email notification" do         
+    describe "email notification" do   
+      # TODO:  Figure out why these specs don't fail when the rendering
+      # of the mail delivery is broken.   It happened because the view
+      # file couldn't run the current_user helper, which is its own conundrum.      
       it "should send an email" do
         lambda do
           controller.stub!(:send_file).with("#{RAILS_ROOT}/file-storage/datas/#{@new_document.id}/original/value for data_file_name.").and_return(nil)
