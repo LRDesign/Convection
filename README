@@ -63,6 +63,11 @@ Icons:
   license:   http://www.fatcow.com/free-icons/
 
 == Version History
+                  
+1.1.3 Bugfix release (April 22, 2010)
+  • Fixed a problem with including the name of the downloader in DL notification emails.
+  • Upgraded to the current release of LogicalAuthz, which fixes the problem
+    with cache_classes=false in development. 
                     
 1.1.2 Bugfix release (April 16, 2010)
   • Fixed name of downloader in download notification emails.
