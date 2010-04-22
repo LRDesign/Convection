@@ -138,14 +138,12 @@ describe DocumentsController, "with authz restrictions" do
     end
 
     it "should allowed for uploader" do
-      controller.stub!(:send_file).with("#{RAILS_ROOT}/file-storage/datas/#{@new_document.id}/original/value for data_file_name.").and_return(nil)
+      controller.should_receive(:send_file).with("#{RAILS_ROOT}/file-storage/datas/#{@new_document.id}/original/value for data_file_name.").and_return(nil)
       get :download, :id => @new_document.id
-
       controller.should be_authorized
-      response.should be_success
     end
                                              
-    describe "email notification" do
+    describe "email notification" do         
       it "should send an email" do
         lambda do
           controller.stub!(:send_file).with("#{RAILS_ROOT}/file-storage/datas/#{@new_document.id}/original/value for data_file_name.").and_return(nil)
@@ -158,18 +156,15 @@ describe DocumentsController, "with authz restrictions" do
         controller.stub!(:send_file).with("#{RAILS_ROOT}/file-storage/datas/#{@new_document.id}/original/value for data_file_name.").and_return(nil)
         get :download, :id => @new_document.id
         ActionMailer::Base.deliveries.last.body.should =~ /#{@user.name}/
-      end
-      
+      end      
     end
 
     it "should forbidden to other users" do
       logout
-
       user = Factory(:user, :name => "Robert Rodriguez")
       login_as(user)
 
       get :download, :id => @new_document.id
-
       controller.should be_forbidden
     end
   end

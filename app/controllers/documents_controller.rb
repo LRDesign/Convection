@@ -39,10 +39,9 @@ class DocumentsController < ApplicationController
 
   def download
     find_document
-    Notifier.deliver_download_notification(@document) if @preferences.download_notifications?    
+    Notifier.deliver_download_notification(@document, current_user) if @preferences.download_notifications?    
     send_file(@document.data.path)
     save_log({ :action => 'DOWNLOAD', :document => { :before => @document }})
-    
   end
 
   # GET /documents/new

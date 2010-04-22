@@ -7,11 +7,12 @@ class Notifier < ActionMailer::Base
     body       :document => document
   end
   
-  def download_notification(document)
+  def download_notification(document, downloader)
     recipients site_preferences.admin_email
     from       site_preferences.from_email 
     subject    formatted_subject("Download Notifications")
-    body       :document => document    
+    body       :document => document,
+               :downloader => downloader
   end
   
   def password_reset_instructions(user) 
