@@ -18,8 +18,15 @@ Convection is currently in version 1.1.4.   If you have suggestions for future v
 Database:
 	database.yml.example -> database.yml
 
+Migrate the DB:
+  rake db:migrate
+    - OR - 
+  rake db:migrate RAILS_ENV=production  # to run in production environment  
+
 Seeds:
 	rake db:seed
+    - OR - 
+  rake db:seed RAILS_ENV=production  # to run in production environment  
 
 Gems:
 	rake gems:install
