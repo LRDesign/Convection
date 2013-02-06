@@ -10,6 +10,7 @@ Rails::Initializer.run do |config|
 
   # Required gems
   config.gem "haml"
+  config.gem 'mysql'
   config.gem "authlogic", :version => "~> 2.1.0"
   config.gem "chronic", :version => "~> 0.2.3"
   config.gem "tlsmail", :version => ">= 0.0.1"
