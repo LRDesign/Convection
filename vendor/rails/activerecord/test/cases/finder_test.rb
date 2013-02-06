@@ -66,6 +66,18 @@ end
 class FinderTest < ActiveRecord::TestCase
   fixtures :companies, :topics, :entrants, :developers, :developers_projects, :posts, :comments, :accounts, :authors, :customers
 
+  def test_find_by_id_with_hash
+    assert_raises(ActiveRecord::StatementInvalid) do
+      Post.find_by_id(:limit => 1)
+    end
+  end
+
+  def test_find_by_title_and_id_with_hash
+    assert_raises(ActiveRecord::StatementInvalid) do
+      Post.find_by_title_and_id('foo', :limit => 1)
+    end
+  end
+
   def test_find
     assert_equal(topics(:first).title, Topic.find(1).title)
   end
@@ -363,6 +375,22 @@ class FinderTest < ActiveRecord::TestCase
     }
   end
 
+  def test_hash_condition_find_with_improper_nested_hashes
+    assert_raise(ActiveRecord::StatementInvalid) {
+      Company.find(:first, :conditions => { :name => { :companies => { :id  => 1 }}})
+    }
+  end
+
+  def test_hash_condition_find_with_dot_in_nested_column_name
+    assert_raise(ActiveRecord::StatementInvalid) {
+      Company.find(:first, :conditions => { :name => { "companies.id" => 1 }})
+    }
+  end
+
+  def test_hash_condition_find_with_dot_in_column_name_okay
+    assert Company.find(:first, :conditions => { "companies.id" => 1 })
+  end
+
   def test_hash_condition_find_with_escaped_characters
     Company.create("name" => "Ain't noth'n like' \#stuff")
     assert Company.find(:first, :conditions => { :name => "Ain't noth'n like' \#stuff" })
@@ -518,8 +546,8 @@ class FinderTest < ActiveRecord::TestCase
   end
 
   def test_string_sanitation
-    assert_not_equal "#{ActiveRecord::Base.connection.quoted_string_prefix}'something ' 1=1'", ActiveRecord::Base.sanitize("something ' 1=1")
-    assert_equal "#{ActiveRecord::Base.connection.quoted_string_prefix}'something; select table'", ActiveRecord::Base.sanitize("something; select table")
+    assert_not_equal "'something ' 1=1'", ActiveRecord::Base.sanitize("something ' 1=1")
+    assert_equal "'something; select table'", ActiveRecord::Base.sanitize("something; select table")
   end
 
   def test_count
@@ -838,10 +866,26 @@ class FinderTest < ActiveRecord::TestCase
     assert c.new_record?
   end
 
-  def test_find_or_create_from_one_attribute_should_set_not_attribute_even_when_protected
+  def test_find_or_create_from_one_attribute_should_not_set_attribute_even_when_protected
     c = Company.find_or_create_by_name({:name => "Fortune 1000", :rating => 1000})
     assert_equal "Fortune 1000", c.name
     assert_not_equal 1000, c.rating
+    assert c.valid?
+    assert !c.new_record?
+  end
+
+  def test_find_or_initialize_from_one_attribute_should_set_attribute_even_when_protected_and_also_set_the_hash
+    c = Company.find_or_initialize_by_rating(1000, {:name => "Fortune 1000"})
+    assert_equal "Fortune 1000", c.name
+    assert_equal 1000, c.rating
+    assert c.valid?
+    assert c.new_record?
+  end
+
+  def test_find_or_create_from_one_attribute_should_set_attribute_even_when_protected_and_also_set_the_hash
+    c = Company.find_or_create_by_rating(1000, {:name => "Fortune 1000"})
+    assert_equal "Fortune 1000", c.name
+    assert_equal 1000, c.rating
     assert c.valid?
     assert !c.new_record?
   end

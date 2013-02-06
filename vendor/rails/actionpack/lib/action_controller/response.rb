@@ -64,12 +64,13 @@ module ActionController # :nodoc:
     # the character set information will also be included in the content type
     # information.
     def content_type=(mime_type)
-      self.headers["Content-Type"] =
+      new_content_type =
         if mime_type =~ /charset/ || (c = charset).nil?
           mime_type.to_s
         else
           "#{mime_type}; charset=#{c}"
         end
+      self.headers["Content-Type"] = URI.escape(new_content_type, "\r\n")
     end
 
     # Returns the response's content MIME type, or nil if content type has been set.
@@ -117,11 +118,7 @@ module ActionController # :nodoc:
     end
 
     def etag=(etag)
-      if etag.blank?
-        headers.delete('ETag')
-      else
-        headers['ETag'] = %("#{Digest::MD5.hexdigest(ActiveSupport::Cache.expand_cache_key(etag))}")
-      end
+      headers['ETag'] = %("#{Digest::MD5.hexdigest(ActiveSupport::Cache.expand_cache_key(etag))}")
     end
 
     def redirect(url, status)
@@ -202,7 +199,7 @@ module ActionController # :nodoc:
 
       def nonempty_ok_response?
         ok = !status || status.to_s[0..2] == '200'
-        ok && body.is_a?(String) && !body.empty?
+        ok && body.is_a?(String) && !body.blank?
       end
 
       def set_conditional_cache_control!
@@ -233,7 +230,8 @@ module ActionController # :nodoc:
       end
 
       def convert_cookies!
-        headers['Set-Cookie'] = Array(headers['Set-Cookie']).compact
+        cookies = Array(headers['Set-Cookie']).compact
+        headers['Set-Cookie'] = cookies unless cookies.empty?
       end
   end
 end

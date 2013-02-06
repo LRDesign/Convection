@@ -1,10 +1,28 @@
+require 'yaml'
+
+YAML.add_builtin_type("omap") do |type, val|
+  ActiveSupport::OrderedHash[val.map(&:to_a).map(&:first)]
+end
+
 # OrderedHash is namespaced to prevent conflicts with other implementations
 module ActiveSupport
-  # Hash is ordered in Ruby 1.9!
-  if RUBY_VERSION >= '1.9'
-    OrderedHash = ::Hash
-  else
-    class OrderedHash < Hash #:nodoc:
+  class OrderedHash < ::Hash #:nodoc:
+    def to_yaml_type
+      "!tag:yaml.org,2002:omap"
+    end
+
+    def to_yaml(opts = {})
+      YAML.quick_emit(self, opts) do |out|
+        out.seq(taguri, to_yaml_style) do |seq|
+          each do |k, v|
+            seq.add(k => v)
+          end
+        end
+      end
+    end
+
+    # Hash is ordered in Ruby 1.9!
+    if RUBY_VERSION < '1.9'
       def initialize(*args, &block)
         super
         @keys = []
@@ -52,7 +70,7 @@ module ActiveSupport
         end
         super
       end
-      
+
       def delete_if
         super
         sync_keys!
@@ -112,12 +130,18 @@ module ActiveSupport
       end
 
       def merge!(other_hash)
-        other_hash.each {|k,v| self[k] = v }
+        if block_given?
+          other_hash.each { |k, v| self[k] = key?(k) ? yield(k, self[k], v) : v }
+        else
+          other_hash.each { |k, v| self[k] = v }
+        end
         self
       end
 
-      def merge(other_hash)
-        dup.merge!(other_hash)
+      alias_method :update, :merge!
+
+      def merge(other_hash, &block)
+        dup.merge!(other_hash, &block)
       end
 
       # When replacing with another hash, the initial order of our keys must come from the other hash -ordered or not.
@@ -127,15 +151,18 @@ module ActiveSupport
         self
       end
 
+      def invert
+        OrderedHash[self.to_a.map!{|key_value_pair| key_value_pair.reverse}]
+      end
+
       def inspect
         "#<OrderedHash #{super}>"
       end
 
-    private
-
-      def sync_keys!
-        @keys.delete_if {|k| !has_key?(k)}
-      end
+      private
+        def sync_keys!
+          @keys.delete_if {|k| !has_key?(k)}
+        end
     end
   end
 end
